@@ -1,11 +1,14 @@
 package capstone.team1.eventHorizon.events.utility.fawe;
 
+import capstone.team1.eventHorizon.utility.MsgUtility;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.function.pattern.AbstractPattern;
 import com.sk89q.worldedit.function.pattern.Pattern;
 import com.sk89q.worldedit.function.pattern.RandomPattern;
 import com.sk89q.worldedit.math.BlockVector3;
+import com.sk89q.worldedit.registry.state.Property;
 import com.sk89q.worldedit.world.block.BaseBlock;
+import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import org.bukkit.Material;
@@ -15,6 +18,14 @@ public class RandomPatterns
     private static Pattern netherPattern;
     private static Pattern deepDarkPattern;
     private static Pattern sculkInteractivePattern;
+
+    final Property<Boolean> CAN_SUMMON;
+    final BlockState naturalShrieker;
+
+    public RandomPatterns() {
+        CAN_SUMMON = BlockTypes.SCULK_SHRIEKER.getProperty("can_summon");
+        naturalShrieker = BlockTypes.SCULK_SHRIEKER.getDefaultState().with(CAN_SUMMON, true);
+    }
 
     private void initializeNetherPattern() {
         RandomPattern pattern = new RandomPattern();
@@ -27,20 +38,17 @@ public class RandomPatterns
         RandomPattern pattern = new RandomPattern();
         pattern.add(BukkitAdapter.asBlockType(Material.SCULK), 0.6);
         pattern.add(BukkitAdapter.asBlockType(Material.DEEPSLATE), 0.4);
+        deepDarkPattern = pattern;
     }
 
     private void initializeSculkInteractivePattern() {
         RandomPattern pattern = new RandomPattern();
-
-        NaturalSculkShrieker naturalShrieker = new NaturalSculkShrieker();
-        naturalShrieker.setCanSummon(true);
-
         pattern.add(BukkitAdapter.asBlockType(Material.SCULK_VEIN), 0.2);
         pattern.add(BukkitAdapter.asBlockType(Material.SCULK_CATALYST), 0.1);
-        pattern.add(BukkitAdapter.asBlockType(naturalShrieker.getMaterial()), 0.1);
+        pattern.add(naturalShrieker, 0.4);
         pattern.add(BukkitAdapter.asBlockType(Material.SCULK_SENSOR), 0.2);
-        pattern.add(BukkitAdapter.asBlockType(Material.AIR), 0.4);
-        deepDarkPattern = pattern;
+        pattern.add(BukkitAdapter.asBlockType(Material.AIR), 0.1);
+        sculkInteractivePattern = pattern;
     }
 
     public Pattern getNetherPattern() {
@@ -62,5 +70,4 @@ public class RandomPatterns
         }
         return sculkInteractivePattern;
     }
-
 }

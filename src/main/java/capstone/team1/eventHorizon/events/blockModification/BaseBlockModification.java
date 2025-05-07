@@ -100,12 +100,8 @@ public abstract class BaseBlockModification extends BaseEvent
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
 
         for (Player player : players) {
-            try {
-                BlockEditor.replaceBlocksInRegion(this.region.getRegion(player), replacementBlock, blockTypesToReplace, isMaskInverted);
-                successCount++;
-            } catch (Exception e) {
-                MsgUtility.warning("Failed to apply block edit to player " + player.getName() + ": " + e.getMessage());
-            }
+            BlockEditor.replaceBlocksInRegion(this.region.getRegion(player), replacementBlock, blockTypesToReplace, isMaskInverted);
+            successCount++;
         }
         MsgUtility.log("<green>Applied block edit to " + successCount + "/" + players.size() + " players for event: " + this.eventName);
     }
@@ -122,12 +118,8 @@ public abstract class BaseBlockModification extends BaseEvent
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
 
         for (Player player : players) {
-            try {
-                BlockEditor.replaceBlocksInRegion(this.region.getRegion(player), replacingPattern, blockTypesToReplace, isMaskInverted);
-                successCount++;
-            } catch (Exception e) {
-                MsgUtility.warning("Failed to apply block edit to player " + player.getName() + ": " + e.getMessage());
-            }
+            BlockEditor.replaceBlocksInRegion(this.region.getRegion(player), replacingPattern, blockTypesToReplace, isMaskInverted);
+            successCount++;
         }
         MsgUtility.log("<green>Applied block edit to " + successCount + "/" + players.size() + " players for event: " + this.eventName);
     }

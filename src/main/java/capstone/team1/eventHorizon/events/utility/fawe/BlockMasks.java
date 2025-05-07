@@ -165,6 +165,8 @@ public class BlockMasks
         plants.addAll(getBlocksFromTag(MaterialSetTag.SAPLINGS)); //https://minecraft.wiki/w/Block_tag_(Java_Edition)#saplings
         plants.addAll(getBlocksFromTag(MaterialSetTag.REPLACEABLE_BY_TREES)); //https://minecraft.wiki/w/Block_tag_(Java_Edition)#replaceable_by_trees
         plants.removeAll(getBlocksFromTag(MaterialSetTag.LEAVES)); //https://minecraft.wiki/w/Block_tag_(Java_Edition)#sand
+        plants.remove(BukkitAdapter.asBlockType(Material.WATER));
+
 
     }
 

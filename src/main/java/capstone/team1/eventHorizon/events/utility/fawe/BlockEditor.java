@@ -15,6 +15,7 @@ import com.sk89q.worldedit.world.block.BlockState;
 import com.sk89q.worldedit.world.block.BlockType;
 import com.sk89q.worldedit.world.block.BlockTypes;
 import org.bukkit.Material;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,82 +27,6 @@ import java.util.List;
  */
 public class BlockEditor
 {
-//    /** List to track active WorldEdit edit sessions */
-//    private static List<EditSession> activeEditSessions = new ArrayList<>();
-//
-//    /**
-//     * Replaces blocks in a specified region with a given block type based on a mask of block types.
-//     *
-//     * @param region The WorldEdit region where blocks will be replaced
-//     * @param blockId The Bukkit Material type to replace blocks with
-//     * @param blockTypesToReplace Collection of BlockTypes that should be replaced
-//     * @param isMaskInverted If true, replaces blocks that don't match the mask instead of those that do
-//     */
-//    public static void replaceBlocksInRegion(Region region, Material blockId, Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
-//
-//        com.sk89q.worldedit.world.World world = region.getWorld();
-//        EditSession editSession = WorldEdit.getInstance()
-//                .newEditSessionBuilder()
-//                .world(world)
-//                .maxBlocks(-1)
-//                .build();
-//
-//        BlockType blockType = BukkitAdapter.asBlockType(blockId);
-//        if (blockType == null) {
-//            MsgUtility.warning("Block type Null");
-//        }
-//        Pattern pattern = blockType.getDefaultState();
-//
-//        BlockTypeMask mask = new BlockTypeMask(editSession, blockTypesToReplace);
-//
-//        editSession.replaceBlocks(region, isMaskInverted ? mask.inverse() : mask, pattern);
-//        Operations.complete(editSession.commit());
-//        editSession.flushQueue();
-//        activeEditSessions.add(editSession);
-//        MsgUtility.log(String.valueOf("# of sessions: " + activeEditSessions.size()));
-//        MsgUtility.log(String.valueOf("# of blocks changed: " + editSession.getBlockChangeCount()));
-//    }
-//    public static void replaceBlocksInRegion(Region region, Pattern replacingPattern, Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
-//
-//        com.sk89q.worldedit.world.World world = region.getWorld();
-//        EditSession editSession = WorldEdit.getInstance()
-//                .newEditSessionBuilder()
-//                .world(world)
-//                .maxBlocks(-1)
-//                .build();
-//
-//        BlockTypeMask mask = new BlockTypeMask(editSession, blockTypesToReplace);
-//
-//        editSession.replaceBlocks(region, isMaskInverted ? mask.inverse() : mask, replacingPattern);
-//        Operations.complete(editSession.commit());
-//        editSession.flushQueue();
-//        activeEditSessions.add(editSession);
-//    }
-//
-//     /**
-//     * Undoes all block modifications made through active edit sessions.
-//     * Clears the list of active sessions after undoing all changes.
-//     * If an error occurs during the undo process, it will be logged as a warning.
-//     */
-//    public static void undoAllBlockModifications() {
-//        try {
-//            for (EditSession session : activeEditSessions) {
-//                session.undo(session);
-//                Operations.complete(session.commit());
-//                session.close();
-//            }
-//            activeEditSessions.clear();
-//        } catch (Exception e) {
-//            MsgUtility.warning("Failed to undo block modifications: " + e.getMessage());
-//        }
-//    }
-//
-//    public static void clearActiveEditSessions() {
-//        for (EditSession session : activeEditSessions) {
-//            session.close();
-//        }
-//        activeEditSessions.clear();
-//    }
 // Store the world and changes for each session instead of the session itself
 private static List<EditHistoryEntry> editHistory = new ArrayList<>();
 
@@ -117,7 +42,7 @@ private static List<EditHistoryEntry> editHistory = new ArrayList<>();
     }
 
     // Modify the replaceBlocksInRegion methods to store history
-    public static void replaceBlocksInRegion(Region region, Pattern replacingPattern, Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
+    public static void replaceBlocksInRegion(@NotNull Region region, @NotNull Pattern replacingPattern, @NotNull Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
         com.sk89q.worldedit.world.World world = region.getWorld();
         EditSession editSession = WorldEdit.getInstance()
                 .newEditSessionBuilder()
@@ -126,7 +51,6 @@ private static List<EditHistoryEntry> editHistory = new ArrayList<>();
                 .build();
 
         BlockTypeMask mask = new BlockTypeMask(editSession, blockTypesToReplace);
-
         editSession.replaceBlocks(region, isMaskInverted ? mask.inverse() : mask, replacingPattern);
         Operations.complete(editSession.commit());
         editSession.flushQueue();
@@ -134,6 +58,7 @@ private static List<EditHistoryEntry> editHistory = new ArrayList<>();
         // Store the history entry
         editHistory.add(new EditHistoryEntry(world, editSession));
     }
+
     public static void replaceBlocksInRegion(Region region, Material blockId, Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
         BlockType blockType = BukkitAdapter.asBlockType(blockId);
         if (blockType == null) {

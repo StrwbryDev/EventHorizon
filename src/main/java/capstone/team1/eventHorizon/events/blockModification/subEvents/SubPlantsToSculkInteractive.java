@@ -4,14 +4,13 @@ import capstone.team1.eventHorizon.EventHorizon;
 import capstone.team1.eventHorizon.events.EventClassification;
 import capstone.team1.eventHorizon.events.blockModification.BaseBlockModification;
 import capstone.team1.eventHorizon.events.utility.fawe.region.GenericCylindricalRegion;
-import org.bukkit.Bukkit;
 
-public class SubAirToSculkInteractive extends BaseBlockModification
+public class SubPlantsToSculkInteractive extends BaseBlockModification
 {
-    public SubAirToSculkInteractive()
+    public SubPlantsToSculkInteractive()
     {
-        super(EventClassification.NEGATIVE, "subAirToSculkInteractive", new GenericCylindricalRegion(100,400,200),
-                EventHorizon.getRandomPatterns().getSculkInteractivePattern(), EventHorizon.getBlockMasks().getAir(), false);
+        super(EventClassification.NEGATIVE, "subPlantsToSculkInteractive", new GenericCylindricalRegion(100,400,200),
+                EventHorizon.getRandomPatterns().getSculkInteractivePattern(), EventHorizon.getBlockMasks().getPlants(), false);
     }
 
 

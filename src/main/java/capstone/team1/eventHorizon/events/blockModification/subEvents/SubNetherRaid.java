@@ -24,9 +24,7 @@ public class SubNetherRaid extends BaseMobSpawn
     private static final List<EntityType> NETHER_MOBS = Arrays.asList(
             EntityType.BLAZE,
             EntityType.GHAST,
-            EntityType.HOGLIN,
             EntityType.MAGMA_CUBE,
-            EntityType.PIGLIN,
             EntityType.PIGLIN_BRUTE,
             EntityType.STRIDER,
             EntityType.WITHER_SKELETON,
