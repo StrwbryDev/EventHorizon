@@ -13,7 +13,7 @@ import java.util.List;
  * within specified parameters.
  * Extends BaseMobSpawn to utilize mob spawning functionality.
  */
-public class subSpawnIceMobs extends BaseMobSpawn
+public class SubSpawnIceMobs extends BaseMobSpawn
 {
     /**
      * List of ice-themed mob types that can be spawned by this event.
@@ -37,7 +37,7 @@ public class subSpawnIceMobs extends BaseMobSpawn
      * - One-time spawning (non-continuous)
      * - Random selection from available mob types
      */
-    public subSpawnIceMobs() {
+    public SubSpawnIceMobs() {
         super(ICE_MOBS, EventClassification.NEUTRAL, "subSpawnIceMobs");
         setMobCount(30)
                 .setMaxSpawnRadius(30)

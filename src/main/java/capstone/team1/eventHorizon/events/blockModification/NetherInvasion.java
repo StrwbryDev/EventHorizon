@@ -2,10 +2,9 @@ package capstone.team1.eventHorizon.events.blockModification;
 
 import capstone.team1.eventHorizon.EventHorizon;
 import capstone.team1.eventHorizon.events.EventClassification;
-import capstone.team1.eventHorizon.events.blockModification.subEvents.subGrassToFire;
-import capstone.team1.eventHorizon.events.blockModification.subEvents.subWaterToLava;
-import capstone.team1.eventHorizon.events.mobSpawn.NetherRaid;
-import capstone.team1.eventHorizon.events.utility.fawe.BlockEditor;
+import capstone.team1.eventHorizon.events.blockModification.subEvents.SubGrassToFire;
+import capstone.team1.eventHorizon.events.blockModification.subEvents.SubNetherRaid;
+import capstone.team1.eventHorizon.events.blockModification.subEvents.SubWaterToLava;
 import capstone.team1.eventHorizon.events.utility.fawe.region.GenericCylindricalRegion;
 import org.bukkit.Bukkit;
 
@@ -17,6 +16,8 @@ import org.bukkit.Bukkit;
  */
 public class NetherInvasion extends BaseBlockModification
 {
+    private final SubNetherRaid subNetherRaid;
+
     /**
      * Constructs a new NetherInvasion event.
      * Creates a cylindrical region with radius 100 and height 400 where ground blocks
@@ -26,7 +27,7 @@ public class NetherInvasion extends BaseBlockModification
     {
         super(EventClassification.NEGATIVE, "netherInvasion", new GenericCylindricalRegion(100,400,200),
                 EventHorizon.getRandomPatterns().getNetherPattern(), EventHorizon.getBlockMasks().getGroundBlocks(), false);
-
+        this.subNetherRaid = new SubNetherRaid();
     }
 
     /**
@@ -36,9 +37,9 @@ public class NetherInvasion extends BaseBlockModification
      */
     public void execute(){
         super.execute(true);
-        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new subWaterToLava().execute(false));
-        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new subGrassToFire().execute(false));
-        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new NetherRaid().execute());
+        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new SubWaterToLava().execute(false));
+        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new SubGrassToFire().execute(false));
+        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> subNetherRaid.execute());
     }
 
     /**
@@ -47,7 +48,7 @@ public class NetherInvasion extends BaseBlockModification
      */
     @Override
     public void terminate(){
-        BlockEditor.clearActiveEditSessions();
-
+        super.terminate();
+        subNetherRaid.terminate();
     }
 }

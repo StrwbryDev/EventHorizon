@@ -22,6 +22,7 @@ enabled-events:
 - "IceIsNice" #blockModification: neutral
 - "GoldRush" #blockModification: positive
 - "NetherInvasion" #blockModification: negative
+# - "DeepDarkInvasion" #blockModification: negative
 - "BlockDropShuffle" #dropModification: neutral
 - "DoubleOrNothing" #dropModification: negative
 - "MobDropShuffle" #dropModification: neutral

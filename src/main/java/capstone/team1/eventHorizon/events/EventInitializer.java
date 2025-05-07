@@ -1,6 +1,7 @@
 package capstone.team1.eventHorizon.events;
 
 import capstone.team1.eventHorizon.events.attributes.*;
+import capstone.team1.eventHorizon.events.blockModification.DeepDarkInvasion;
 import capstone.team1.eventHorizon.events.blockModification.GoldRush;
 import capstone.team1.eventHorizon.events.blockModification.IceIsNice;
 import capstone.team1.eventHorizon.events.blockModification.NetherInvasion;
@@ -98,6 +99,7 @@ public class EventInitializer {
         registeredEvents.put("iceisnice", new IceIsNice());
         registeredEvents.put("goldrush", new GoldRush());
         registeredEvents.put("netherinvasion", new NetherInvasion());
+        registeredEvents.put("deepdarkinvasion", new DeepDarkInvasion());
 
         // Drop modification events
         registeredEvents.put("blockdropshuffle", new BlockDropShuffle());

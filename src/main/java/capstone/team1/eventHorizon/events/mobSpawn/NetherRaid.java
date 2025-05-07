@@ -21,7 +21,6 @@ public class NetherRaid extends BaseMobSpawn {
             EntityType.WITHER_SKELETON,
             EntityType.ZOMBIFIED_PIGLIN,
             EntityType.ZOGLIN
-
     );
 
     public NetherRaid() {
@@ -59,6 +58,7 @@ public class NetherRaid extends BaseMobSpawn {
      */
     @Override
     public void terminate() {
+        killAllSpawnedMob();
         super.terminate();
     }
 }

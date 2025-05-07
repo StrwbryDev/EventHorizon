@@ -1,40 +1,42 @@
 package capstone.team1.eventHorizon.events.blockModification.subEvents;
 
-import capstone.team1.eventHorizon.EventHorizon;
 import capstone.team1.eventHorizon.events.EventClassification;
 import capstone.team1.eventHorizon.events.blockModification.BaseBlockModification;
 import capstone.team1.eventHorizon.events.utility.fawe.BlockEditor;
 import capstone.team1.eventHorizon.events.utility.fawe.region.GenericCylindricalRegion;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import org.bukkit.Material;
 
+import java.util.Arrays;
+
 /**
- * A block modification event that replaces grass and plant blocks with fire within a cylindrical region.
- * This event is classified as negative due to its destructive nature of converting vegetation to fire.
+ * A block modification event that replaces water blocks with lava blocks within a cylindrical region.
+ * This event is classified as a negative event due to its potentially destructive nature.
  * Extends BaseBlockModification to utilize block replacement functionality.
  */
-public class subGrassToFire extends BaseBlockModification
+public class SubWaterToLava extends BaseBlockModification
 {
     /**
-     * Constructs a new subGrassToFire event.
+     * Constructs a new subWaterToLava event.
      * Initializes the event with:
      * - Negative classification
-     * - Event name "subGrassToFire"
+     * - Event name "subWaterToLava"
      * - Cylindrical region with radius 100 and height 400, centered at y=200
-     * - Replacement material set to FIRE
-     * - Block type mask targeting only plant blocks
+     * - Replacement material set to LAVA
+     * - Block type mask targeting only water blocks
      * - Non-inverted mask behavior
      */
-    public subGrassToFire()
+    public SubWaterToLava()
     {
-        super(EventClassification.NEGATIVE, "subGrassToFire", new GenericCylindricalRegion(100,400,200), Material.FIRE, EventHorizon.getBlockMasks().getPlants(), false);
+        super(EventClassification.NEGATIVE, "subWaterToLava", new GenericCylindricalRegion(100,400,200), Material.LAVA, Arrays.asList(BukkitAdapter.asBlockType(Material.WATER)), false);
     }
 
     /**
-     * Executes the grass to fire conversion event.
-     * Uses pattern-based replacement mode.
+     * Executes the water to lava conversion event.
+     * Uses single block replacement mode (non-pattern based).
      */
     public void execute(){
-        super.execute(true);
+        super.execute(false);
     }
 
     /**

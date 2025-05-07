@@ -2,14 +2,11 @@ package capstone.team1.eventHorizon.events.blockModification;
 
 import capstone.team1.eventHorizon.EventHorizon;
 import capstone.team1.eventHorizon.events.EventClassification;
-import capstone.team1.eventHorizon.events.blockModification.subEvents.subSpawnIceMobs;
-import capstone.team1.eventHorizon.events.blockModification.subEvents.subWaterToLava;
+import capstone.team1.eventHorizon.events.blockModification.subEvents.SubSpawnIceMobs;
 import capstone.team1.eventHorizon.events.utility.fawe.BlockEditor;
-import capstone.team1.eventHorizon.events.utility.fawe.region.GenericCuboidRegion;
 import capstone.team1.eventHorizon.events.utility.fawe.region.GenericCylindricalRegion;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Minecart;
 
 /**
  * A neutral event that creates an icy environment by replacing ground blocks with packed ice
@@ -36,7 +33,7 @@ public class IceIsNice extends BaseBlockModification
      */
     public void execute(){
         super.execute(false);
-        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new subSpawnIceMobs().execute());
+        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new SubSpawnIceMobs().execute());
 
     }
 

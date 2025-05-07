@@ -31,15 +31,17 @@ public class BlockMasks
      * These are blocks you would likely want to replace in a cave.
      */
     private Collection<BlockType> undergroundBlocks;
-    /**
-     * Collection of block types that are considered as air blocks.
-     * These blocks are typically transparent and do not obstruct movement.
-     */
+
     /**
      * Collection of block types that are considered plants.
      * These blocks typically grow on soil.
      */
     private Collection<BlockType> plants;
+
+    /**
+     * Collection of block types that are considered as air blocks.
+     * These blocks are typically transparent and do not obstruct movement.
+     */
     private final Collection<BlockType> air;
 
     /**
