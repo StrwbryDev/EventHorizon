@@ -19,13 +19,13 @@ enabled-events:
 - "HoneyIShrunkTheKids" #attribute: negative
 - "LifestealOnly" #attribute: negative
 - "ZeroGravity" #attribute: neutral
-- "IceIsNice" #blockModification: neutral
-- "GoldRush" #blockModification: positive
-- "NetherInvasion" #blockModification: negative
-# - "DeepDarkInvasion" #blockModification: negative
-- "BlockDropShuffle" #dropModification: neutral
-- "DoubleOrNothing" #dropModification: negative
-- "MobDropShuffle" #dropModification: neutral
+- "IceIsNice" #blockmodification: neutral
+- "GoldRush" #blockmodification: positive
+- "NetherInvasion" #blockmodification: negative
+# - "DeepDarkInvasion" #blockmodification: negative
+- "BlockDropShuffle" #dropmodification: neutral
+- "DoubleOrNothing" #dropmodification: negative
+- "MobDropShuffle" #dropmodification: neutral
 - "FoodComa" #effects: neutral
 - "GottaGoFast" #effects: positive
 - "Overmine" #effects: positive
@@ -35,17 +35,17 @@ enabled-events:
 - "FlightSchool" #inventoryAdjustment: positive
 - "InventorySwap" #inventoryAdjustment: neutral
 - "SpoiledFood" #inventoryAdjustment: negative
-- "DropParty" #itemSpawn: positive
-- "Feast" #itemSpawn: positive
-- "OreDropParty" #itemSpawn: positive
-- "ChickenFlock" #mobSpawn: positive
-- "CowHerd" #mobSpawn: positive
-- "DropCreeper" #mobSpawn: negative
-- "EndRaid" #mobSpawn: negative
-- "NetherRaid" #mobSpawn: negative
-- "RandomMobSpawn" #mobSpawn: neutral
-- "WolfPack" #mobSpawn: negative
-- "ZombieHorde" #mobSpawn: negative
-- "ZombieInvasion" #mobSpawn: negative
+- "DropParty" #itemspawn: positive
+- "Feast" #itemspawn: positive
+- "OreDropParty" #itemspawn: positive
+- "ChickenFlock" #mobspawn: positive
+- "CowHerd" #mobspawn: positive
+- "DropCreeper" #mobspawn: negative
+- "EndRaid" #mobspawn: negative
+- "NetherRaid" #mobspawn: negative
+- "RandomMobSpawn" #mobspawn: neutral
+- "WolfPack" #mobspawn: negative
+- "ZombieHorde" #mobspawn: negative
+- "ZombieInvasion" #mobspawn: negative
 
 

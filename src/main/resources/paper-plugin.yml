@@ -1,6 +1,6 @@
 name: EventHorizon
 version: '1.0-alpha'
-main: strwbrydev.eventHorizon.EventHorizon
+main: dev.strwbry.eventhorizon.EventHorizon
 description: 'A dynamic game mode that introduces configurable random server-wide events to enhance player engagement and replayability'
 api-version: '1.21.4'
 bootstrapper: org.bukkit.plugin.java.JavaPluginLoader
