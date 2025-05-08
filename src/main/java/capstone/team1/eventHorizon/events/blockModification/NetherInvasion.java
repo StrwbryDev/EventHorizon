@@ -2,7 +2,7 @@ package capstone.team1.eventHorizon.events.blockModification;
 
 import capstone.team1.eventHorizon.EventHorizon;
 import capstone.team1.eventHorizon.events.EventClassification;
-import capstone.team1.eventHorizon.events.blockModification.subEvents.SubGrassToFire;
+import capstone.team1.eventHorizon.events.blockModification.subEvents.SubPlantsToFire;
 import capstone.team1.eventHorizon.events.blockModification.subEvents.SubNetherRaid;
 import capstone.team1.eventHorizon.events.blockModification.subEvents.SubWaterToLava;
 import capstone.team1.eventHorizon.events.utility.fawe.region.GenericCylindricalRegion;
@@ -38,7 +38,7 @@ public class NetherInvasion extends BaseBlockModification
     public void execute(){
         super.execute(true);
         Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new SubWaterToLava().execute(false));
-        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new SubGrassToFire().execute(false));
+        Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> new SubPlantsToFire().execute(false));
         Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> subNetherRaid.execute());
     }
 

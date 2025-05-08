@@ -12,7 +12,7 @@ import org.bukkit.Material;
  * This event is classified as negative due to its destructive nature of converting vegetation to fire.
  * Extends BaseBlockModification to utilize block replacement functionality.
  */
-public class SubGrassToFire extends BaseBlockModification
+public class SubPlantsToFire extends BaseBlockModification
 {
     /**
      * Constructs a new subGrassToFire event.
@@ -24,7 +24,7 @@ public class SubGrassToFire extends BaseBlockModification
      * - Block type mask targeting only plant blocks
      * - Non-inverted mask behavior
      */
-    public SubGrassToFire()
+    public SubPlantsToFire()
     {
         super(EventClassification.NEGATIVE, "subGrassToFire", new GenericCylindricalRegion(100,400,200), Material.FIRE, EventHorizon.getBlockMasks().getPlants(), false);
     }
