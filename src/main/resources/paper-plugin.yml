@@ -2,7 +2,7 @@ name: EventHorizon
 version: "${internalVersion}"
 main: dev.strwbry.eventhorizon.EventHorizon
 description: 'A dynamic game mode that introduces configurable random server-wide events to enhance player engagement and replayability'
-authors: [Strwbry, NishikP]
+authors: [Strwbry, xTri]
 contributors: [QarthO]
 website: https://github.com/StrwbryDev/EventHorizon
 api-version: '1.21.4'
