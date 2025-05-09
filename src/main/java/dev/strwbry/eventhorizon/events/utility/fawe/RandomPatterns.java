@@ -31,8 +31,8 @@ public class RandomPatterns
 
     private void initializeDeepDarkPattern() {
         RandomPattern pattern = new RandomPattern();
-        pattern.add(BukkitAdapter.asBlockType(Material.SCULK), 0.6);
-        pattern.add(BukkitAdapter.asBlockType(Material.DEEPSLATE), 0.4);
+        pattern.add(BukkitAdapter.asBlockType(Material.SCULK), 0.7);
+        pattern.add(BukkitAdapter.asBlockType(Material.DEEPSLATE), 0.3);
         deepDarkPattern = pattern;
     }
 

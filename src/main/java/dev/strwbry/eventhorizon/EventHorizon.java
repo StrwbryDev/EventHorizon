@@ -13,6 +13,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bstats.bukkit.Metrics;
+
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -84,7 +86,10 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         //initializes eventhorizon base command
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(CommandRootEventHorizon.buildCommand());
-        });    }
+        });
+        int pluginId = 25805; // from bStats website
+        Metrics metrics = new Metrics(this, pluginId);
+    }
 
     /**
      * Called when the plugin is disabled.
