@@ -27,7 +27,7 @@ Alternatively: [Setting up a local Minecraft Server](https://www.setup.md/guides
 ## Dependencies
 - FastAsyncWorldEdit
 - PlaceholderAPI
-- Recommended: TAB
+- Recommended: TAB (can use any TAB/Scoreboard plugin that supports PlaceholderAPI)
   - Add this code to the TAB config file to use our scoreboard
 ```
 scoreboards:
