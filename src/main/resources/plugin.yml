@@ -1,4 +1,0 @@
-name: EventHorizon
-version: '1.0-alpha'
-main: dev.strwbry.eventhorizon.EventHorizon
-api-version: '1.21.4'

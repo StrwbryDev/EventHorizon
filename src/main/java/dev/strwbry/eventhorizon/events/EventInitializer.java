@@ -1,5 +1,6 @@
 package dev.strwbry.eventhorizon.events;
 
+import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.attributes.*;
 import dev.strwbry.eventhorizon.events.blockmodification.DeepDarkInvasion;
 import dev.strwbry.eventhorizon.events.blockmodification.GoldRush;
@@ -96,10 +97,16 @@ public class EventInitializer {
         registeredEvents.put("zerogravity", new ZeroGravity());
 
         // Block modification events
-        registeredEvents.put("iceisnice", new IceIsNice());
-        registeredEvents.put("goldrush", new GoldRush());
-        registeredEvents.put("netherinvasion", new NetherInvasion());
-        registeredEvents.put("deepdarkinvasion", new DeepDarkInvasion());
+        if(EventHorizon.getPlugin().getServer().getPluginManager().getPlugin("FastAsyncWorldEdit") != null) {
+            registeredEvents.put("iceisnice", new IceIsNice());
+            registeredEvents.put("goldrush", new GoldRush());
+            registeredEvents.put("netherinvasion", new NetherInvasion());
+            registeredEvents.put("deepdarkinvasion", new DeepDarkInvasion());
+        }
+        else {
+            MsgUtility.warning("FastAsyncWorldEdit not found. BlockModification events will not be registered.");
+        }
+
 
         // Drop modification events
         registeredEvents.put("blockdropshuffle", new BlockDropShuffle());

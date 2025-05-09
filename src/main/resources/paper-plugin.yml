@@ -1,7 +1,14 @@
 name: EventHorizon
-version: '1.0-alpha'
+version: "${internalVersion}"
 main: dev.strwbry.eventhorizon.EventHorizon
 description: 'A dynamic game mode that introduces configurable random server-wide events to enhance player engagement and replayability'
+authors: [Strwbry, NishikP]
+contributors: [QarthO]
+website: https://github.com/StrwbryDev/EventHorizon
 api-version: '1.21.4'
-bootstrapper: org.bukkit.plugin.java.JavaPluginLoader
-loader: org.bukkit.plugin.java.PluginClassLoader
+dependencies:
+  server:
+    FastAsyncWorldEdit:
+      required: false
+    PlaceholderAPI:
+      required: false
