@@ -1,5 +1,5 @@
 # EventHorizon
-EventHorizon is an interactive game mode extension developed for the KSU Esports Minecraft server, aimed at boosting replayability and player engagement. It introduces random, server-wide events—categorized as positive, neutral, or negative—that challenge players to adapt and survive in both solo and team-based gameplay. These unpredictable occurrences create a dynamic and thrilling environment. EventHorizon can run as a standalone mode or integrate seamlessly with speedrun and competitive events for a fresh, ever-evolving experience.
+EventHorizon is an interactive game mode plugin, originally developed for the KSU Esports Minecraft server, aimed at boosting replayability and player engagement. It introduces random, server-wide events, categorized as positive, negative, or neutral, that challenge players to adapt and survive in both solo and team-based gameplay. These unpredictable occurrences create a dynamic and thrilling environment. EventHorizon can run as a standalone game mode or integrate seamlessly with other game mode plugins, such as survival games, speedruns, TaskCrafters, etc. 
 
 ## Installation & Setup:
 The EventHorizon plugin is compatible with Minecraft version 1.21.4 and the corresponding PaperMC server.  
@@ -41,4 +41,3 @@ scoreboards:
 
 ## Help?
 - Check out the [Wiki](https://github.com/StrwbryPanda/EventHorizon/wiki) for usage instructions and event configurations.
-* For comprehensive details regarding the overall project structure and design, please refer to the [Game Design Document](https://github.com/user-attachments/files/19817534/Team.1.Design.Document.docx.pdf)
