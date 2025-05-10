@@ -6,7 +6,7 @@ tournament-timer: 3600
 # default weights for event frequency
 # values relative to each other and do not need to add up to any specific number
 event:
-  frequency: 10
+  frequency: 120
   posWeight: 3
   negWeight: 3
   neutralWeight: 3
@@ -17,12 +17,11 @@ enabled-events:
 - "GrowthSpurt" #attribute: neutral
 - "HalfAHeart" #attribute: negative
 - "HoneyIShrunkTheKids" #attribute: negative
-- "LifestealOnly" #attribute: negative
 - "ZeroGravity" #attribute: neutral
 - "IceIsNice" #blockmodification: neutral
 - "GoldRush" #blockmodification: positive
 - "NetherInvasion" #blockmodification: negative
-# - "DeepDarkInvasion" #blockmodification: negative
+- "DeepDarkInvasion" #blockmodification: negative
 - "BlockDropShuffle" #dropmodification: neutral
 - "DoubleOrNothing" #dropmodification: negative
 - "MobDropShuffle" #dropmodification: neutral

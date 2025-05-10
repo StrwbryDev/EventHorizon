@@ -8,12 +8,18 @@ import dev.strwbry.eventhorizon.utility.MsgUtility;
  * It handles starting, pausing, resuming, and ending game sessions, as well as managing the event frequency.
  */
 public class Scheduler {
+    /** The frequency at which events occur during the game session */
     private int eventFrequency;
+    /** Reference to the main plugin instance */
     private final EventHorizon plugin;
+    /** The active game timer that manages the countdown and event triggers */
     private GameTimer gameTimer;
-
+    /** Flag indicating whether a game session has started */
     public boolean hasStarted = false;
+    /** Flag indicating whether the current game session is paused */
     public boolean isPaused = false;
+    /** Stores the remaining time when a session is paused, -1 when not paused */
+
     public int pausedTime = -1;
 
     /**
@@ -94,6 +100,11 @@ public class Scheduler {
     public int getRemainingTime() {
         return gameTimer.getRemainingTime();
     }
+    /**
+     * Reloads the event frequency from the configuration.
+     * This method updates the internal event frequency value by fetching
+     * the latest value from the plugin's configuration.
+     */
     public void reloadEventFrequency() {
         this.eventFrequency = Config.getEventFrequency();
     }

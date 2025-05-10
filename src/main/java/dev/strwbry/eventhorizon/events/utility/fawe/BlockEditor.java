@@ -22,21 +22,47 @@ import java.util.List;
  */
 public class BlockEditor
 {
-// Store the world and changes for each session instead of the session itself
+    /**
+     * List of edit history entries storing world and edit session data.
+     * Used to track and undo block modifications made through this editor.
+     */
 private static List<EditHistoryEntry> editHistory = new ArrayList<>();
 
-    // Inner class to store the necessary information for undoing
+    /**
+     * Inner class to store the necessary information for undoing edit operations.
+     */
     private static class EditHistoryEntry {
+        /**
+         * The WorldEdit world instance where the edit operation was performed.
+         * Used to create new edit sessions for undo operations.
+         */
         private final com.sk89q.worldedit.world.World world;
+        /**
+         * The EditSession containing the changes made during the edit operation.
+         * Used to undo the changes when necessary.
+         */
         private final EditSession session;
 
+        /**
+         * Creates a new edit history entry.
+         *
+         * @param world The WorldEdit world where the edit occurred
+         * @param session The EditSession containing the changes
+         */
         public EditHistoryEntry(com.sk89q.worldedit.world.World world, EditSession session) {
             this.world = world;
             this.session = session;
         }
     }
 
-    // Modify the replaceBlocksInRegion methods to store history
+    /**
+     * Replaces blocks in a specified region using a pattern.
+     *
+     * @param region The region where blocks should be replaced
+     * @param replacingPattern The pattern to replace blocks with
+     * @param blockTypesToReplace Collection of block types to be replaced
+     * @param isMaskInverted If true, replaces blocks that don't match the mask
+     */
     public static void replaceBlocksInRegion(@NotNull Region region, @NotNull Pattern replacingPattern, @NotNull Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
         com.sk89q.worldedit.world.World world = region.getWorld();
         EditSession editSession = WorldEdit.getInstance()
@@ -54,6 +80,14 @@ private static List<EditHistoryEntry> editHistory = new ArrayList<>();
         editHistory.add(new EditHistoryEntry(world, editSession));
     }
 
+    /**
+     * Replaces blocks in a specified region using a Bukkit Material.
+     *
+     * @param region The region where blocks should be replaced
+     * @param blockId The Bukkit Material to replace blocks with
+     * @param blockTypesToReplace Collection of block types to be replaced
+     * @param isMaskInverted If true, replaces blocks that don't match the mask
+     */
     public static void replaceBlocksInRegion(Region region, Material blockId, Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
         BlockType blockType = BukkitAdapter.asBlockType(blockId);
         if (blockType == null) {
@@ -64,6 +98,11 @@ private static List<EditHistoryEntry> editHistory = new ArrayList<>();
         replaceBlocksInRegion(region, pattern, blockTypesToReplace, isMaskInverted);
     }
 
+    /**
+     * Undoes all block modifications stored in the edit history.
+     * Creates new sessions for each undo operation and closes them afterward.
+     * Clears the edit history after completion.
+     */
     public static void undoAllBlockModifications() {
         try {
             // Create new sessions for each undo operation
@@ -89,6 +128,10 @@ private static List<EditHistoryEntry> editHistory = new ArrayList<>();
         }
     }
 
+    /**
+     * Closes all active edit sessions and clears the edit history.
+     * Should be called during plugin shutdown or when cleanup is needed.
+     */
     public static void clearActiveEditSessions() {
         for (EditHistoryEntry entry : editHistory) {
             entry.session.close();

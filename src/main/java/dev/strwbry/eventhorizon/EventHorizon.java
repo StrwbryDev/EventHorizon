@@ -20,13 +20,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Main plugin class for EventHorizon, a Minecraft tournament management plugin.
- * This class handles plugin initialization, management of core components, and serves as the central access point
- * for various plugin functionalities.
- *
- * <p>The plugin manages tournament scheduling, event handling, and block manipulation through various components.</p>
- *
- * @since 1.0
+ * Main class for the EventHorizon tournament management plugin.
+ * Handles initialization and provides access to core components like scheduling,
+ * event management, and WorldEdit integration.
  */
 @SuppressWarnings("UnstableApiUsage")
 public final class EventHorizon extends JavaPlugin implements CommandExecutor
@@ -60,9 +56,9 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
     }
 
     /**
-     * Called when the plugin is enabled.
-     * Initializes core components, sets up PlaceholderAPI integration if available,
-     * and registers the main command structure.
+     * Initializes the plugin on server startup.
+     * Sets up core utilities (BlockMasks, RandomPatterns), tournament components (EventInitializer, EventManager, Scheduler),
+     * registers event listeners, loads configuration, and sets up command/metrics systems.
      */
     @Override
     public void onEnable() {
