@@ -10,6 +10,7 @@ import java.util.List;
  *  Event that spawns a group of end themed mobs near players.
  */
 public class EndRaid extends BaseMobSpawn {
+    /** List of end themed mob types that can be spawned by this event */
     private static final List<EntityType> END_MOBS = Arrays.asList(
             EntityType.ENDERMAN,
             EntityType.ENDERMITE,
@@ -18,6 +19,15 @@ public class EndRaid extends BaseMobSpawn {
             EntityType.PHANTOM
     );
 
+    /**
+     * Constructs a new EndRaid event with specific spawn settings.
+     * Initializes the event with:
+     * - 15 end themed mobs per spawn
+     * - Spawn radius between 5 and 30 blocks horizontally
+     * - Vertical spawn range between 5 and 20 blocks
+     * - Group spawning enabled with 2-block spacing
+     * - Surface spawning allowed on solid ground only
+     */
     public EndRaid() {
         super(END_MOBS, EventClassification.NEGATIVE, "endRaid");
         setMobCount(15)

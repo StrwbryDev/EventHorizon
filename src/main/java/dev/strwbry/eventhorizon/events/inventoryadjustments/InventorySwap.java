@@ -11,19 +11,44 @@ import org.bukkit.inventory.PlayerInventory;
 
 import java.util.Collection;
 
-public class InventorySwap extends BaseInventoryAdjustment{
+
+/**
+ * A specialized inventory adjustment event that swaps inventories between random pairs of players.
+ */
+public class InventorySwap extends BaseInventoryAdjustment {
+    /** Collection of player pairs whose inventories will be swapped */
     private Collection<Pair<Player, Player>> playerPairs;
+    /** Sound effect played when inventories are swapped */
     private final Sound swapSound = Sound.ENTITY_ENDERMAN_TELEPORT;
 
+    /**
+     * Constructs a new InventorySwap event.
+     * Initializes the event with NEUTRAL classification and the identifier "inventorySwap".
+     */
     public InventorySwap(){
         super(EventClassification.NEUTRAL, "inventorySwap");
     }
 
+    /**
+     * Applies the inventory swap effect to a single player.
+     * This implementation always returns false as the inventory swap event.
+     * must be applied to pairs of players, not individuals.
+     *
+     * @param player The player to apply the effect to
+     * @return Always false, as this event cannot be applied to a single player
+     */
     @Override
     protected boolean applyToPlayer(Player player) {
         return false;
     }
 
+    /**
+     * Applies the inventory swap effect to all player pairs.
+     * Iterates through all player pairs, swapping their inventories if both are online.
+     * Notifications and sound effects are played for each affected player.
+     *
+     * @return The number of player pairs whose inventories were successfully swapped
+     */
     @Override
     public int applyToAllPlayers() {
         int pairsAffected = 0;
@@ -61,6 +86,15 @@ public class InventorySwap extends BaseInventoryAdjustment{
         return pairsAffected;
     }
 
+    /**
+     * Swaps the complete inventory contents between two players.
+     * This method creates copies of both inventories, clears them,
+     * and then sets each player's inventory to the other's contents.
+     *
+     * @param player1 The first player in the swap
+     * @param player2 The second player in the swap
+     * @return true if the swap was successful, false if an error occurred
+     */
     private boolean swapInventories(Player player1, Player player2) {
         try {
             // Get player inventories

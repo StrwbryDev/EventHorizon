@@ -10,6 +10,7 @@ import java.util.List;
  *  Event that spawns a group of nether themed mobs near players.
  */
 public class NetherRaid extends BaseMobSpawn {
+    /** List of nether themed mob types that can be spawned by this event */
     private static final List<EntityType> NETHER_MOBS = Arrays.asList(
             EntityType.BLAZE,
             EntityType.GHAST,
@@ -23,6 +24,15 @@ public class NetherRaid extends BaseMobSpawn {
             EntityType.ZOGLIN
     );
 
+    /**
+     * Constructs a new NetherRaid event with specific spawn settings.
+     * Initializes the event with:
+     * - 15 nether themed mobs per spawn
+     * - Spawn radius between 5 and 30 blocks horizontally
+     * - Vertical spawn range between 5 and 20 blocks
+     * - Group spawning enabled with 2-block spacing
+     * - Surface spawning allowed on solid ground only
+     */
     public NetherRaid() {
         super(NETHER_MOBS, EventClassification.NEGATIVE, "netherRaid");
         setMobCount(15)
