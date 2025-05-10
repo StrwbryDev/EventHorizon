@@ -60,9 +60,6 @@ public class EventInitializer {
         for (String eventName : enabledEventNames) {
             BaseEvent event = registeredEvents.get(eventName.toLowerCase());
 
-            Bukkit.getLogger().warning("event class: " + event);
-            MsgUtility.broadcast("event name: " + eventName);
-
             if (event != null) {
                 enableEvent(event);
             }
