@@ -40,4 +40,4 @@ scoreboards:
 ```
 
 ## Help?
-- Check out the [Wiki](https://github.com/StrwbryPanda/EventHorizon/wiki) for usage instructions and event configurations.
+- Join our [Discord](https://discord.gg/dgjTQrUdjh) for questions or assistance.
