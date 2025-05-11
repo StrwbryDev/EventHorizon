@@ -75,7 +75,7 @@ scoreboards:
 
 ## Upcoming Features
 
-### Beta (August)
+### Beta (August at the latest)
 - Events balance pass  
 - Ignore players in spectator mode  
 - All event values customizable in a config file  
