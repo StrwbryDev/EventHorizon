@@ -12,7 +12,9 @@ EventHorizon is an interactive game mode plugin, originally developed for the KS
 
 ## Dependencies
 - FastAsyncWorldEdit
+  - Not required, but block modification events will be automatically disabled without it
 - PlaceholderAPI
+  - Not required, but you will not see the tournament scoreboard without it
 - Recommended: TAB (can use any TAB/Scoreboard plugin that supports PlaceholderAPI)
   - Add this code to the TAB config file to use our scoreboard
 ```
