@@ -85,6 +85,7 @@ This list does not encompass everything we have planned, but we wanted to give a
 
 ## Help?
 - Join our [Discord](https://discord.gg/dgjTQrUdjh) for questions or assistance.
+- Check out our [JavaDocs](https://www.strwbry.dev/javadocs/eventhorizon/index.html). We're in the process of updating our pre-alpha documentation and will repost the more comprehensive docs soon. 
 
 [modrinth-shield]: https://img.shields.io/badge/Download-00AF5C?logo=modrinth&logoColor=white&style=for-the-badge
 
