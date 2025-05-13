@@ -88,7 +88,6 @@ public class Scheduler {
         gameTimer.endTimer();
         hasStarted = false;
         isPaused = false;
-        MsgUtility.broadcast("<red>Tournament has ended");
         return true;
     }
 
