@@ -1,11 +1,11 @@
-</center>
+<div align="center">
 
 [![Modrinth][modrinth-shield]][modrinth-url]
 [![Discord][discord-shield]][discord-url]
 [![GitHub][github-shield]][github-url]
 [![Paypal][paypal-shield]][paypal-url]
 [![Supported Minecraft Versions][versions-shield]][versions-url]
-</center>
+</div>
 
 # EventHorizon
 EventHorizon is an interactive game mode plugin, originally developed for the KSU Esports Minecraft server, aimed at boosting replayability and player engagement. It introduces random, server-wide events, categorized as positive, negative, or neutral, that challenge players to adapt and survive in both solo and team-based gameplay. These unpredictable occurrences create a dynamic and thrilling environment. EventHorizon can run as a standalone game mode or integrate seamlessly with other game mode plugins, such as survival games, speedruns, TaskCrafters, etc. 
