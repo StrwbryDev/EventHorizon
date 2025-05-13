@@ -17,7 +17,7 @@ EventHorizon is an interactive game mode plugin, originally developed for the KS
   - Not required, but you will not see the tournament scoreboard without it
 - Recommended: TAB (can use any TAB/Scoreboard plugin that supports PlaceholderAPI)
   - Add this code to the TAB config file to use our scoreboard
-```
+```yml
 scoreboards:
     scoreboard-1.20.3+:
       title: "<#E0B11E>EventHorizon</#FF0000>"
