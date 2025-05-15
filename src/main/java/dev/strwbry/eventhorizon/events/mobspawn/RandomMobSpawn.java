@@ -44,7 +44,8 @@ public class RandomMobSpawn extends BaseMobSpawn {
                 .setMobTypes(Arrays.stream(EntityType.values())
                     .filter(EntityType::isAlive)
                     .filter(type -> !type.equals(EntityType.PLAYER)
-                        && !type.equals(EntityType.ENDER_DRAGON))
+                        && !type.equals(EntityType.ENDER_DRAGON)
+                        && !type.equals(EntityType.END_CRYSTAL))
                     .collect(Collectors.toList()));
     }
 

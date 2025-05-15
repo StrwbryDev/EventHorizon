@@ -85,6 +85,8 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         });
         int pluginId = 25805; // from bStats website
         Metrics metrics = new Metrics(this, pluginId);
+
+
     }
 
     /**
