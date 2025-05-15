@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.itemspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.ItemUtility;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class DropParty extends BaseItemSpawn {
     /** List containing all possible items that can be spawned during this drop party */
-    private List<ItemStack> dropItems = new ArrayList<>();
+    private final List<ItemStack> dropItems = new ArrayList<>();
 
     /**
      * Constructs a new DropParty event with predefined configuration settings.
@@ -38,24 +39,7 @@ public class DropParty extends BaseItemSpawn {
                 .setAllowWaterSpawns(false)
                 .setAllowLavaSpawns(false)
                 .setRandomItemTypes(true);
-        dropItems.addAll(generateDropsList());
-    }
-
-    /**
-     * Generates a list of all possible item stacks.
-     * Includes all valid Minecraft items except for AIR.
-     *
-     * @return List of all valid item stacks
-     */
-    public List<ItemStack> generateDropsList() {
-        List<ItemStack> drops = new ArrayList<>();
-        for (Material material : Material.values()) {
-            // Check if the material can be represented as an item and is not AIR.
-            if (material.isItem() && material != Material.AIR) {
-                drops.add(new ItemStack(material));
-            }
-        }
-        return drops;
+        dropItems.addAll(ItemUtility.generateSurvivalDropsList());
     }
 
     /**

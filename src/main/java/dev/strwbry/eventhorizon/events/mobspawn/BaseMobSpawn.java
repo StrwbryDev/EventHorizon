@@ -3,6 +3,7 @@ package dev.strwbry.eventhorizon.events.mobspawn;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -384,7 +385,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
             if (spawnLocation != null) {
                 EntityType typeToSpawn = useRandomMobTypes ? getRandomMobType() : mobType;
                 Entity entity = world.spawnEntity(spawnLocation, typeToSpawn);
-                markSpawnedMob(entity);
+                MarkingUtility.markEntity(entity, key);
                 spawnedEntities.add(entity);
                 spawned++;
             }
@@ -463,48 +464,13 @@ public abstract class BaseMobSpawn extends BaseEvent {
             if (spawnLocation != null) {
                 EntityType typeToSpawn = useRandomMobTypes ? getRandomMobType() : mobType;
                 Entity entity = world.spawnEntity(spawnLocation, typeToSpawn);
-                markSpawnedMob(entity);
+                MarkingUtility.markEntity(entity, key);
                 spawnedEntities.add(entity);
                 spawned++;
             }
         }
 
         return spawnedEntities;
-    }
-
-    /**
-     * Marks an entity as spawned by this event using persistent data.
-     * Used to track and manage spawned mobs.
-     *
-     * @param entity The entity to mark as spawned by this event
-     */
-    public void markSpawnedMob(Entity entity) {
-        entity.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-    }
-
-    /**
-     * Checks if an entity was spawned by this event.
-     *
-     * @param entity The entity to check
-     * @return true if the entity was spawned by this event, false otherwise
-     */
-    public boolean isSpawnedMobMarked(Entity entity) {
-        return entity.getPersistentDataContainer().has(key, PersistentDataType.BYTE);
-    }
-
-    /**
-     * Removes all mobs that were spawned by this event across all worlds.
-     * Adds the event's key to the deletion list and removes marked entities.
-     */
-    public void killAllSpawnedMob() {
-        EventHorizon.entityKeysToDelete.add(key);
-        Bukkit.getWorlds().forEach(world -> {
-            world.getEntities().forEach(entity -> {
-                if (isSpawnedMobMarked(entity)) {
-                    entity.remove();
-                }
-            });
-        });
     }
 
     /**

@@ -3,6 +3,7 @@ package dev.strwbry.eventhorizon.events.effects;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -154,7 +155,7 @@ public abstract class BaseEffects extends BaseEvent {
         for (PotionEffect effect : effects) {
             player.addPotionEffect(effect);
         }
-        markEffectPlayer(player);
+        MarkingUtility.markPlayer(player, key);
     }
 
     /**
@@ -189,7 +190,7 @@ public abstract class BaseEffects extends BaseEvent {
                 player.removePotionEffect(effectType);
             }
         }
-        unmarkEffectPlayer(player);
+        MarkingUtility.unmarkPlayer(player, key);
     }
 
     // Methods to add and remove effects
@@ -277,40 +278,12 @@ public abstract class BaseEffects extends BaseEvent {
     }
 
     /**
-     * Marks a player as affected by this effect event using persistent data.
-     *
-     * @param player the player to mark
-     */
-    public void markEffectPlayer(Player player) {
-        player.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-    }
-
-    /**
-     * Checks if a player is marked as affected by this effect event.
-     *
-     * @param player the player to check
-     * @return true if the player is marked, false otherwise
-     */
-    public boolean isEffectPlayerMarked(Player player) {
-        return player.getPersistentDataContainer().has(key, PersistentDataType.BYTE);
-    }
-
-    /**
-     * Removes the effect event marker from a player.
-     *
-     * @param player the player to unmark
-     */
-    public void unmarkEffectPlayer(Player player) {
-        player.getPersistentDataContainer().remove(key);
-    }
-
-    /**
      * Removes all effects from players who are marked as affected by this event.
      */
     public void removeEffectsFromAllMarkedPlayers() {
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         for (Player player : players) {
-            if (isEffectPlayerMarked(player)) {
+            if (MarkingUtility.isPlayerMarked(player, key)) {
                 removePotionEffectsFromPlayer(player);
             }
         }

@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.inventoryadjustments;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -92,7 +93,7 @@ public class FlightSchool extends BaseInventoryAdjustment {
         super.terminate();
 
         // Delete all marked items
-        deleteMarkedItems();
-        deleteMarkedItemStacks();
+        MarkingUtility.deleteAllMarkedItems(key);
+        MarkingUtility.deleteAllMarkedItemStacks(key);
     }
 }

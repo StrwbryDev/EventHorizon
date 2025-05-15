@@ -17,19 +17,19 @@ public class OreDropParty extends BaseItemSpawn {
      * Constructs a new OreDropParty event with predefined spawn configurations and weighted ore items.
      * The event is classified as POSITIVE and named "oreDropParty".
      * Initializes spawn parameters including:
-     * - 32 items per spawn
+     * - 64 items per spawn
      * - Spawn radius between 1-20 blocks
      * - Vertical spawn range between 1-10 blocks
      * - Various ore items with weights from 0.5 (rarest) to 15.0 (most common)
      */
     public OreDropParty() {
         super(EventClassification.POSITIVE, "oreDropParty");
-        setItemCount(32)
+        setItemCount(64)
                 .setMaxSpawnRadius(20)
                 .setMinSpawnRadius(1)
                 .setMaxYRadius(10)
                 .setMinYRadius(1)
-                .setMaxSpawnAttempts(20)
+                .setMaxSpawnAttempts(60)
                 .setHeightClearance(1)
                 .setWidthClearance(1)
                 .setSurfaceOnlySpawning(false)

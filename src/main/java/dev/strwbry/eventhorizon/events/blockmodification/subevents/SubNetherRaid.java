@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.blockmodification.subevents;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.mobspawn.BaseMobSpawn;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import org.bukkit.entity.EntityType;
 
 import java.util.Arrays;
@@ -25,7 +26,6 @@ public class SubNetherRaid extends BaseMobSpawn
             EntityType.BLAZE,
             EntityType.GHAST,
             EntityType.MAGMA_CUBE,
-            EntityType.PIGLIN_BRUTE,
             EntityType.STRIDER,
             EntityType.WITHER_SKELETON,
             EntityType.ZOMBIFIED_PIGLIN,
@@ -74,7 +74,7 @@ public class SubNetherRaid extends BaseMobSpawn
      */
     @Override
     public void terminate() {
-        killAllSpawnedMob();
+        MarkingUtility.deleteAllMarkedEntities(key);
         super.terminate();
     }
 }

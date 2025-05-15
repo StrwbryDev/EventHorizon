@@ -261,22 +261,6 @@ public abstract class BaseDropModification extends BaseEvent implements Listener
     }
 
     /**
-     * Generates a list of all possible item drops in survival mode.
-     *
-     * @return list of all valid item stacks
-     */
-    public List<ItemStack> generateSurvivalDropsList() {
-        List<ItemStack> drops = new ArrayList<>();
-        for (Material material : Material.values()) {
-            // Check if the material can be represented as an item and is not AIR.
-            if (material.isItem() && material != Material.AIR) {
-                drops.add(new ItemStack(material));
-            }
-        }
-        return drops;
-    }
-
-    /**
      * Selects a random item stack from a list of possible drops.
      *
      * @param drops list of possible drops

@@ -3,6 +3,7 @@ package dev.strwbry.eventhorizon.events.attributes;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -10,7 +11,6 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 
@@ -133,7 +133,7 @@ public abstract class BaseAttribute extends BaseEvent {
                 }
             }
         }
-        markAttributePlayer(player);
+        MarkingUtility.markPlayer(player, key);
     }
 
     /**
@@ -172,7 +172,7 @@ public abstract class BaseAttribute extends BaseEvent {
                 }
             }
         }
-        unmarkAttributePlayer(player);
+        MarkingUtility.unmarkPlayer(player, key);
     }
 
     /**
@@ -247,37 +247,12 @@ public abstract class BaseAttribute extends BaseEvent {
     }
 
     /**
-     * Marks a player as affected by this attribute event.
-     * @param player The player to mark
-     */
-    public void markAttributePlayer(Player player) {
-        player.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-    }
-
-    /**
-     * Checks if a player is marked as affected by this attribute event.
-     * @param player The player to check
-     * @return true if the player is marked, false otherwise
-     */
-    public boolean isAttributePlayerMarked(Player player) {
-        return player.getPersistentDataContainer().has(key, PersistentDataType.BYTE);
-    }
-
-    /**
-     * Removes the attribute event mark from a player.
-     * @param player The player to unmark
-     */
-    public void unmarkAttributePlayer(Player player) {
-        player.getPersistentDataContainer().remove(key);
-    }
-
-    /**
      * Removes attributes from all players marked by this event.
      */
     public void removeAttributesFromAllMarkedPlayers() {
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         for (Player player : players) {
-            if (isAttributePlayerMarked(player)) {
+            if (MarkingUtility.isPlayerMarked(player, key)) {
                 removeAttributeModifiersFromPlayer(player);
             }
         }

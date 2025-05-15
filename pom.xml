@@ -60,10 +60,10 @@
                 <version>3.4.2</version>
                 <configuration>
 
-                    <!--                    Kylie's test server output-->
-                                            <outputDirectory>C:\Users\kylie\Minecraft Server\1.21.5\plugins\update</outputDirectory>
-                    <!--                    Nishik Server-->
-<!--                                        <outputDirectory>C:\Users\Nishik\Desktop\Minecraft Server\Paper 1.21.4\plugins\update</outputDirectory>-->
+<!--                    Kylie's test server output-->
+<!--                    <outputDirectory>C:\Users\kylie\Minecraft Server\1.21.5\plugins\update</outputDirectory>-->
+<!--                    Nishik Server-->
+                    <outputDirectory>C:\Users\Nishik\Desktop\Minecraft Server\Paper 1.21.5\plugins\update</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>
