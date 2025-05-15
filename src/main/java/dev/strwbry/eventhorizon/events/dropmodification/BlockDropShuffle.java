@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.dropmodification;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.ItemUtility;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,7 +28,7 @@ public class BlockDropShuffle extends BaseDropModification {
      */
     @Override
     protected void setupDropModifications() {
-        List<ItemStack> survivalDropPool = generateSurvivalDropsList();
+        List<ItemStack> survivalDropPool = ItemUtility.generateSurvivalDropsList();
 
         for (Material material : Material.values()) {
             if (material.isBlock() && material != Material.AIR) {

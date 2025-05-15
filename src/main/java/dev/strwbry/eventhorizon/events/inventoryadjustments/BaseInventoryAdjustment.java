@@ -3,6 +3,7 @@ package dev.strwbry.eventhorizon.events.inventoryadjustments;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import dev.strwbry.eventhorizon.events.utility.PlayerInventoryListener;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.apache.commons.lang3.tuple.Pair;
@@ -293,7 +294,7 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
         unequipPlayerItem(player, slot);
 
         // Mark the item as equipped
-        markItemStack(itemToEquip);
+        MarkingUtility.markItemStack(itemToEquip, key);
 
         return switch (slot) {
             case HEAD -> {
@@ -337,7 +338,7 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
         for (ItemStack itemToAdd : items) {
             // Mark the item with PDC
             ItemStack markedItem = itemToAdd.clone();
-            markItemStack(markedItem);
+            MarkingUtility.markItemStack(markedItem, key);
 
             // Try to add to inventory
             HashMap<Integer, ItemStack> leftover = inventory.addItem(markedItem);
@@ -583,67 +584,6 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
         }
 
         return this;
-    }
-
-    /**
-     * Marks dropped item entity
-     * @param item item to mark
-     */
-    public void markItem(Item item) {
-        item.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-    }
-
-    /**
-     * Marks item stack
-     * @param item item to mark
-     */
-    public void markItemStack(ItemStack item) {
-        if (item == null || item.getType() == Material.AIR) return;
-
-        ItemMeta meta = item.getItemMeta();
-        meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-        item.setItemMeta(meta);
-    }
-
-    /**
-     * Checks if dropped item is marked
-     * @param item item to check
-     * @return true if marked
-     */
-    protected boolean isItemMarked(Item item) {
-        return item.getPersistentDataContainer().has(key, PersistentDataType.BYTE);
-    }
-
-    /**
-     * Checks if item stack is marked
-     * @param item item to check
-     * @return true if marked
-     */
-    protected boolean isItemStackMarked(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) return false;
-        return item.getItemMeta().getPersistentDataContainer().has(key, PersistentDataType.BYTE);
-    }
-
-    /**
-     * Deletes all marked dropped items
-     */
-    protected void deleteMarkedItems() {
-        EventHorizon.entityKeysToDelete.add(key);
-        Bukkit.getWorlds().forEach(world -> {
-            world.getEntitiesByClass(Item.class).forEach(item -> {
-                if (isItemMarked(item)) {
-                    item.remove();
-                }
-            });
-        });
-    }
-
-    /**
-     * Deletes all marked inventory items
-     */
-    protected void deleteMarkedItemStacks() {
-        EventHorizon.entityKeysToDelete.add(key);
-        plugin.getServer().getOnlinePlayers().forEach(PlayerInventoryListener::removeMarkedItems);
     }
 
     // Getters

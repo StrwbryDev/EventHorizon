@@ -1,18 +1,17 @@
 package dev.strwbry.eventhorizon.events.utility;
 
+import dev.strwbry.eventhorizon.EventHorizon;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
 import org.bukkit.block.TileState;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
 
-public class MarkingUtil {
+public class MarkingUtility {
 
     // Entity marking
     public static Entity markEntity(Entity entity, NamespacedKey key) {
@@ -32,6 +31,37 @@ public class MarkingUtil {
             entity.getPersistentDataContainer().remove(key);
         }
         return entity;
+    }
+
+    public static void deleteAllMarkedEntities(NamespacedKey key) {
+        EventHorizon.entityKeysToDelete.add(key);
+        Bukkit.getWorlds().forEach(world -> {
+            world.getEntities().forEach(entity -> {
+                if (isEntityMarked(entity, key)) {
+                    entity.remove();
+                }
+            });
+        });
+    }
+
+    // Player marking
+    public static Player markPlayer(Player player, NamespacedKey key) {
+        if (player == null) return null;
+        player.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
+        return player;
+    }
+
+    public static boolean isPlayerMarked(Player player, NamespacedKey key) {
+        if (player == null) return false;
+        return player.getPersistentDataContainer().has(key, PersistentDataType.BYTE);
+    }
+
+    public static Player unmarkPlayer(Player player, NamespacedKey key) {
+        if (player == null) return null;
+        if (player.getPersistentDataContainer().has(key, PersistentDataType.BYTE)) {
+            player.getPersistentDataContainer().remove(key);
+        }
+        return player;
     }
 
     // ItemStack marking
@@ -59,6 +89,11 @@ public class MarkingUtil {
         return item;
     }
 
+    public static void deleteAllMarkedItemStacks(NamespacedKey key) {
+        EventHorizon.entityKeysToDelete.add(key);
+        EventHorizon.getPlugin().getServer().getOnlinePlayers().forEach(PlayerInventoryListener::removeMarkedItems);
+    }
+
     // Item marking
     public static Item markItem(Item item, NamespacedKey key) {
         if (item == null) return null;
@@ -78,6 +113,17 @@ public class MarkingUtil {
             item.getPersistentDataContainer().remove(key);
         }
         return item;
+    }
+
+    public static void deleteAllMarkedItems(NamespacedKey key) {
+        EventHorizon.entityKeysToDelete.add(key);
+        Bukkit.getWorlds().forEach(world -> {
+            world.getEntitiesByClass(Item.class).forEach(item -> {
+                if (isItemMarked(item, key)) {
+                    item.remove();
+                }
+            });
+        });
     }
 
     // TileState marking
@@ -101,5 +147,4 @@ public class MarkingUtil {
         }
         return tileState.update();
     }
-
 }

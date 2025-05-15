@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.mobspawn;
 
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import org.bukkit.entity.EntityType;
 
 import java.util.Arrays;
@@ -45,7 +46,8 @@ public class RandomMobSpawn extends BaseMobSpawn {
                     .filter(EntityType::isAlive)
                     .filter(type -> !type.equals(EntityType.PLAYER)
                         && !type.equals(EntityType.ENDER_DRAGON)
-                        && !type.equals(EntityType.END_CRYSTAL))
+                        && !type.equals(EntityType.END_CRYSTAL)
+                        && !type.equals(EntityType.ARMOR_STAND))
                     .collect(Collectors.toList()));
     }
 

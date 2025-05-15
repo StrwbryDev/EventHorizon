@@ -3,6 +3,7 @@ package dev.strwbry.eventhorizon.events.itemspawn;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.*;
@@ -373,7 +374,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
             if (spawnLocation != null) {
                 ItemStack itemToSpawn = useRandomItemTypes ? getRandomWeightedItem() : itemType;
                 Item item = world.dropItem(spawnLocation, itemToSpawn);
-                markSpawnedItem(item);
+                MarkingUtility.markItem(item, key);
                 spawnedItems.add(item);
                 spawned++;
             }
@@ -450,46 +451,13 @@ public abstract class BaseItemSpawn extends BaseEvent {
             if (spawnLocation != null) {
                 ItemStack itemToSpawn = useRandomItemTypes ? getRandomWeightedItem() : itemType;
                 Item item = world.dropItem(spawnLocation, itemToSpawn);
-                markSpawnedItem(item);
+                MarkingUtility.markItem(item, key);
                 spawnedItems.add(item);
                 spawned++;
             }
         }
 
         return spawnedItems;
-    }
-
-    /**
-     * Marks an item entity with this event's unique identifier.
-     *
-     * @param item the item entity to mark
-     */
-    public void markSpawnedItem(Item item) {
-        item.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-    }
-
-    /**
-     * Checks if an item entity was marked by this event.
-     *
-     * @param item the item entity to check
-     * @return true if the item was marked by this event
-     */
-    public boolean isSpawnedItemMarked(Item item) {
-        return item.getPersistentDataContainer().has(key, PersistentDataType.BYTE);
-    }
-
-    /**
-     * Deletes all items that were marked by this event across all worlds.
-     */
-    public void deleteSpawnedItems() {
-        EventHorizon.entityKeysToDelete.add(key);
-        Bukkit.getWorlds().forEach(world -> {
-            world.getEntitiesByClass(Item.class).forEach(item -> {
-                if (isSpawnedItemMarked(item)) {
-                    item.remove();
-                }
-            });
-        });
     }
 
     /**

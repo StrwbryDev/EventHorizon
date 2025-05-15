@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
 import org.bukkit.entity.EntityType;
 
 import java.util.Arrays;
@@ -68,7 +69,6 @@ public class NetherRaid extends BaseMobSpawn {
      */
     @Override
     public void terminate() {
-        killAllSpawnedMob();
         super.terminate();
     }
 }
