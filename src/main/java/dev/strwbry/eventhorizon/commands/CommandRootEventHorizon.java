@@ -34,6 +34,8 @@ public class CommandRootEventHorizon
                 .then(CommandResume.buildCommand("resume"))
                 .then(CommandReloadConfig.buildCommand("reloadconfig"))
                 .then(CommandTrigger.buildCommand("trigger"))
+                .then(CommandTerminateEvent.buildCommand("terminateevent"))
+
 
                 .then(Commands.argument("subcommands", StringArgumentType.word())
                         .suggests(CommandRootEventHorizon::getCommandSuggestions)
@@ -57,6 +59,7 @@ public class CommandRootEventHorizon
         builder.suggest("resume");
         builder.suggest("reloadconfig");
         builder.suggest("trigger");
+        builder.suggest("terminateevent");
         return builder.buildFuture();
     }
 }
