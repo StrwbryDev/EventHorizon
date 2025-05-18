@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.commands;
 
 import dev.strwbry.eventhorizon.EventHorizon;
+import dev.strwbry.eventhorizon.listeners.ListenerManager;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
@@ -43,6 +44,7 @@ public class CommandEnd
 
         //Execute command logic here
         MsgUtility.message(sender, EventHorizon.getScheduler().end() ? "Tournament has ended" : "<red>ERROR: No active tournament");
+        ListenerManager.unregisterAllListeners();
         return Command.SINGLE_SUCCESS;
     }
 }

@@ -1,5 +1,7 @@
 package dev.strwbry.eventhorizon.listeners;
 
+import dev.strwbry.eventhorizon.EventHorizon;
+import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 
 public class ListenerManager
@@ -13,25 +15,35 @@ public class ListenerManager
     public static void initializeEffectListener(){
         if (effectListener == null) {
             effectListener = new EffectListener();
+            Bukkit.getPluginManager().registerEvents(effectListener, EventHorizon.getPlugin());
         }
     }
     public static void initializeEnityAddToWorld(){
         if (entityAddToWorldListener == null) {
             entityAddToWorldListener = new EntityAddToWorldListener();
+            Bukkit.getPluginManager().registerEvents(entityAddToWorldListener, EventHorizon.getPlugin());
         }
     }
     public static void initializePlayerDropItem(){
         if (playerDropItemListener == null) {
             playerDropItemListener = new PlayerDropItemListener();
+            Bukkit.getPluginManager().registerEvents(playerDropItemListener, EventHorizon.getPlugin());
         }
     }
     public static void initializePlayerInventory(){
         if (playerInventoryListener == null) {
             playerInventoryListener = new PlayerInventoryListener();
+            Bukkit.getPluginManager().registerEvents(playerInventoryListener, EventHorizon.getPlugin());
         }
     }
 
     // methods to unregister listeners
+    public static void unregisterAllListeners(){
+        unregisterEffectListener();
+        unregisterEntityAddToWorld();
+        unregisterPlayerDropItem();
+        unregisterPlayerInventory();
+    }
     public static void unregisterEffectListener(){
         if (effectListener != null) {
             HandlerList.unregisterAll();
@@ -56,6 +68,7 @@ public class ListenerManager
             playerInventoryListener = null;
         }
     }
+
 
     // methods for getting listeners
     public static EffectListener getEffectListener(){
