@@ -1,4 +1,4 @@
-package dev.strwbry.eventhorizon.events.utility;
+package dev.strwbry.eventhorizon.listeners;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import org.bukkit.NamespacedKey;
