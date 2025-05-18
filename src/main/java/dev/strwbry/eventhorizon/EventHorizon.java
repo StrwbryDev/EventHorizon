@@ -3,9 +3,10 @@ package dev.strwbry.eventhorizon;
 import dev.strwbry.eventhorizon.commands.CommandRootEventHorizon;
 import dev.strwbry.eventhorizon.events.EventInitializer;
 import dev.strwbry.eventhorizon.events.EventManager;
-import dev.strwbry.eventhorizon.events.utility.EntityAddToWorldListener;
-import dev.strwbry.eventhorizon.events.utility.PlayerDropItemListener;
-import dev.strwbry.eventhorizon.events.utility.PlayerInventoryListener;
+import dev.strwbry.eventhorizon.listeners.EntityAddToWorldListener;
+import dev.strwbry.eventhorizon.listeners.ListenerManager;
+import dev.strwbry.eventhorizon.listeners.PlayerDropItemListener;
+import dev.strwbry.eventhorizon.listeners.PlayerInventoryListener;
 import dev.strwbry.eventhorizon.events.utility.fawe.BlockMasks;
 import dev.strwbry.eventhorizon.events.utility.fawe.RandomPatterns;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
@@ -27,6 +28,8 @@ import java.util.Collection;
 @SuppressWarnings("UnstableApiUsage")
 public final class EventHorizon extends JavaPlugin implements CommandExecutor
 {
+    /** Static reference to the plugin instance */
+    private static EventHorizon plugin;
     /** The tournament scheduler instance */
     private static Scheduler scheduler;
 
@@ -35,10 +38,6 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
 
     /** The event manager instance for handling tournament events */
     private static EventManager eventManager;
-
-    /** Static reference to the plugin instance */
-    private static EventHorizon plugin;
-
     /** Utility for handling block masks in WorldEdit operations */
     private static BlockMasks blockMasks;
     /** Utility for generating random patterns in WorldEdit operations */
@@ -47,13 +46,7 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
     /** Collection of entity keys that need to be cleaned up */
     public static Collection<NamespacedKey> entityKeysToDelete = new ArrayList<>();
 
-    /**
-     * Gets the plugin instance.
-     * @return The active EventHorizon plugin instance
-     */
-    public static EventHorizon getPlugin() {
-        return plugin;
-    }
+
 
     /**
      * Initializes the plugin on server startup.
@@ -70,9 +63,9 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         scheduler = new Scheduler();
 
         // Register event listeners
-        getServer().getPluginManager().registerEvents(new EntityAddToWorldListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerInventoryListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerDropItemListener(), this);
+        ListenerManager.initializeEnityAddToWorld();
+        ListenerManager.initializePlayerDropItem();
+        ListenerManager.unregisterAllListeners();
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
             new PlaceholderEventHorizon().register();
@@ -98,6 +91,13 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         getLogger().info("EventHorizon has been disabled.");
     }
 
+    /**
+     * Gets the plugin instance.
+     * @return The active EventHorizon plugin instance
+     */
+    public static EventHorizon getPlugin() {
+        return plugin;
+    }
     /**
      * Gets the event manager instance.
      * @return The active EventManager instance
@@ -136,4 +136,5 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
     public static RandomPatterns getRandomPatterns() {
         return randomPatterns;
     }
+
 }

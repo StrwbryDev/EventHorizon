@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.utility;
 
 import dev.strwbry.eventhorizon.EventHorizon;
+import dev.strwbry.eventhorizon.listeners.PlayerInventoryListener;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.TileState;
