@@ -21,7 +21,10 @@ public class ButterFingers extends BaseInventoryAdjustment {
         super(EventClassification.NEGATIVE, "butterFingers");
         // Configure the event parameters
         this.useContinuousOperation = true;
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(5, 61));
+        this.useVariableIntervals = true;
+        this.minInterval = 5; // Minimum interval in seconds
+        this.maxInterval = 15; // Maximum interval in seconds
+        this.operationInterval = getRandomInterval(); // Initial random interval
     }
 
     /**
@@ -49,26 +52,19 @@ public class ButterFingers extends BaseInventoryAdjustment {
             return false;
         }
 
-        // Randomize the interval for the next operation
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(5, 61));
-
         return true;
     }
 
     /**
      * Executes the ButterFingers event.
-     * Sets an initial random interval and starts the continuous operation.
      */
     @Override
     public void execute() {
-        // Set a random interval before starting continuous operation
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(5, 61));
         super.execute();
     }
 
     /**
      * Terminates the ButterFingers event.
-     * Stops the continuous operation task.
      */
     @Override
     public void terminate() {
