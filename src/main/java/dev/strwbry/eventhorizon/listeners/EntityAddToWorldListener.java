@@ -1,7 +1,7 @@
 package dev.strwbry.eventhorizon.listeners;
 
-import dev.strwbry.eventhorizon.EventHorizon;
 import com.destroystokyo.paper.event.entity.EntityAddToWorldEvent;
+import dev.strwbry.eventhorizon.EventHorizon;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;

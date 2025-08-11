@@ -254,6 +254,7 @@ item-spawn:
     default-use-continuous-spawning: false # false is default
     default-use-random-item-types: false # false is default
 
+
   events:
     drop-party:
       item-count: 32 # 32 is default
@@ -309,178 +310,179 @@ item-spawn:
         use-continuous-spawning: false # false is default
         use-random-item-types: true # true is default
 
-  mob-spawn:
-    universal:
-      default-mob-count: 5 # 5 is default
-      default-max-spawn-radius: 20 # 20 is default
-      default-min-spawn-radius: 3 # 3 is default
-      default-max-y-radius: 20 # 20 is default
-      default-min-y-radius: 3 # 3 is default
-      default-max-spawn-attempts: 20 # 20 is default
-      default-spawn-interval: 60 # in seconds, 60 is default
-      default-width-clearance: 1 # 1 is default
-      default-height-clearance: 2 # 2 is default
-      default-group-spacing: 3 # 3 is default
-      default-surface-only-spawning: false # false is default
-      default-allow-water-spawns: false # false is default
-      default-allow-lava-spawns: false # false is default
-      default-use-group-spawning: false # false is default
-      default-use-continuous-spawning: false # false is default
-      default-use-random-mob-types: false # false is default
+mob-spawn:
 
-    events:
-      chicken-flock:
-        mob-count: 5 # 5 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 3 # 3 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 3 # 3 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 1 # 1 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: true # true is default
-        use-continuous-spawning: false # false is default
+  universal:
+    default-mob-count: 5 # 5 is default
+    default-max-spawn-radius: 20 # 20 is default
+    default-min-spawn-radius: 3 # 3 is default
+    default-max-y-radius: 20 # 20 is default
+    default-min-y-radius: 3 # 3 is default
+    default-max-spawn-attempts: 20 # 20 is default
+    default-spawn-interval: 60 # in seconds, 60 is default
+    default-width-clearance: 1 # 1 is default
+    default-height-clearance: 2 # 2 is default
+    default-group-spacing: 3 # 3 is default
+    default-surface-only-spawning: false # false is default
+    default-allow-water-spawns: false # false is default
+    default-allow-lava-spawns: false # false is default
+    default-use-group-spawning: false # false is default
+    default-use-continuous-spawning: false # false is default
+    default-use-random-mob-types: false # false is default
 
-      cow-herd:
-        mob-count: 5 # 5 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 3 # 3 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 3 # 3 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 2 # 2 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: true # true is default
-        use-continuous-spawning: false # false is default
+  events:
+    chicken-flock:
+      mob-count: 5 # 5 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 1 # 1 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: true # true is default
+      use-continuous-spawning: false # false is default
 
-      drop-creeper:
-        mob-count: 1 # 1 is default
-        max-spawn-radius: 10 # 10 is default
-        min-spawn-radius: 3 # 3 is default
-        max-y-radius: 30 # 30 is default
-        min-y-radius: 3 # 3 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 2 # 2 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: false # false is default
-        use-continuous-spawning: false # false is default
+    cow-herd:
+      mob-count: 5 # 5 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: true # true is default
+      use-continuous-spawning: false # false is default
 
-      end-raid:
-        mob-count: 15 # 15 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 5 # 5 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 5 # 5 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 2 # 2 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: false # false is default
-        use-continuous-spawning: false # false is default
-        use-random-mob-types: true # true is default, unsure if this should be changeable or not
+    drop-creeper:
+      mob-count: 1 # 1 is default
+      max-spawn-radius: 10 # 10 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 30 # 30 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
 
-      nether-raid:
-        mob-count: 15 # 15 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 5 # 5 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 5 # 5 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 2 # 2 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: false # false is default
-        use-continuous-spawning: false # false is default
-        use-random-mob-types: true # true is default, unsure if this should be changeable or not
+    end-raid:
+      mob-count: 15 # 15 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 5 # 5 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 5 # 5 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+      use-random-mob-types: true # true is default, unsure if this should be changeable or not
 
-      random-mob-spawn:
-        mob-count: 10 # 10 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 3 # 3 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 3 # 3 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 2 # 2 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: false # false is default
-        use-continuous-spawning: false # false is default
-        use-random-mob-types: true # true is default, doubt this is to be changed
+    nether-raid:
+      mob-count: 15 # 15 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 5 # 5 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 5 # 5 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+      use-random-mob-types: true # true is default, unsure if this should be changeable or not
 
-      wolf-pack:
-        mob-count: 5 # 5 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 3 # 3 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 3 # 3 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 1 # 1 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: true # true is default
-        use-continuous-spawning: false # false is default
+    random-mob-spawn:
+      mob-count: 10 # 10 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+      use-random-mob-types: true # true is default, doubt this is to be changed
 
-      zombie-horde:
-        mob-count: 10 # 10 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 3 # 3 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 3 # 3 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 60 # in seconds, 60 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 2 # 2 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: false # false is default
-        use-continuous-spawning: false # false is default
+    wolf-pack:
+      mob-count: 5 # 5 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 1 # 1 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: true # true is default
+      use-continuous-spawning: false # false is default
 
-      zombie-invasion:
-        mob-count: 1 # 1 is default
-        max-spawn-radius: 30 # 30 is default
-        min-spawn-radius: 3 # 3 is default
-        max-y-radius: 20 # 20 is default
-        min-y-radius: 3 # 3 is default
-        max-spawn-attempts: 20 # 20 is default
-        spawn-interval: 20 # in seconds, 20 is default
-        width-clearance: 1 # 1 is default
-        height-clearance: 2 # 2 is default
-        group-spacing: 2 # 2 is default
-        surface-only-spawning: false # false is default
-        allow-water-spawns: false # false is default
-        allow-lava-spawns: false # false is default
-        use-group-spawning: false # false is default
-        use-continuous-spawning: true # true is default
+    zombie-horde:
+      mob-count: 10 # 10 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+
+    zombie-invasion:
+      mob-count: 1 # 1 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 20 # in seconds, 20 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: true # true is default

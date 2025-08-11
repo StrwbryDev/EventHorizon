@@ -1,7 +1,6 @@
 package dev.strwbry.eventhorizon;
 
 import dev.strwbry.eventhorizon.utility.Config;
-import dev.strwbry.eventhorizon.utility.MsgUtility;
 
 /**
  * The Scheduler class manages the timing and execution of events in the EventHorizon plugin.

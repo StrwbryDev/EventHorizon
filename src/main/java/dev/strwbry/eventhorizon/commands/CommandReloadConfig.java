@@ -1,10 +1,10 @@
 package dev.strwbry.eventhorizon.commands;
 
-import dev.strwbry.eventhorizon.EventHorizon;
-import dev.strwbry.eventhorizon.utility.Config;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.strwbry.eventhorizon.EventHorizon;
+import dev.strwbry.eventhorizon.utility.Config;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import org.bukkit.command.CommandSender;

@@ -1,18 +1,18 @@
 package dev.strwbry.eventhorizon.commands;
 
-import dev.strwbry.eventhorizon.EventHorizon;
-import dev.strwbry.eventhorizon.utility.MsgUtility;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.strwbry.eventhorizon.EventHorizon;
+import dev.strwbry.eventhorizon.utility.MsgUtility;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import org.bukkit.command.CommandSender;
 
-import java.util.*;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 /**

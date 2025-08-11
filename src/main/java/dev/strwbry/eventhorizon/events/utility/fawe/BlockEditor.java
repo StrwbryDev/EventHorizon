@@ -1,6 +1,5 @@
 package dev.strwbry.eventhorizon.events.utility.fawe;
 
-import dev.strwbry.eventhorizon.utility.MsgUtility;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.WorldEdit;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
@@ -9,6 +8,7 @@ import com.sk89q.worldedit.function.operation.Operations;
 import com.sk89q.worldedit.function.pattern.Pattern;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.world.block.BlockType;
+import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 

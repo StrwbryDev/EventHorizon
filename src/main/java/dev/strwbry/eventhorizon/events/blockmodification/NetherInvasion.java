@@ -2,8 +2,8 @@ package dev.strwbry.eventhorizon.events.blockmodification;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubPlantsToFire;
 import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubNetherRaid;
+import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubPlantsToFire;
 import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubWaterToLava;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCylindricalRegion;
 import org.bukkit.Bukkit;

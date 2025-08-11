@@ -3,20 +3,22 @@ package dev.strwbry.eventhorizon;
 import dev.strwbry.eventhorizon.commands.CommandRootEventHorizon;
 import dev.strwbry.eventhorizon.events.EventInitializer;
 import dev.strwbry.eventhorizon.events.EventManager;
-import dev.strwbry.eventhorizon.listeners.EntityAddToWorldListener;
-import dev.strwbry.eventhorizon.listeners.ListenerManager;
-import dev.strwbry.eventhorizon.listeners.PlayerDropItemListener;
-import dev.strwbry.eventhorizon.listeners.PlayerInventoryListener;
 import dev.strwbry.eventhorizon.events.utility.fawe.BlockMasks;
 import dev.strwbry.eventhorizon.events.utility.fawe.RandomPatterns;
+import dev.strwbry.eventhorizon.listeners.ListenerManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bstats.bukkit.Metrics;
 
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -45,6 +47,8 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
 
     /** Collection of entity keys that need to be cleaned up */
     public static Collection<NamespacedKey> entityKeysToDelete = new ArrayList<>();
+    private static FileConfiguration advConfig;
+    private static File advConfigFile;
 
 
 
@@ -71,6 +75,7 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
             new PlaceholderEventHorizon().register();
         }
         saveResource("config.yml", /* replace */ false);
+        loadAdvConfig();
 
         //initializes eventhorizon base command
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
@@ -137,4 +142,26 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         return randomPatterns;
     }
 
+    public static FileConfiguration getAdvConfig() {
+        return advConfig;
+    }
+
+
+    public static void reloadAdvConfig() {
+        advConfig = YamlConfiguration.loadConfiguration(advConfigFile);
+        try (Reader defConfigStream = new InputStreamReader(plugin.getResource("adv-config.yml"))) {
+            if (defConfigStream != null) {
+                YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+                advConfig.setDefaults(defConfig);
+            }
+        } catch (IOException ignored) {}
+    }
+
+    private void loadAdvConfig() {
+        advConfigFile = new File(getDataFolder(), "adv-config.yml");
+        if (!advConfigFile.exists()) {
+            saveResource("adv-config.yml", false);
+        }
+        reloadAdvConfig();
+    }
 }

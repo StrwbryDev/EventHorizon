@@ -1,5 +1,6 @@
 package dev.strwbry.eventhorizon.events.utility;
 
+import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.entity.Player;
 
@@ -8,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import dev.strwbry.eventhorizon.utility.MsgUtility;
 import static org.bukkit.Bukkit.getServer;
 
 /**
