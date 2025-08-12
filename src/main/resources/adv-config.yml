@@ -7,7 +7,8 @@ universal: # blank for now
 attributes:
 
   universal:
-    attribute-modifier-amt:
+
+    attribute-modifier-amt: 1 # default is 1, not set up as of now
 
   # if an event has the 'mult' suffix, it is a scalar/multiple
   # ex: scalar of 0.25 increases value by 25%
@@ -69,7 +70,7 @@ block-modification:
 
     deep-dark-invasion: # has pattern, has subevent
 
-      # unsure whether the desire is for these to be configurable, needs review
+      # not yet implemented in AdvConfig, later addition maybe
       pattern: # ensure that for each of the blocks in pattern, they sum to 1
         sculk-chance: 0.7 # 0.7 is default
         deepslate-chance: 0.3 # 0.3 is default
