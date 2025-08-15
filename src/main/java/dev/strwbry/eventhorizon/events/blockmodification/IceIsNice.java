@@ -5,6 +5,7 @@ import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubSpawnIceMobs;
 import dev.strwbry.eventhorizon.events.utility.fawe.BlockEditor;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCylindricalRegion;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
@@ -23,7 +24,10 @@ public class IceIsNice extends BaseBlockModification
      */
     public IceIsNice()
     {
-        super(EventClassification.NEUTRAL, "iceIsNice", new GenericCylindricalRegion(100,10,0), Material.PACKED_ICE, EventHorizon.getBlockMasks().getGroundBlocks(), false);
+        super(EventClassification.NEUTRAL, "iceIsNice",
+                new GenericCylindricalRegion(AdvConfig.getIceRadius(), AdvConfig.getIceHeight(), AdvConfig.getIceHeightOffset()),
+                Material.PACKED_ICE, EventHorizon.getBlockMasks().getGroundBlocks(), false
+        );
     }
 
     /**
