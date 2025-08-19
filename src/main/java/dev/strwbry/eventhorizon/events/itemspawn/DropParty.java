@@ -1,7 +1,9 @@
 package dev.strwbry.eventhorizon.events.itemspawn;
 
+import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.utility.ItemUtility;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,19 +29,27 @@ public class DropParty extends BaseItemSpawn {
      */
     public DropParty() {
         super(EventClassification.POSITIVE, "dropParty");
-        setItemCount(32)
-                .setMaxSpawnRadius(20)
-                .setMinSpawnRadius(1)
-                .setMaxYRadius(10)
-                .setMinYRadius(1)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(1)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setRandomItemTypes(true);
+        setItemCount(AdvConfig.getDropPartyItemCt())
+                .setMaxSpawnRadius(AdvConfig.getDropPartyMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getDropPartyMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getDropPartyMaxYRad())
+                .setMinYRadius(AdvConfig.getDropPartyMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getDropPartyMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getDropPartyHeightClearance())
+                .setWidthClearance(AdvConfig.getDropPartyWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getDropPartySurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getDropPartyAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getDropPartyAllowLavaSpawn())
+                .setRandomItemTypes(AdvConfig.getDropPartyUseRandItemTypes());
         dropItems.addAll(ItemUtility.generateSurvivalDropsList());
+
+        EventHorizon.getPlugin().getLogger().info(String.format("DropParty event initialized with item count %d, spawn radius %d-%d, vertical range %d-%d",
+                AdvConfig.getDropPartyItemCt(),
+                AdvConfig.getDropPartyMinSpawnRad(),
+                AdvConfig.getDropPartyMaxSpawnRad(),
+                AdvConfig.getDropPartyMinYRad(),
+                AdvConfig.getDropPartyMaxYRad())
+        );
     }
 
     /**

@@ -188,7 +188,7 @@ gamerule:
 
    events:
 
-     lifesteal-only:
+     lifesteal-only: ########### to be changed
        # multiplier of damage dealt given back as health
        # ex 0.5 * 6 dmg dealt gives 3 health to attacker
        lifesteal: 0.5 # 0.5 is default
@@ -229,7 +229,7 @@ inventory-adjustments:
     # not sure what to make specifically changeable here
     # maybe keep/lose only certain types of food?
     # left unchanged for now
-    spoiled-food:
+    spoiled-food: ########### to be changed
 
 
 

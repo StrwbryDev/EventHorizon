@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.itemspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -24,22 +25,22 @@ public class Feast extends BaseItemSpawn {
      */
     public Feast() {
         super(EventClassification.POSITIVE, "feast");
-        setItemCount(32)
-                .setMaxSpawnRadius(20)
-                .setMinSpawnRadius(1)
-                .setMaxYRadius(10)
-                .setMinYRadius(1)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(1)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(false)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60)
-                .setRandomItemTypes(true)
+        setItemCount(AdvConfig.getFeastItemCt())
+                .setMaxSpawnRadius(AdvConfig.getFeastMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getFeastMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getFeastMaxYRad())
+                .setMinYRadius(AdvConfig.getFeastMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getFeastMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getFeastHeightClearance())
+                .setWidthClearance(AdvConfig.getFeastWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getFeastSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getFeastAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getFeastAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getFeastUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getFeastGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getFeastUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getFeastSpawnInterval())
+                .setRandomItemTypes(AdvConfig.getFeastUseRandItemTypes())
                 .setWeightedItems(Arrays.asList(
                         Pair.of(new ItemStack(Material.ENCHANTED_GOLDEN_APPLE), 0.5),
                         Pair.of(new ItemStack(Material.GOLDEN_APPLE), 1.0),

@@ -26,7 +26,7 @@
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.4.2</version>
         <configuration>
-          <outputDirectory>C:\Users\kylie\Minecraft Server\1.21.5\plugins\update</outputDirectory>
+          <outputDirectory>C:\Users\mtell\Desktop\EventHorizon\plugins</outputDirectory>
         </configuration>
       </plugin>
       <plugin>
@@ -111,6 +111,12 @@
           <groupId>*</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>7.2.19</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <dependencyManagement>

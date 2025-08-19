@@ -1,6 +1,8 @@
 package dev.strwbry.eventhorizon.events.inventoryadjustments;
 
+import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -20,8 +22,14 @@ public class ButterFingers extends BaseInventoryAdjustment {
     public ButterFingers() {
         super(EventClassification.NEGATIVE, "butterFingers");
         // Configure the event parameters
-        this.useContinuousOperation = true;
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(5, 61));
+        this.useContinuousOperation = AdvConfig.getButterFingersUseCont();
+        this.setOperationInterval(ThreadLocalRandom.current().nextInt(AdvConfig.getButterFingersOrigin(), AdvConfig.getButterFingersBound()));
+
+        EventHorizon.getPlugin().getLogger().info(String.format("ButterFingers event initialized with useContinuous %b, Origin %d, and Bound %d",
+                AdvConfig.getButterFingersUseCont(),
+                AdvConfig.getButterFingersOrigin(),
+                AdvConfig.getButterFingersBound())
+        );
     }
 
     /**
@@ -35,22 +43,26 @@ public class ButterFingers extends BaseInventoryAdjustment {
     protected boolean applyToPlayer(Player player) {
         ItemStack handItem;
 
-        if (player.getInventory().getItemInMainHand().getType() != Material.AIR) {
-            handItem = player.getInventory().getItemInMainHand();
-            player.getInventory().setItemInMainHand(null);
-            player.dropItem(handItem);
+        if (AdvConfig.getButterfingersMainhand()){
+            if (player.getInventory().getItemInMainHand().getType() != Material.AIR) {
+                handItem = player.getInventory().getItemInMainHand();
+                player.getInventory().setItemInMainHand(null);
+                player.dropItem(handItem);
+            }
         }
-        else if (player.getInventory().getItemInOffHand().getType() != Material.AIR) {
-            handItem = player.getInventory().getItemInOffHand();
-            player.getInventory().setItemInOffHand(null);
-            player.dropItem(handItem);
+        else if (AdvConfig.getButterfingersOffhand()){
+            if (player.getInventory().getItemInOffHand().getType() != Material.AIR) {
+                handItem = player.getInventory().getItemInOffHand();
+                player.getInventory().setItemInOffHand(null);
+                player.dropItem(handItem);
+            }
         }
         else {
             return false;
         }
 
         // Randomize the interval for the next operation
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(5, 61));
+        this.setOperationInterval(ThreadLocalRandom.current().nextInt(AdvConfig.getButterFingersOrigin(), AdvConfig.getButterFingersBound()));
 
         return true;
     }
@@ -62,7 +74,7 @@ public class ButterFingers extends BaseInventoryAdjustment {
     @Override
     public void execute() {
         // Set a random interval before starting continuous operation
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(5, 61));
+        this.setOperationInterval(ThreadLocalRandom.current().nextInt(AdvConfig.getButterFingersOrigin(), AdvConfig.getButterFingersBound()));
         super.execute();
     }
 

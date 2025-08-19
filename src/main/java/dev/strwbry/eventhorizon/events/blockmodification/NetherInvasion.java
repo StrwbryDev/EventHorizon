@@ -6,6 +6,7 @@ import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubNetherRaid
 import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubPlantsToFire;
 import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubWaterToLava;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCylindricalRegion;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Bukkit;
 
 /**
@@ -25,7 +26,7 @@ public class NetherInvasion extends BaseBlockModification
      */
     public NetherInvasion()
     {
-        super(EventClassification.NEGATIVE, "netherInvasion", new GenericCylindricalRegion(100,400,200),
+        super(EventClassification.NEGATIVE, "netherInvasion", new GenericCylindricalRegion(AdvConfig.getNetherRadius(),AdvConfig.getNetherHeight(),AdvConfig.getNetherOffset()),
                 EventHorizon.getRandomPatterns().getNetherPattern(), EventHorizon.getBlockMasks().getGroundBlocks(), false);
         this.subNetherRaid = new SubNetherRaid();
     }

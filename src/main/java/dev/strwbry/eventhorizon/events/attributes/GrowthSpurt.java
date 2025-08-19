@@ -1,6 +1,9 @@
 package dev.strwbry.eventhorizon.events.attributes;
 
+import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.testconfig.AdvConfigTest;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 
@@ -25,7 +28,7 @@ public class GrowthSpurt extends BaseAttribute {
     public GrowthSpurt() {
         super(EventClassification.NEUTRAL, "growthSpurt");
 
-        addAttributeModifier(Attribute.SCALE, 1, AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.SCALE, 1/*AdvConfigTest.getGrowthEvent().growthScale()*/, AttributeModifier.Operation.ADD_SCALAR);
         addAttributeModifier(Attribute.MAX_HEALTH, 4, AttributeModifier.Operation.ADD_NUMBER);
         addAttributeModifier(Attribute.ATTACK_DAMAGE, 1, AttributeModifier.Operation.ADD_NUMBER);
         addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, 0.5, AttributeModifier.Operation.ADD_SCALAR);

@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.mobspawn;
 
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
 import java.util.Arrays;
@@ -25,22 +26,23 @@ public class RandomMobSpawn extends BaseMobSpawn {
      */
     public RandomMobSpawn() {
         super(EntityType.ZOMBIE, EventClassification.NEUTRAL, "randomMobSpawn");
-        setMobCount(10)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(3)
-                .setMaxYRadius(20)
-                .setMinYRadius(3)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(2)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(false)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60)
-                .setRandomMobTypes(true)
+        setMobCount(AdvConfig.getRandMobSpawnMobCt())
+                .setMaxSpawnRadius(AdvConfig.getRandMobSpawnMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getRandMobSpawnMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getRandMobSpawnMaxYRad())
+                .setMinYRadius(AdvConfig.getRandMobSpawnMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getRandMobSpawnMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getRandMobSpawnHeightClearance())
+                .setWidthClearance(AdvConfig.getRandMobSpawnWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getRandMobSpawnSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getRandMobSpawnAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getRandMobSpawnAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getRandMobSpawnUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getRandMobSpawnGroupSpace())
+
+                .setUseContinuousSpawning(AdvConfig.getRandMobSpawnUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getRandMobSpawnSpawnInterval())
+                .setRandomMobTypes(AdvConfig.getRandMobSpawnUseRandMobTypes())
                 .setMobTypes(Arrays.stream(EntityType.values())
                     .filter(EntityType::isAlive)
                     .filter(type -> !type.equals(EntityType.PLAYER)

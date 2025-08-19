@@ -4,6 +4,7 @@ import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubPlantsToSculkInteractive;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCylindricalRegion;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Bukkit;
 
 /**
@@ -19,8 +20,14 @@ public class DeepDarkInvasion extends BaseBlockModification
      */
     public DeepDarkInvasion()
     {
-        super(EventClassification.NEGATIVE, "deepDarkInvasion", new GenericCylindricalRegion(100,400,200),
+        super(EventClassification.NEGATIVE, "deepDarkInvasion", new GenericCylindricalRegion(AdvConfig.getDeepDarkRadius(),AdvConfig.getDeepDarkHeight(),AdvConfig.getDeepDarkOffset()),
                 EventHorizon.getRandomPatterns().getDeepDarkPattern(), EventHorizon.getBlockMasks().getGroundBlocks(), false);
+
+        EventHorizon.getPlugin().getLogger().info(String.format("DeepDarkInvasion event initialized with radius %d, height %d, and height offset %d",
+                AdvConfig.getDeepDarkRadius(),
+                AdvConfig.getDeepDarkHeight(),
+                AdvConfig.getDeepDarkOffset())
+        );
     }
 
     /**

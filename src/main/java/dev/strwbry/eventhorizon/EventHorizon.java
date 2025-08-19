@@ -60,6 +60,10 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
     @Override
     public void onEnable() {
         plugin = this;
+
+        saveResource("config.yml", /* replace */ false);
+        loadAdvConfig();
+
         blockMasks = new BlockMasks();
         randomPatterns = new RandomPatterns();
         eventInitializer  = new EventInitializer();
@@ -74,8 +78,6 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //
             new PlaceholderEventHorizon().register();
         }
-        saveResource("config.yml", /* replace */ false);
-        loadAdvConfig();
 
         //initializes eventhorizon base command
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {

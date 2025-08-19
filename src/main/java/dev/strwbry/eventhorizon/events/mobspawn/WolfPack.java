@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -24,21 +25,21 @@ public class WolfPack extends BaseMobSpawn {
      */
     public WolfPack() {
         super(EntityType.WOLF, EventClassification.NEGATIVE, "wolfPack");
-        setMobCount(5)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(3)
-                .setMaxYRadius(20)
-                .setMinYRadius(3)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(1)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(true)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60);
+        setMobCount(AdvConfig.getWolfPMobCt())
+                .setMaxSpawnRadius(AdvConfig.getWolfPMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getWolfPMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getWolfPMaxYRad())
+                .setMinYRadius(AdvConfig.getWolfPMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getWolfPMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getWolfPHeightClearance())
+                .setWidthClearance(AdvConfig.getWolfPWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getWolfPSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getWolfPAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getWolfPAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getWolfPUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getWolfPGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getWolfPUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getWolfPSpawnInterval());
 
     }
 

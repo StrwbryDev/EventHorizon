@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
 import java.util.Arrays;
@@ -30,22 +31,22 @@ public class EndRaid extends BaseMobSpawn {
      */
     public EndRaid() {
         super(END_MOBS, EventClassification.NEGATIVE, "endRaid");
-        setMobCount(15)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(5)
-                .setMaxYRadius(20)
-                .setMinYRadius(5)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(2)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(false)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60)
-                .setRandomMobTypes(true);
+        setMobCount(AdvConfig.getEndRaidMobCt())
+                .setMaxSpawnRadius(AdvConfig.getEndRaidMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getEndRaidMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getEndRaidMaxYRad())
+                .setMinYRadius(AdvConfig.getEndRaidMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getEndRaidMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getEndRaidHeightClearance())
+                .setWidthClearance(AdvConfig.getEndRaidWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getEndRaidSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getEndRaidAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getEndRaidAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getEndRaidUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getEndRaidGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getEndRaidUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getEndRaidSpawnInterval())
+                .setRandomMobTypes(AdvConfig.getEndRaidUseRandMobTypes());
     }
 
     /**

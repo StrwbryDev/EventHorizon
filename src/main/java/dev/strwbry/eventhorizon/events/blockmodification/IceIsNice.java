@@ -28,6 +28,12 @@ public class IceIsNice extends BaseBlockModification
                 new GenericCylindricalRegion(AdvConfig.getIceRadius(), AdvConfig.getIceHeight(), AdvConfig.getIceHeightOffset()),
                 Material.PACKED_ICE, EventHorizon.getBlockMasks().getGroundBlocks(), false
         );
+
+        EventHorizon.getPlugin().getLogger().info(String.format("IceIsNice event initialized with radius %d, height %d, and height offset %d",
+                AdvConfig.getIceRadius(),
+                AdvConfig.getIceHeight(),
+                AdvConfig.getIceHeightOffset())
+        );
     }
 
     /**

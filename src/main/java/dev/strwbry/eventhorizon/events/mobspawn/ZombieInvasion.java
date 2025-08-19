@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -26,21 +27,21 @@ public class ZombieInvasion extends BaseMobSpawn {
      */
     public ZombieInvasion() {
         super(EntityType.ZOMBIE, EventClassification.NEGATIVE, "zombieInvasion");
-        setMobCount(1)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(3)
-                .setMaxYRadius(20)
-                .setMinYRadius(3)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(2)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(false)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(true)
-                .setSpawnInterval(20);
+        setMobCount(AdvConfig.getZombInvMobCt())
+                .setMaxSpawnRadius(AdvConfig.getZombInvMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getZombInvMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getZombInvMaxYRad())
+                .setMinYRadius(AdvConfig.getZombInvMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getZombInvMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getZombInvHeightClearance())
+                .setWidthClearance(AdvConfig.getZombInvWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getZombInvSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getZombInvAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getZombInvAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getZombInvUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getZombInvGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getZombInvUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getZombInvSpawnInterval());
 
     }
 

@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.effects;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.potion.PotionEffectType;
 
 /**
@@ -15,8 +16,8 @@ public class GottaGoFast extends BaseEffects {
      */
     public GottaGoFast() {
         super(EventClassification.POSITIVE, "gottaGoFast");
-        addEffect(PotionEffectType.SPEED, 6000, 2,
-                false, false, true);
+        addEffect(PotionEffectType.SPEED, AdvConfig.getGottaGoFastDuration(),AdvConfig.getGottaGoFastAmplifier(),
+                AdvConfig.getGottaGoFastAmbient(), AdvConfig.getGottaGoFastParticles(), AdvConfig.getGottaGoFastIcon());
     }
 
     /**

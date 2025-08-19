@@ -1,6 +1,8 @@
 package dev.strwbry.eventhorizon.events.effects;
 
+import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.potion.PotionEffectType;
 
 /**
@@ -15,10 +17,16 @@ public class FoodComa extends BaseEffects
     public FoodComa()
     {
         super(EventClassification.NEUTRAL, "foodComa");
-        addEffect(PotionEffectType.SATURATION, 6000, 0,
-                false, false, true);
-        addEffect(PotionEffectType.SLOWNESS, 6000, 0,
-                false, false, true);
+        addEffect(PotionEffectType.SATURATION, AdvConfig.getFoodComaSaturationDuration(), AdvConfig.getFoodComaSaturationAmplifier(),
+                AdvConfig.getFoodComaSaturationAmbient(), AdvConfig.getFoodComaSaturationParticles(), AdvConfig.getFoodComaSaturationIcon());
+
+        addEffect(PotionEffectType.SLOWNESS, AdvConfig.getFoodComaSlownessDuration(), AdvConfig.getFoodComaSlownessAmplifier(),
+                AdvConfig.getFoodComaSaturationAmbient(),AdvConfig.getFoodComaSlownessParticles(), AdvConfig.getFoodComaSlownessIcon());
+
+        EventHorizon.getPlugin().getLogger().info(String.format("FoodComa event initialized with saturation duration %d, slowness duration %d",
+                AdvConfig.getFoodComaSaturationDuration(),
+                AdvConfig.getFoodComaSlownessDuration())
+        );
     }
 
     /**
