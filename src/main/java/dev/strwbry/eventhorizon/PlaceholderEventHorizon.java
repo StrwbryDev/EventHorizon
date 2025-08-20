@@ -1,8 +1,8 @@
 package dev.strwbry.eventhorizon;
 
-    import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-    import org.bukkit.OfflinePlayer;
-    import org.jetbrains.annotations.NotNull;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
     /**
      * PlaceholderEventHorizon is a PlaceholderAPI expansion that provides placeholders

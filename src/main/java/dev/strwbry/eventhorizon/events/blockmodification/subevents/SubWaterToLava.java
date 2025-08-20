@@ -1,10 +1,10 @@
 package dev.strwbry.eventhorizon.events.blockmodification.subevents;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.blockmodification.BaseBlockModification;
 import dev.strwbry.eventhorizon.events.utility.fawe.BlockEditor;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCylindricalRegion;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import org.bukkit.Material;
 
 import java.util.Arrays;

@@ -1,0 +1,489 @@
+universal: # blank for now
+
+
+# event specific modifiers will have lower prio & may not be implemented
+## -- i.e. just in case they're added for now
+
+attributes:
+
+  universal:
+
+    attribute-modifier-amt: 1 # default is 1, not set up as of now
+
+  # if an event has the 'mult' suffix, it is a scalar/multiple
+  # ex: scalar of 0.25 increases value by 25%
+  # else, they are additive to the existing value
+  events:
+
+    fasting:
+
+
+    growth-spurt:
+      scale-mult: 1 # 1 is default
+      max-health: 4 # 4 is default
+      attack-dmg: 1 # 1 is default
+      knockback-resist-mult: 0.5 # 0.5 is default
+      movespeed-mult: 0.5 # 0.5 is default
+      sneakspeed-mult: 0.5 # 0.5 is default
+      water-movespeed-mult: 0.5 # 0.5 is default
+      step-height: 1 # 1 is default
+      jump-strength-mult: 0.5 # 0.5 is default
+      safe-fall-dist: 2 # 2 is default
+      block-interact-range-mult: 0.25 # 0.25 is default
+      entity-interact-range-mult: 0.25 # 0.25 is default
+
+    half-a-heart:
+
+
+    honey-i-shrunk-the-kids:
+      scale-mult: -0.75 # -0.75 is default
+      max-health: -2.0 # -2.0 is default
+      attack-dmg: -0.25 # -0.25 is default
+      knockback-resist-mult: # unused in this event
+      movespeed-mult: 0.25 # 0.25 is default
+      sneakspeed-mult: 0.25 # 0.25 is default
+      water-movespeed-mult: 0.25 # 0.25 is default
+      jump-strength-mult: 0.25 # 0.25 is default
+      safe-fall-dist: 1 # 1 is default
+
+    # lower/more negative number = increasing lower gravity
+    zero-gravity:
+      movespeed-mult: -0.05 # -0.05 is default
+      gravity: 0.05 # 0.05 is default
+
+
+block-modification:
+
+  universal: # these are blank/1 for now, added just because / potential idea
+    radius-mult:
+    height-mult:
+    height-offset-mult:
+
+
+  # not sure if you want me modifying any subevents, potentially beyond
+  # the amt of mobs the sub event for ice/nether spawns
+  # as of now, events are noted if they have subevents but are not modified
+  subevents:
+
+
+  events:
+
+    deep-dark-invasion: # has pattern, has subevent
+
+      # not yet implemented in AdvConfig, later addition maybe
+      pattern: # ensure that for each of the blocks in pattern, they sum to 1
+        sculk-chance: 0.7 # 0.7 is default
+        deepslate-chance: 0.3 # 0.3 is default
+
+      radius: 100 # 100 is default
+      height: 400 # 400 is default
+      height-offset: 200 # 200 is default
+
+
+    gold-rush: # no pattern
+      radius: 50 # 50 is default
+      height: 400 # 400 is default
+      height-offset: 200 # 200 is default
+
+
+    ice-is-nice: # no pattern, has subevent
+      radius: 100 # 100 is default
+      height: 10 # 10 is default
+      height-offset: 0 # 0 is default
+
+
+    nether-invasion: # has pattern, has subevent
+
+      pattern: # ensure that for each of the blocks in pattern, they sum to 1
+        netherrack-chance: 0.5 # 0.5 is default
+        soulsand-chance: 0.5 # 0.5 is default
+
+      radius: 100 # 100 is default
+      height: 400 # 400 is default
+      height-offset: 200 # 200 is default
+
+
+
+drop-modification: # unsure of what to do here at the moment if anything
+
+  universal:
+
+
+  events:
+
+    block-drop-shuffle:
+
+    double-or-nothing:
+
+    mob-drop-shuffle:
+
+
+
+effects:
+
+  universal:
+    default-duration: 600 # duration of potion effects in ticks (20 ticks = 1 second), 600 is default
+    default-amplifier: 0 # num specified = default effect lvl +1 ( 0 = lvl 1 effects), 0 is default
+    default-ambient: false # whether particles are ambient, false is default
+    default-show-particles: true # whether particle effects are enabled, true is default
+    default-show-icon: true # whether icon appears in player's inventory, true is default
+
+
+  # if specified, they will override the defaults
+  # this idea is to prevent the user from having to change every single value for all
+  # effect-related events (can be kept or discarded/changed)
+  events:
+
+    food-coma:
+
+      saturation:
+        duration: 6000 # 6000 is default
+        amplifier: 0 # 0 is default
+        ambient: false # false is default
+        show-particles: false # false is default
+        show-icon: true # true is default
+
+      slowness:
+        duration: 6000 # 6000 is default
+        amplifier: 0 # 0 is default
+        ambient: false # false is default
+        show-particles: false # false is default
+        show-icon: true # true is default
+
+
+    gotta-go-fast:
+      duration: 6000 # 6000 is default
+      amplifier: 2 # 2 is default
+      ambient: false # false is default
+      show-particles: false # false is default
+      show-icon: true # true is default
+
+
+    overmine:
+      duration: 6000 # 6000 is default
+      amplifier: 1 # 1 is default
+      ambient: false # false is default
+      show-particles: false # false is default
+      show-icon: true # true is default
+
+
+    second-wind:
+      duration: 6000 # 6000 is default
+      amplifier: 1 # 1 is default
+      ambient: false # false is default
+      show-particles: false # false is default
+      show-icon: true # true is default
+
+
+    youre-too-slow:
+      duration: 6000 # 6000 is default
+      amplifier: 1 # 1 is default
+      ambient: false # false is default
+      show-particles: false # false is default
+      show-icon: true # true is default
+
+
+
+gamerule:
+
+   events:
+
+     lifesteal-only:
+       # multiplier of damage dealt given back as health
+       # ex 0.5 * 6 dmg dealt gives 3 health to attacker
+       lifesteal: 0.5 # 0.5 is default
+
+
+
+inventory-adjustments:
+
+  universal:
+    default-interval: 60 # time in seconds, 60 is default
+    default-use-continuous: false # false is default
+
+
+  events:
+
+    butterfingers:
+      use-continous: true # true is default
+      # affects interval of how often items can be dropped
+      origin: 5 # minimum bound for interval, default is 5
+      bound: 61 # maximum mound for interval, default is 61 (exclusive)
+      affects-mainhand: true # default is true
+      affects-offhand: true # default is true
+
+
+    # not sure what to make specifically changeable here
+    # maybe elytra breakable, strength of rockets given, or player allowed to keep event items
+    # after event end?
+    # left unchanged for now
+    flight-school:
+
+
+    # not sure what to make specifically changeable here
+    # maybe keep hotbar, only lose hotbar, or swap every so often ?
+    # left unchanged for now
+    inventory-swap:
+
+
+    # not sure what to make specifically changeable here
+    # maybe keep/lose only certain types of food?
+    # left unchanged for now
+    spoiled-food:
+
+
+
+item-spawn:
+
+  # not all/any of these have to be kept, just placed here in case
+  # that's the desire now or in future
+  universal:
+    default-item-count: 5 # 5 is default
+    default-max-spawn-radius: 20 # 20 is default
+    default-min-spawn-radius: 3 # 3 is default
+    default-max-y-radius: 20 # 20 is default
+    default-min-y-radius: 3 # 3 is default
+    default-max-spawn-attempts: 20 # 20 is default
+    default-spawn-interval: 60 # in seconds, 60 is default
+    default-width-clearance: 1 # 1 is default
+    default-height-clearance: 1 # 1 is default
+    default-group-spacing: 3 # 3 is default
+    default-surface-only-spawning: false # false is default
+    default-allow-water-spawns: false # false is default
+    default-allow-lava-spawns: false # false is default
+    default-use-group-spawning: false # false is default
+    default-use-continuous-spawning: false # false is default
+    default-use-random-item-types: false # false is default
+
+
+  events:
+    drop-party:
+      item-count: 32 # 32 is default
+      max-spawn-radius: 20 # 20 is default
+      min-spawn-radius: 1 # 1 is default
+      max-y-radius: 10 # 10 is default
+      min-y-radius: 1 # 1 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default, unused in DropParty as of now
+      width-clearance: 1 # 1 is default
+      height-clearance: 1 # 1 is default
+      group-spacing: 3 # 3 is default, unused in DropParty as of now
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default, unused in DropParty as of now
+      use-continuous-spawning: false # false is default, unused in DropParty as of now
+      use-random-item-types: true # true is default
+
+      feast:
+        item-count: 32 # 32 is default
+        max-spawn-radius: 20 # 20 is default
+        min-spawn-radius: 1 # 1 is default
+        max-y-radius: 10 # 10 is default
+        min-y-radius: 1 # 1 is default
+        max-spawn-attempts: 20 # 20 is default
+        spawn-interval: 60 # in seconds, 60 is default
+        width-clearance: 1 # 1 is default
+        height-clearance: 1 # 1 is default
+        group-spacing: 2 # 2 is default
+        surface-only-spawning: false # false is default
+        allow-water-spawns: false # false is default
+        allow-lava-spawns: false # false is default
+        use-group-spawning: false # false is default
+        use-continuous-spawning: false # false is default
+        use-random-item-types: true # true is default
+
+      ore-drop-party:
+        item-count: 64 # 64 is default
+        max-spawn-radius: 20 # 20 is default
+        min-spawn-radius: 1 # 1 is default
+        max-y-radius: 10 # 10 is default
+        min-y-radius: 1 # 1 is default
+        max-spawn-attempts: 60 # 60 is default
+        spawn-interval: 60 # in seconds, 60 is default
+        width-clearance: 1 # 1 is default
+        height-clearance: 1 # 1 is default
+        group-spacing: 2 # 2 is default
+        surface-only-spawning: false # false is default
+        allow-water-spawns: false # false is default
+        allow-lava-spawns: false # false is default
+        use-group-spawning: false # false is default
+        use-continuous-spawning: false # false is default
+        use-random-item-types: true # true is default
+
+mob-spawn:
+
+  universal:
+    default-mob-count: 5 # 5 is default
+    default-max-spawn-radius: 20 # 20 is default
+    default-min-spawn-radius: 3 # 3 is default
+    default-max-y-radius: 20 # 20 is default
+    default-min-y-radius: 3 # 3 is default
+    default-max-spawn-attempts: 20 # 20 is default
+    default-spawn-interval: 60 # in seconds, 60 is default
+    default-width-clearance: 1 # 1 is default
+    default-height-clearance: 2 # 2 is default
+    default-group-spacing: 3 # 3 is default
+    default-surface-only-spawning: false # false is default
+    default-allow-water-spawns: false # false is default
+    default-allow-lava-spawns: false # false is default
+    default-use-group-spawning: false # false is default
+    default-use-continuous-spawning: false # false is default
+    default-use-random-mob-types: false # false is default
+
+  events:
+    chicken-flock:
+      mob-count: 5 # 5 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 1 # 1 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: true # true is default
+      use-continuous-spawning: false # false is default
+
+    cow-herd:
+      mob-count: 5 # 5 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: true # true is default
+      use-continuous-spawning: false # false is default
+
+    drop-creeper:
+      mob-count: 1 # 1 is default
+      max-spawn-radius: 10 # 10 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 30 # 30 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+
+    end-raid:
+      mob-count: 15 # 15 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 5 # 5 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 5 # 5 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+      use-random-mob-types: true # true is default, unsure if this should be changeable or not
+
+    nether-raid:
+      mob-count: 15 # 15 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 5 # 5 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 5 # 5 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+      use-random-mob-types: true # true is default, unsure if this should be changeable or not
+
+    random-mob-spawn:
+      mob-count: 10 # 10 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+      use-random-mob-types: true # true is default, doubt this is to be changed
+
+    wolf-pack:
+      mob-count: 5 # 5 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 1 # 1 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: true # true is default
+      use-continuous-spawning: false # false is default
+
+    zombie-horde:
+      mob-count: 10 # 10 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 60 # in seconds, 60 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: false # false is default
+
+    zombie-invasion:
+      mob-count: 1 # 1 is default
+      max-spawn-radius: 30 # 30 is default
+      min-spawn-radius: 3 # 3 is default
+      max-y-radius: 20 # 20 is default
+      min-y-radius: 3 # 3 is default
+      max-spawn-attempts: 20 # 20 is default
+      spawn-interval: 20 # in seconds, 20 is default
+      width-clearance: 1 # 1 is default
+      height-clearance: 2 # 2 is default
+      group-spacing: 2 # 2 is default
+      surface-only-spawning: false # false is default
+      allow-water-spawns: false # false is default
+      allow-lava-spawns: false # false is default
+      use-group-spawning: false # false is default
+      use-continuous-spawning: true # true is default

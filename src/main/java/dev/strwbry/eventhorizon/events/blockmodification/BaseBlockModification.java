@@ -1,12 +1,12 @@
 package dev.strwbry.eventhorizon.events.blockmodification;
 
+import com.sk89q.worldedit.function.pattern.Pattern;
+import com.sk89q.worldedit.world.block.BlockType;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.utility.fawe.BlockEditor;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericRegion;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
-import com.sk89q.worldedit.function.pattern.Pattern;
-import com.sk89q.worldedit.world.block.BlockType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

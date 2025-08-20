@@ -7,11 +7,15 @@ import dev.strwbry.eventhorizon.events.utility.LocationUtility.SpawnConfig;
 import dev.strwbry.eventhorizon.events.utility.SpawningUtility;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -60,6 +64,22 @@ public abstract class BaseItemSpawn extends BaseEvent {
     protected List<Pair<ItemStack, Double>> weightedItems = new ArrayList<>();
     /** Number of items to spawn per event */
     protected int itemCount = DEFAULT_ITEM_COUNT;
+    /** Maximum radius from player for item spawning */
+    protected int maxSpawnRadius = DEFAULT_MAX_SPAWN_RADIUS;
+    /** Minimum radius from player for item spawning */
+    protected int minSpawnRadius = DEFAULT_MIN_SPAWN_RADIUS;
+    /** Maximum vertical radius for item spawning */
+    protected int maxYRadius = DEFAULT_MAX_Y_RADIUS;
+    /** Minimum vertical radius for item spawning */
+    protected int minYRadius = DEFAULT_MIN_Y_RADIUS;
+    /** Maximum attempts to find a valid spawn location */
+    protected int maxSpawnAttempts = DEFAULT_MAX_SPAWN_ATTEMPTS;
+    /** Required horizontal clearance for spawn location */
+    protected double widthClearance = DEFAULT_WIDTH_CLEARANCE;
+    /** Required vertical clearance for spawn location */
+    protected double heightClearance = DEFAULT_HEIGHT_CLEARANCE;
+    /** Spacing between items when group spawning */
+    protected int groupSpacing = DEFAULT_GROUP_SPACING;
     /** Count of items spawned in the last execution */
     private int lastSpawnCount = 0;
 
