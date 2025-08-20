@@ -32,9 +32,14 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
     protected final NamespacedKey key;
 
     /** Default time in seconds between operations */
-    private static final int DEFAULT_OPERATION_INTERVAL = 60; // Seconds
+    private static final int DEFAULT_OPERATION_INTERVAL = 60;
     /** Default flag for continuous operation mode */
     private static final boolean DEFAULT_USE_CONTINUOUS_OPERATION = false;
+    /** Default flag for continuous operation mode with random intervals */
+    private static final boolean DEFAULT_USE_RANDOM_INTERVALS = false;
+    /** Minimum and maximum intervals for variable timing operations in seconds */
+    private static final int DEFAULT_MIN_INTERVAL = 5;
+    private static final int DEFAULT_MAX_INTERVAL = 60;
 
     /** List of items with their spawn weights */
     protected List<Pair<ItemStack, Double>> weightedItems = new ArrayList<>();
@@ -46,6 +51,8 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
     //Flags
     /** Flag indicating if continuous operation is enabled */
     protected boolean useContinuousOperation = DEFAULT_USE_CONTINUOUS_OPERATION;
+    /** Flag indicating if random intervals should be used for continuous operations */
+    protected boolean useVariableIntervals = DEFAULT_USE_RANDOM_INTERVALS;
 
     // Task management
     /** Task for continuous operation */
@@ -54,6 +61,10 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
     protected int operationInterval = DEFAULT_OPERATION_INTERVAL;
     /** Count of affected items/players in last operation */
     private int lastOperationCount = 0;
+    /** Minimum interval for variable timing */
+    protected int minInterval = DEFAULT_MIN_INTERVAL;
+    /** Maximum interval for variable timing */
+    protected int maxInterval = DEFAULT_MAX_INTERVAL;
 
     // Constructors
     /**
@@ -188,10 +199,42 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
     }
 
     /**
+     * Reschedules the continuous task with a new random interval
+     * Only works if variable timing is enabled and continuous operation is running
+     */
+    public void rescheduleNextOperation() {
+        if (!useVariableIntervals || !useContinuousOperation) {
+            return;
+        }
+
+        if (continuousTask != null && !continuousTask.isCancelled()) {
+            continuousTask.cancel();
+            this.setOperationInterval(getRandomInterval());
+            startContinuousTask();
+        }
+    }
+
+    /**
+     * Gets a random interval between min and max bounds
+     * @return random interval in seconds
+     */
+    protected int getRandomInterval() {
+        if (!useVariableIntervals || minInterval == maxInterval) {
+            return operationInterval;
+        }
+
+        return ThreadLocalRandom.current().nextInt(minInterval, maxInterval + 1);
+    }
+
+    /**
      * Hook method called after successful operation
      * @param player affected player
      */
     protected void onOperationPerformed(Player player) {
+        // Automatically reschedule if variable timing is enabled
+        if (useVariableIntervals) {
+            rescheduleNextOperation();
+        }
     }
 
     /**
