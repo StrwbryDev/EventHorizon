@@ -3,13 +3,12 @@ package dev.strwbry.eventhorizon.events.mobspawn;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
-import org.bukkit.*;
-import org.bukkit.block.Block;
+import dev.strwbry.eventhorizon.events.utility.LocationUtility.SpawnConfig;
+import dev.strwbry.eventhorizon.events.utility.SpawningUtility;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -37,37 +36,20 @@ import static dev.strwbry.eventhorizon.utility.MsgUtility.warning;
  * @see EventClassification
  */
 public abstract class BaseMobSpawn extends BaseEvent {
+    /** Plugin instance for server access */
     EventHorizon plugin = EventHorizon.getPlugin();
+    /** Random number generator for various random selections */
     protected final Random random = new Random();
+    /** Unique identifier for marking spawned items */
     protected final NamespacedKey key;
+    /** Spawn configuration for location utilities */
+    protected final SpawnConfig spawnConfig = new SpawnConfig();
 
     // Default configuration values
     /** Default number of mobs to spawn per player */
     private static final int DEFAULT_MOB_COUNT = 5;
-    /** Maximum distance from player where mobs can spawn */
-    private static final int DEFAULT_MAX_SPAWN_RADIUS = 20;
-    /** Minimum distance from player where mobs can spawn */
-    private static final int DEFAULT_MIN_SPAWN_RADIUS = 3;
-    /** Maximum vertical distance from player where mobs can spawn */
-    private static final int DEFAULT_MAX_Y_RADIUS = 20;
-    /** Minimum vertical distance from player where mobs can spawn */
-    private static final int DEFAULT_MIN_Y_RADIUS = 3;
-    /** Maximum number of attempts to find a valid spawn location */
-    private static final int DEFAULT_MAX_SPAWN_ATTEMPTS = 20;
-    /** Required horizontal clearance for mob spawning */
-    private static final double DEFAULT_WIDTH_CLEARANCE = 1;
-    /** Required vertical clearance for mob spawning */
-    private static final double DEFAULT_HEIGHT_CLEARANCE = 2;
-    /** Distance between mobs when spawning in groups */
-    private static final int DEFAULT_GROUP_SPACING = 3;
     /** Interval between continuous spawns in seconds */
     private static final int DEFAULT_SPAWN_INTERVAL = 60;
-    /** Whether mobs only spawn on surface blocks */
-    private static final boolean DEFAULT_SURFACE_ONLY_SPAWNING = false;
-    /** Whether mobs can spawn in water */
-    private static final boolean DEFAULT_ALLOW_WATER_SPAWNS = false;
-    /** Whether mobs can spawn in lava */
-    private static final boolean DEFAULT_ALLOW_LAVA_SPAWNS = false;
     /** Whether mobs spawn in groups or spread out */
     private static final boolean DEFAULT_USE_GROUP_SPAWNING = false;
     /** Whether spawning continues at intervals */
@@ -82,32 +64,10 @@ public abstract class BaseMobSpawn extends BaseEvent {
     protected List<EntityType> mobTypes = new ArrayList<>();
     /** Number of mobs to spawn per player */
     protected int mobCount = DEFAULT_MOB_COUNT;
-    /** Maximum distance from player where mobs can spawn */
-    protected int maxSpawnRadius = DEFAULT_MAX_SPAWN_RADIUS;
-    /** Minimum distance from player where mobs can spawn */
-    protected int minSpawnRadius = DEFAULT_MIN_SPAWN_RADIUS;
-    /** Maximum vertical distance from player where mobs can spawn */
-    protected int maxYRadius = DEFAULT_MAX_Y_RADIUS;
-    /** Minimum vertical distance from player where mobs can spawn */
-    protected int minYRadius = DEFAULT_MIN_Y_RADIUS;
-    /** Maximum number of attempts to find a valid spawn location */
-    protected int maxSpawnAttempts = DEFAULT_MAX_SPAWN_ATTEMPTS;
-    /** Required horizontal clearance for mob spawning */
-    protected double widthClearance = DEFAULT_WIDTH_CLEARANCE;
-    /** Required vertical clearance for mob spawning */
-    protected double heightClearance = DEFAULT_HEIGHT_CLEARANCE;
-    /** Distance between mobs when spawning in groups */
-    protected int groupSpacing = DEFAULT_GROUP_SPACING;
     /** Number of mobs spawned in last execution */
     private int lastSpawnCount = 0;
 
     // Flags
-    /** Whether mobs only spawn on surface blocks */
-    protected boolean surfaceOnlySpawning = DEFAULT_SURFACE_ONLY_SPAWNING;
-    /** Whether mobs can spawn in water */
-    protected boolean allowWaterSpawns = DEFAULT_ALLOW_WATER_SPAWNS;
-    /** Whether mobs can spawn in lava */
-    protected boolean allowLavaSpawns = DEFAULT_ALLOW_LAVA_SPAWNS;
     /** Whether mobs spawn in groups or spread out */
     protected boolean useGroupSpawning = DEFAULT_USE_GROUP_SPAWNING;
     /** Whether spawning continues at intervals */
@@ -298,6 +258,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @param player The player for whom the mob was spawned
      */
     protected void onMobSpawned(Entity entity, Player player) {
+        // Override in child classes for custom behavior
     }
 
     /**
@@ -342,135 +303,14 @@ public abstract class BaseMobSpawn extends BaseEvent {
         if (player == null || !player.isOnline()) {
             return Collections.emptyList();
         }
-        return useGroupSpawning ? spawnGroupForPlayer(player) : spawnSpreadForPlayer(player);
-    }
 
-    /**
-     * Spawns mobs spread out around a player within the configured radius.
-     * Each mob is spawned at a random location within the spawn radius,
-     * checking for safe locations before spawning.
-     *
-     * @param player The player to spawn mobs around
-     * @return List of successfully spawned entities
-     */
-    public List<Entity> spawnSpreadForPlayer(Player player) {
-        List<Entity> spawnedEntities = new ArrayList<>();
-        World world = player.getWorld();
-        Location playerLocation = player.getLocation();
-
-        int attempts = 0;
-        int spawned = 0;
-
-        while (spawned < mobCount && attempts < maxSpawnAttempts) {
-            attempts++;
-
-            // Calculate random offset
-            int xOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int zOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int yOffset = getRandomOffset(minYRadius, maxYRadius);
-
-            // Get initial coordinates
-            int initialX = playerLocation.getBlockX() + xOffset;
-            int initialY = playerLocation.getBlockY() + yOffset;
-            int initialZ = playerLocation.getBlockZ() + zOffset;
-
-            // For surface only spawning, find the highest block at this X,Z
-            if (surfaceOnlySpawning) {
-                initialY = world.getHighestBlockYAt(initialX, initialZ);
-            }
-
-            // Try to find a safe spawning location
-            Location spawnLocation = getSafeLocation(player, initialX, initialY, initialZ);
-
-            if (spawnLocation != null) {
-                EntityType typeToSpawn = useRandomMobTypes ? getRandomMobType() : mobType;
-                Entity entity = world.spawnEntity(spawnLocation, typeToSpawn);
-                MarkingUtility.markEntity(entity, key);
-                spawnedEntities.add(entity);
-                spawned++;
-            }
+        if (useGroupSpawning) {
+            return SpawningUtility.spawnEntitiesGroup(player, mobCount, spawnConfig, key,
+                    (world, location) -> world.spawnEntity(location, getRandomMobType()));
+        } else {
+            return SpawningUtility.spawnEntitiesSpread(player, mobCount, spawnConfig, key,
+                    (world, location) -> world.spawnEntity(location, getRandomMobType()));
         }
-        return spawnedEntities;
-    }
-
-    /**
-     * Spawns a group of mobs near a player at a single central location.
-     * First finds a safe center point, then spawns mobs clustered around it
-     * within the {@link #groupSpacing} radius.
-     *
-     * @param player The player to spawn the mob group near
-     * @return List of successfully spawned entities
-     */
-    public List<Entity> spawnGroupForPlayer(Player player) {
-        List<Entity> spawnedEntities = new ArrayList<>();
-        World world = player.getWorld();
-        Location playerLocation = player.getLocation();
-
-        // Try to find a suitable location for the group
-        Location groupCenter = null;
-        int attempts = 0;
-
-        while (groupCenter == null && attempts < maxSpawnAttempts) {
-            attempts++;
-
-            // Calculate random offset
-            int xOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int zOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int yOffset = getRandomOffset(minYRadius, maxYRadius);
-
-            // Get initial coordinates
-            int initialX = playerLocation.getBlockX() + xOffset;
-            int initialY = playerLocation.getBlockY() + yOffset;
-            int initialZ = playerLocation.getBlockZ() + zOffset;
-
-            // For surface only spawning, find the highest block at this X,Z
-            if (surfaceOnlySpawning) {
-                initialY = world.getHighestBlockYAt(initialX, initialZ);
-            }
-
-            // Try to find safe spawning location
-            groupCenter = getSafeLocation(player, initialX, initialY, initialZ);
-        }
-
-        // If we couldn't find a suitable group center, return empty list
-        if (groupCenter == null) {
-            return spawnedEntities;
-        }
-
-        // Spawn the mobs in a group around the center
-        int spawned = 0;
-        attempts = 0;
-
-        while (spawned < mobCount && attempts < maxSpawnAttempts * 2) {
-            attempts++;
-
-            // Calculate a close position to the group center
-            int xOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-            int zOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-
-            // Get initial coordinates for group member
-            int initialX = groupCenter.getBlockX() + xOffset;
-            int initialY = groupCenter.getBlockY();
-            int initialZ = groupCenter.getBlockZ() + zOffset;
-
-            // For surface only spawning, adjust Y to the highest block
-            if (surfaceOnlySpawning) {
-                initialY = world.getHighestBlockYAt(initialX, initialZ);
-            }
-
-            // Try to find a safe location
-            Location spawnLocation = getGroupSafeLocation(player, groupCenter, initialX, initialY, initialZ);
-
-            if (spawnLocation != null) {
-                EntityType typeToSpawn = useRandomMobTypes ? getRandomMobType() : mobType;
-                Entity entity = world.spawnEntity(spawnLocation, typeToSpawn);
-                MarkingUtility.markEntity(entity, key);
-                spawnedEntities.add(entity);
-                spawned++;
-            }
-        }
-
-        return spawnedEntities;
     }
 
     /**
@@ -578,262 +418,6 @@ public abstract class BaseMobSpawn extends BaseEvent {
     }
 
     /**
-     * Attempts to find a safe location to spawn a mob near the given coordinates.
-     * Makes multiple attempts to find a valid location within spawn radius and height limits.
-     * Adjusts position based on terrain and safety checks.
-     *
-     * @param player The player to spawn near
-     * @param initialX Initial X coordinate
-     * @param initialY Initial Y coordinate
-     * @param initialZ Initial Z coordinate
-     * @return A safe Location for spawning, or null if none found
-     */
-    protected Location getSafeLocation(Player player, int initialX, int initialY, int initialZ) {
-        World world = player.getWorld();
-        int maxTries = maxSpawnAttempts * 3;
-        int currentTry = 0;
-
-        int x = initialX;
-        int y = initialY;
-        int z = initialZ;
-
-        // Check world height boundaries
-        if (y < world.getMinHeight()) {
-            y = world.getMinHeight();
-        } else if (y >= world.getMaxHeight()) {
-            y = world.getMaxHeight() - 3;
-        }
-
-        while (currentTry < maxTries) {
-            Location location = new Location(world, x, y, z);
-
-            if (isSafeLocation(location)) {
-                // Center the location in the block
-                location.setX(x + 0.5);
-                location.setZ(z + 0.5);
-                return location;
-            }
-
-            // Adjust position based on issues
-            Block block = location.getBlock();
-            Block blockBelow = location.clone().subtract(0, 1, 0).getBlock();
-
-            if (block.getType().isSolid()) {
-                // If current block is solid, move up
-                y++;
-            } else if (!blockBelow.getType().isSolid() && !isLiquidLocation(blockBelow)) {
-                // If there's no solid block below, move down
-                y--;
-            } else {
-                // If other issues, try a small move horizontally
-                x += random.nextInt(3) - 1;
-                z += random.nextInt(3) - 1;
-            }
-
-            // Check if we're still within the radius
-            Location playerLocation = player.getLocation();
-            double distanceSquared = Math.pow(playerLocation.getX() - x, 2) +
-                    Math.pow(playerLocation.getZ() - z, 2);
-
-            if (distanceSquared > Math.pow(maxSpawnRadius, 2)) {
-                // If we've moved outside the radius, reset to a new random position within radius
-                int xOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-                int zOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-                x = playerLocation.getBlockX() + xOffset;
-                z = playerLocation.getBlockZ() + zOffset;
-
-                // Reset y based on surface setting
-                if (surfaceOnlySpawning) {
-                    y = world.getHighestBlockYAt(x, z);
-                } else {
-                    int yOffset = getRandomOffset(minYRadius, maxYRadius);
-                    y = playerLocation.getBlockY() + yOffset;
-                }
-            }
-            currentTry++;
-        }
-        return null;
-    }
-
-    /**
-     * Attempts to find a safe location to spawn a mob within a group.
-     * Similar to getSafeLocation but maintains proximity to group center.
-     *
-     * @param player The player to spawn near
-     * @param groupCenter The central location of the group
-     * @param initialX Initial X coordinate
-     * @param initialY Initial Y coordinate
-     * @param initialZ Initial Z coordinate
-     * @return A safe Location for spawning within group bounds, or null if none found
-     */
-    protected Location getGroupSafeLocation(Player player, Location groupCenter, int initialX, int initialY, int initialZ) {
-        World world = player.getWorld();
-        int maxTries = maxSpawnAttempts;
-        int currentTry = 0;
-
-        int x = initialX;
-        int y = initialY;
-        int z = initialZ;
-
-        // Check world height boundaries
-        if (y < world.getMinHeight()) {
-            y = world.getMinHeight();
-        } else if (y >= world.getMaxHeight()) {
-            y = world.getMaxHeight() - 3;
-        }
-
-        while (currentTry < maxTries) {
-            Location location = new Location(world, x, y, z);
-
-            if (isSafeLocation(location)) {
-                // Center the location in the block
-                location.setX(x + 0.5);
-                location.setZ(z + 0.5);
-                return location;
-            }
-
-            // Adjust position based on issues
-            Block block = location.getBlock();
-            Block blockBelow = location.clone().subtract(0, 1, 0).getBlock();
-
-            if (block.getType().isSolid()) {
-                // If current block is solid, move up
-                y++;
-            } else if (!blockBelow.getType().isSolid() && !isLiquidLocation(blockBelow)) {
-                // If there's no solid block below, move down
-                y--;
-            } else {
-                // If other issues, try a small move horizontally (but stay within group spacing)
-                x += random.nextInt(3) - 1;
-                z += random.nextInt(3) - 1;
-            }
-
-            // Check if we're still within the group spacing radius
-            double distanceSquared = Math.pow(groupCenter.getX() - x, 2) + Math.pow(groupCenter.getZ() - z, 2);
-            if (distanceSquared > Math.pow(groupSpacing, 2)) {
-                // If we've moved outside the group radius, reset to a new position closer to group center
-                int xOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-                int zOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-                x = groupCenter.getBlockX() + xOffset;
-                z = groupCenter.getBlockZ() + zOffset;
-
-                // Reset y based on surface setting
-                if (surfaceOnlySpawning) {
-                    y = world.getHighestBlockYAt(x, z);
-                } else {
-                    y = groupCenter.getBlockY() + (random.nextInt(3) - 1); // Small y variance in groups
-                }
-            }
-            currentTry++;
-        }
-
-        return null;
-    }
-
-    /**
-     * Checks if a location is safe for mob spawning.
-     * Validates world height bounds, block solidity, and required clearance.
-     *
-     * @param location The location to check
-     * @return true if the location is safe for spawning, false otherwise
-     */
-    private boolean isSafeLocation(Location location) {
-        World world = location.getWorld();
-        if (location.getBlockY() < world.getMinHeight() || location.getBlockY() >= world.getMaxHeight()) {
-            return false;
-        }
-
-        Block block = location.getBlock();
-        Block blockBelow = location.clone().subtract(0, 1, 0).getBlock();
-
-        return isSafeBlock(block) &&
-                blockBelow.getType().isSolid() &&
-                checkBlockClearance(location);
-    }
-
-    /**
-     * Checks if a block contains a valid liquid for mob spawning.
-     * Considers water and lava based on spawn settings.
-     *
-     * @param block The block to check
-     * @return true if the block contains an allowed liquid, false otherwise
-     */
-    private boolean isLiquidLocation(Block block) {
-        Material type = block.getType();
-        return (type == Material.WATER && allowWaterSpawns) || (type == Material.LAVA && allowLavaSpawns);
-    }
-
-    /**
-     * Checks if a block is safe for mob spawning.
-     * A block is considered safe if it's air or an allowed liquid.
-     *
-     * @param block The block to check
-     * @return true if the block is safe for spawning, false otherwise
-     */
-    private boolean isSafeBlock(Block block) {
-        return block.getType() == Material.AIR || isLiquidLocation(block);
-    }
-
-    /**
-     * Checks if there's sufficient clearance around a location for mob spawning.
-     * Validates a rectangular area based on width and height clearance settings.
-     *
-     * @param location The base location to check clearance around
-     * @return true if sufficient clearance exists, false otherwise
-     */
-    private boolean checkBlockClearance(Location location) {
-        World world = location.getWorld();
-        int baseX = location.getBlockX();
-        int baseY = location.getBlockY();
-        int baseZ = location.getBlockZ();
-
-        int heightBlocks = (int)Math.ceil(heightClearance);
-        int widthBlocks = (int)Math.ceil(widthClearance);
-
-        // Check World height limit
-        if (baseY + heightClearance >= world.getMaxHeight()) {
-            return false;
-        }
-
-        for (int y = 0; y < heightBlocks; y++) {
-            int checkY = baseY + y;
-
-            int xStart = 0;
-            int zStart = 0;
-
-            // If widthClearance is odd, check both negative and positive x and z directions
-            if (widthClearance % 2 == 1) {
-                xStart = -widthBlocks;
-                zStart = -widthBlocks;
-            }
-
-            for (int x = xStart; x <= widthBlocks; x++) {
-                for (int z = zStart; z <= widthBlocks; z++) {
-                    if (!isSafeBlock(world.getBlockAt(baseX + x, checkY, baseZ + z))) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Generates a random offset between minimum and maximum values.
-     * The returned value will be either positive or negative with equal probability.
-     *
-     * @param min The minimum absolute value of the offset
-     * @param max The maximum absolute value of the offset
-     * @return A random integer between -max and -min or between min and max
-     */
-    private int getRandomOffset(int min, int max) {
-        int range = max - min;
-        int offset = random.nextInt(range + 1) + min;
-        return random.nextBoolean() ? offset : -offset;
-    }
-
-    /**
      * Gets the number of mobs spawned in the last execution.
      *
      * @return The count of mobs spawned in the most recent spawn operation
@@ -880,7 +464,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setMaxSpawnRadius(int radius) {
-        this.maxSpawnRadius = radius;
+        this.spawnConfig.setMaxSpawnRadius(radius);
         return this;
     }
 
@@ -891,7 +475,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setMinSpawnRadius(int radius) {
-        this.minSpawnRadius = radius;
+        this.spawnConfig.setMinSpawnRadius(radius);
         return this;
     }
 
@@ -902,7 +486,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setMaxYRadius(int radius) {
-        this.maxYRadius = radius;
+        this.spawnConfig.setMaxYRadius(radius);
         return this;
     }
 
@@ -913,7 +497,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setMinYRadius(int radius) {
-        this.minYRadius = radius;
+        this.spawnConfig.setMinYRadius(radius);
         return this;
     }
 
@@ -924,7 +508,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setMaxSpawnAttempts(int attempts) {
-        this.maxSpawnAttempts = attempts;
+        this.spawnConfig.setMaxSpawnAttempts(attempts);
         return this;
     }
 
@@ -935,7 +519,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setWidthClearance(double clearance) {
-        this.widthClearance = clearance;
+        this.spawnConfig.setWidthClearance(clearance);
         return this;
     }
 
@@ -946,7 +530,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setHeightClearance(double clearance) {
-        this.heightClearance = clearance;
+        this.spawnConfig.setHeightClearance(clearance);
         return this;
     }
 
@@ -957,7 +541,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setGroupSpacing(int spacing) {
-        this.groupSpacing = spacing;
+        this.spawnConfig.setGroupSpacing(spacing);
         return this;
     }
 
@@ -979,7 +563,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setSurfaceOnlySpawning(boolean surfaceOnly) {
-        this.surfaceOnlySpawning = surfaceOnly;
+        this.spawnConfig.setSurfaceOnlySpawning(surfaceOnly);
         return this;
     }
 
@@ -990,7 +574,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setAllowWaterSpawns(boolean allow) {
-        this.allowWaterSpawns = allow;
+        this.spawnConfig.setAllowWaterSpawns(allow);
         return this;
     }
 
@@ -1001,7 +585,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      * @return This instance for method chaining
      */
     public BaseMobSpawn setAllowLavaSpawns(boolean allow) {
-        this.allowLavaSpawns = allow;
+        this.spawnConfig.setAllowLavaSpawns(allow);
         return this;
     }
 

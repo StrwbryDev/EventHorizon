@@ -32,6 +32,7 @@ public class Feast extends BaseItemSpawn {
                 .setMaxSpawnAttempts(20)
                 .setHeightClearance(1)
                 .setWidthClearance(1)
+                .setCenterY(true)
                 .setSurfaceOnlySpawning(false)
                 .setAllowWaterSpawns(false)
                 .setAllowLavaSpawns(false)

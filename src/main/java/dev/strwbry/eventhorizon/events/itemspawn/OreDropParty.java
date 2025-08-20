@@ -32,6 +32,7 @@ public class OreDropParty extends BaseItemSpawn {
                 .setMaxSpawnAttempts(60)
                 .setHeightClearance(1)
                 .setWidthClearance(1)
+                .setCenterY(true)
                 .setSurfaceOnlySpawning(false)
                 .setAllowWaterSpawns(false)
                 .setAllowLavaSpawns(false)

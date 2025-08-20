@@ -27,6 +27,7 @@ public class DropParty extends BaseItemSpawn {
                 .setMaxSpawnAttempts(64)
                 .setHeightClearance(1)
                 .setWidthClearance(1)
+                .setCenterY(true)
                 .setSurfaceOnlySpawning(false)
                 .setAllowWaterSpawns(false)
                 .setAllowLavaSpawns(false)
