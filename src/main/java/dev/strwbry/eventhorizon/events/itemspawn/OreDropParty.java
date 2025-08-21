@@ -7,7 +7,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
 
 /**
@@ -35,6 +34,7 @@ public class OreDropParty extends BaseItemSpawn {
                 .setMaxSpawnAttempts(AdvConfig.getOreDropMaxSpawnAtt())
                 .setHeightClearance(AdvConfig.getOreDropHeightClearance())
                 .setWidthClearance(AdvConfig.getOreDropWidthClearance())
+                .setCenterY(AdvConfig.getOreDropCenterY())
                 .setSurfaceOnlySpawning(AdvConfig.getOreDropSurfOnlySpawn())
                 .setAllowWaterSpawns(AdvConfig.getOreDropAllowWaterSpawn())
                 .setAllowLavaSpawns(AdvConfig.getOreDropAllowLavaSpawn())

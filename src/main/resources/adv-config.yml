@@ -208,7 +208,7 @@ inventory-adjustments:
       use-continous: true # true is default
       # affects interval of how often items can be dropped
       origin: 5 # minimum bound for interval, default is 5
-      bound: 61 # maximum mound for interval, default is 61 (exclusive)
+      bound: 15 # maximum bound for interval, default is 15 (inclusive)
       affects-mainhand: true # default is true
       affects-offhand: true # default is true
 
@@ -267,6 +267,7 @@ item-spawn:
       spawn-interval: 60 # in seconds, 60 is default, unused in DropParty as of now
       width-clearance: 1 # 1 is default
       height-clearance: 1 # 1 is default
+      centered-on-y: true # true is default
       group-spacing: 3 # 3 is default, unused in DropParty as of now
       surface-only-spawning: false # false is default
       allow-water-spawns: false # false is default
@@ -285,6 +286,7 @@ item-spawn:
         spawn-interval: 60 # in seconds, 60 is default
         width-clearance: 1 # 1 is default
         height-clearance: 1 # 1 is default
+        centered-on-y: true # true is default
         group-spacing: 2 # 2 is default
         surface-only-spawning: false # false is default
         allow-water-spawns: false # false is default

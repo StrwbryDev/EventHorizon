@@ -34,6 +34,7 @@ public class Feast extends BaseItemSpawn {
                 .setMaxSpawnAttempts(AdvConfig.getFeastMaxSpawnAtt())
                 .setHeightClearance(AdvConfig.getFeastHeightClearance())
                 .setWidthClearance(AdvConfig.getFeastWidthClearance())
+                .setCenterY(AdvConfig.getFeastCenterY())
                 .setSurfaceOnlySpawning(AdvConfig.getFeastSurfOnlySpawn())
                 .setAllowWaterSpawns(AdvConfig.getFeastAllowWaterSpawn())
                 .setAllowLavaSpawns(AdvConfig.getFeastAllowLavaSpawn())
