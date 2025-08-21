@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.inventoryadjustments;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,10 +26,10 @@ public class ButterFingers extends BaseInventoryAdjustment {
         this.useContinuousOperation = AdvConfig.getButterFingersUseCont();
         this.setOperationInterval(ThreadLocalRandom.current().nextInt(AdvConfig.getButterFingersOrigin(), AdvConfig.getButterFingersBound()));
 
-        EventHorizon.getPlugin().getLogger().info(String.format("ButterFingers event initialized with useContinuous %b, Origin %d, and Bound %d",
-                AdvConfig.getButterFingersUseCont(),
-                AdvConfig.getButterFingersOrigin(),
-                AdvConfig.getButterFingersBound())
+        EventLoggerUtility.logEventInitialization("Butterfingers",
+                "use-continuous-operation", this.useContinuousOperation,
+                "origin", AdvConfig.getButterFingersOrigin(),
+                "bound", AdvConfig.getButterFingersBound()
         );
     }
 

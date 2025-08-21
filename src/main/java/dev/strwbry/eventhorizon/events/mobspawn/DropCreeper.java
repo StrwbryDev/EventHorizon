@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.Creeper;
 import org.bukkit.entity.Entity;
@@ -42,6 +43,7 @@ public class DropCreeper extends BaseMobSpawn {
                 .setUseContinuousSpawning(AdvConfig.getDropCreepUseContinuousSpawn())
                 .setSpawnInterval(AdvConfig.getDropCreepSpawnInterval());
 
+        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

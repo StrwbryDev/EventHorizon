@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -42,6 +43,7 @@ public class ZombieHorde extends BaseMobSpawn {
                 .setUseContinuousSpawning(AdvConfig.getZombHordeUseContinuousSpawn())
                 .setSpawnInterval(AdvConfig.getZombHordeSpawnInterval());
 
+        EventLoggerUtility.logEventInitialization(this);
     }
     /**
      * Handles post-spawn setup for the zombies.

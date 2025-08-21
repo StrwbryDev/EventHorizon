@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.effects;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import org.bukkit.potion.PotionEffectType;
 
 /**
@@ -9,6 +10,7 @@ import org.bukkit.potion.PotionEffectType;
  * allowing players to deal more damage than normal.
  */
 
+// Event is being reworked, left untouched for now
 public class SecondWind extends BaseEffects {
     /**
      * Constructs a new SecondWind event with POSITIVE classification.

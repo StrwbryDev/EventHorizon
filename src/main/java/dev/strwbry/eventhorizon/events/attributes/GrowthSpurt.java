@@ -2,7 +2,7 @@ package dev.strwbry.eventhorizon.events.attributes;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.testconfig.AdvConfigTest;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -28,20 +28,37 @@ public class GrowthSpurt extends BaseAttribute {
     public GrowthSpurt() {
         super(EventClassification.NEUTRAL, "growthSpurt");
 
-        addAttributeModifier(Attribute.SCALE, 1/*AdvConfigTest.getGrowthEvent().growthScale()*/, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.MAX_HEALTH, 4, AttributeModifier.Operation.ADD_NUMBER);
-        addAttributeModifier(Attribute.ATTACK_DAMAGE, 1, AttributeModifier.Operation.ADD_NUMBER);
-        addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, 0.5, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.MOVEMENT_SPEED, 0.5, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.SNEAKING_SPEED, 0.5, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.WATER_MOVEMENT_EFFICIENCY, 0.5, AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.SCALE, AdvConfig.getGrowthScale(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.MAX_HEALTH, AdvConfig.getGrowthMaxHP(), AttributeModifier.Operation.ADD_NUMBER);
+        addAttributeModifier(Attribute.ATTACK_DAMAGE, AdvConfig.getGrowthAttack(), AttributeModifier.Operation.ADD_NUMBER);
+        addAttributeModifier(Attribute.KNOCKBACK_RESISTANCE, AdvConfig.getGrowthKnockResist(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.MOVEMENT_SPEED, AdvConfig.getGrowthMovespeed(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.SNEAKING_SPEED, AdvConfig.getGrowthSneakspeed(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.WATER_MOVEMENT_EFFICIENCY, AdvConfig.getGrowthWaterMove(), AttributeModifier.Operation.ADD_SCALAR);
 
-        addAttributeModifier(Attribute.STEP_HEIGHT, 1, AttributeModifier.Operation.ADD_NUMBER);
-        addAttributeModifier(Attribute.JUMP_STRENGTH, 0.5, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.SAFE_FALL_DISTANCE, 2, AttributeModifier.Operation.ADD_NUMBER);
+        addAttributeModifier(Attribute.STEP_HEIGHT, AdvConfig.getGrowthStepHeight(), AttributeModifier.Operation.ADD_NUMBER);
+        addAttributeModifier(Attribute.JUMP_STRENGTH, AdvConfig.getGrowthJumpStr(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.SAFE_FALL_DISTANCE, AdvConfig.getGrowthSafeFall(), AttributeModifier.Operation.ADD_NUMBER);
 
-        addAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE, 0.25, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE, 0.25, AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE, AdvConfig.getGrowthBlockInteract(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE, AdvConfig.getGrowthEntityInteract(), AttributeModifier.Operation.ADD_SCALAR);
+
+        /*EventLoggerUtility.logEventInitialization("GrowthSpurt",
+                "scale", AdvConfig.getGrowthScale(),
+                "maxHP", AdvConfig.getGrowthMaxHP(),
+                "attack dmg", AdvConfig.getGrowthAttack(),
+                "knockback resistance", AdvConfig.getGrowthKnockResist(),
+                "movement speed", AdvConfig.getGrowthMovespeed(),
+                "sneaking speed", AdvConfig.getGrowthSneakspeed(),
+                "water movement", AdvConfig.getGrowthWaterMove(),
+                "step height", AdvConfig.getGrowthStepHeight(),
+                "jump strength", AdvConfig.getGrowthJumpStr(),
+                "safe fall distance", AdvConfig.getGrowthSafeFall(),
+                "block interaction range", AdvConfig.getGrowthBlockInteract(),
+                "entity interaction range", AdvConfig.getGrowthEntityInteract()
+        );*/
+
+        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

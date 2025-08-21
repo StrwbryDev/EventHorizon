@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.effects;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.potion.PotionEffectType;
 
@@ -23,10 +24,21 @@ public class FoodComa extends BaseEffects
         addEffect(PotionEffectType.SLOWNESS, AdvConfig.getFoodComaSlownessDuration(), AdvConfig.getFoodComaSlownessAmplifier(),
                 AdvConfig.getFoodComaSaturationAmbient(),AdvConfig.getFoodComaSlownessParticles(), AdvConfig.getFoodComaSlownessIcon());
 
-        EventHorizon.getPlugin().getLogger().info(String.format("FoodComa event initialized with saturation duration %d, slowness duration %d",
-                AdvConfig.getFoodComaSaturationDuration(),
-                AdvConfig.getFoodComaSlownessDuration())
-        );
+        /*EventLoggerUtility.logEventInitialization("FoodComa",
+                "saturation duration", AdvConfig.getFoodComaSaturationDuration(),
+                        "saturation amplifier", AdvConfig.getFoodComaSaturationAmplifier(),
+                        "saturation ambient", AdvConfig.getFoodComaSaturationAmbient(),
+                        "saturation particles", AdvConfig.getFoodComaSaturationParticles(),
+                        "saturation icon", AdvConfig.getFoodComaSaturationIcon(),
+
+                        "slowness duration", AdvConfig.getFoodComaSlownessDuration(),
+                        "slowness amplifier", AdvConfig.getFoodComaSlownessAmplifier(),
+                        "slowness ambient", AdvConfig.getFoodComaSlownessAmbient(),
+                        "slowness particles", AdvConfig.getFoodComaSlownessParticles(),
+                        "slowness icon", AdvConfig.getFoodComaSlownessIcon()
+        );*/
+
+        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

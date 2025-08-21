@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.itemspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
@@ -66,6 +67,8 @@ public class Feast extends BaseItemSpawn {
                         Pair.of(new ItemStack(Material.APPLE), 5.0),
                         Pair.of(new ItemStack(Material.CARROT), 5.0)
                 ));
+
+        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

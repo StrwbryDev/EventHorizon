@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 import org.checkerframework.checker.units.qual.A;
@@ -53,6 +54,8 @@ public class NetherRaid extends BaseMobSpawn {
                 .setUseContinuousSpawning(AdvConfig.getNetherRaidUseContinuousSpawn())
                 .setSpawnInterval(AdvConfig.getNetherRaidSpawnInterval())
                 .setRandomMobTypes(AdvConfig.getNetherRaidUseRandMobTypes());
+
+        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

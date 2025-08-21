@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.itemspawn;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.events.utility.ItemUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Material;
@@ -43,13 +44,22 @@ public class DropParty extends BaseItemSpawn {
                 .setRandomItemTypes(AdvConfig.getDropPartyUseRandItemTypes());
         dropItems.addAll(ItemUtility.generateSurvivalDropsList());
 
-        EventHorizon.getPlugin().getLogger().info(String.format("DropParty event initialized with item count %d, spawn radius %d-%d, vertical range %d-%d",
-                AdvConfig.getDropPartyItemCt(),
-                AdvConfig.getDropPartyMinSpawnRad(),
-                AdvConfig.getDropPartyMaxSpawnRad(),
-                AdvConfig.getDropPartyMinYRad(),
-                AdvConfig.getDropPartyMaxYRad())
-        );
+        /*EventLoggerUtility.logEventInitialization("DropParty",
+                "item-count", AdvConfig.getDropPartyItemCt(),
+                "max-spawn-radius", AdvConfig.getDropPartyMaxSpawnRad(),
+                "min-spawn-radius", AdvConfig.getDropPartyMinSpawnRad(),
+                "max-y-radius", AdvConfig.getDropPartyMaxYRad(),
+                "min-y-radius", AdvConfig.getDropPartyMinYRad(),
+                "max-spawn-attempts", AdvConfig.getDropPartyMaxSpawnAtt(),
+                "height-clearance", AdvConfig.getDropPartyHeightClearance(),
+                "width-clearance", AdvConfig.getDropPartyWidthClearance(),
+                "surface-only-spawning", AdvConfig.getDropPartySurfOnlySpawn(),
+                "allow-water-spawns", AdvConfig.getDropPartyAllowWaterSpawn(),
+                "allow-lava-spawns", AdvConfig.getDropPartyAllowLavaSpawn(),
+                "random-item-types", AdvConfig.getDropPartyUseRandItemTypes()
+        );*/
+
+        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

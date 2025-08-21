@@ -3,6 +3,7 @@ package dev.strwbry.eventhorizon.events.blockmodification;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubSpawnIceMobs;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.events.utility.fawe.BlockEditor;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCylindricalRegion;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
@@ -29,10 +30,10 @@ public class IceIsNice extends BaseBlockModification
                 Material.PACKED_ICE, EventHorizon.getBlockMasks().getGroundBlocks(), false
         );
 
-        EventHorizon.getPlugin().getLogger().info(String.format("IceIsNice event initialized with radius %d, height %d, and height offset %d",
-                AdvConfig.getIceRadius(),
-                AdvConfig.getIceHeight(),
-                AdvConfig.getIceHeightOffset())
+        EventLoggerUtility.logEventInitialization("Ice Is Nice",
+                "radius", AdvConfig.getIceRadius(),
+                "height", AdvConfig.getIceHeight(),
+                "offset", AdvConfig.getIceHeightOffset()
         );
     }
 
