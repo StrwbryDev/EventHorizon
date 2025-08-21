@@ -3,14 +3,12 @@ package dev.strwbry.eventhorizon.events.itemspawn;
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.BaseEvent;
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.MarkingUtility;
+import dev.strwbry.eventhorizon.events.utility.LocationUtility.SpawnConfig;
+import dev.strwbry.eventhorizon.events.utility.SpawningUtility;
 import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,15 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Abstract base class for item spawning events that handles item distribution around players.
- * This class provides configurable spawning behavior for items in the Minecraft world,
- * including options for:
- * <ul>
- *   <li>Single or continuous spawning</li>
- *   <li>Group or spread distribution</li>
- *   <li>Random or fixed item types</li>
- *   <li>Surface-only or 3D space spawning</li>
- *   <li>Liquid (water/lava) spawning permissions</li>
- * </ul>
+ * This class provides configurable spawning behavior for items in the Minecraft world.
  * Each spawned item is marked with a unique identifier for tracking and later cleanup.
  * The class supports weighted random selection of items and various safety checks
  * to ensure valid spawn locations.
@@ -48,33 +38,14 @@ public abstract class BaseItemSpawn extends BaseEvent {
     protected final Random random = new Random();
     /** Unique identifier for marking spawned items */
     protected final NamespacedKey key;
+    /** Spawn configuration for location utilities */
+    protected final SpawnConfig spawnConfig = new SpawnConfig();
 
+    // Default Configuration Values
     /** Default number of items to spawn per event */
     private static final int DEFAULT_ITEM_COUNT = 5;
-    /** Default maximum radius from player for item spawning */
-    private static final int DEFAULT_MAX_SPAWN_RADIUS = 20;
-    /** Default minimum radius from player for item spawning */
-    private static final int DEFAULT_MIN_SPAWN_RADIUS = 3;
-    /** Default maximum vertical radius for item spawning */
-    private static final int DEFAULT_MAX_Y_RADIUS = 20;
-    /** Default minimum vertical radius for item spawning */
-    private static final int DEFAULT_MIN_Y_RADIUS = 3;
-    /** Default maximum attempts to find a valid spawn location */
-    private static final int DEFAULT_MAX_SPAWN_ATTEMPTS = 20;
     /** Default interval between continuous spawns in seconds */
     private static final int DEFAULT_SPAWN_INTERVAL = 60;
-    /** Default horizontal clearance required for spawn location */
-    private static final double DEFAULT_WIDTH_CLEARANCE = 1;
-    /** Default vertical clearance required for spawn location */
-    private static final double DEFAULT_HEIGHT_CLEARANCE = 1;
-    /** Default spacing between items when group spawning */
-    private static final int DEFAULT_GROUP_SPACING = 3;
-    /** Default setting for surface-only spawning */
-    private static final boolean DEFAULT_SURFACE_ONLY_SPAWNING = false;
-    /** Default setting for allowing spawns in water */
-    private static final boolean DEFAULT_ALLOW_WATER_SPAWNS = false;
-    /** Default setting for allowing spawns in lava */
-    private static final boolean DEFAULT_ALLOW_LAVA_SPAWNS = false;
     /** Default setting for group spawning mode */
     private static final boolean DEFAULT_USE_GROUP_SPAWNING = false;
     /** Default setting for continuous spawning mode */
@@ -82,37 +53,17 @@ public abstract class BaseItemSpawn extends BaseEvent {
     /** Default setting for random item type selection */
     private static final boolean DEFAULT_USE_RANDOM_ITEM_TYPES = false;
 
+    // Item Properties
     /** The default item type to spawn */
     protected ItemStack itemType = new ItemStack(Material.STONE);
     /** List of items with their spawn weights for random selection */
     protected List<Pair<ItemStack, Double>> weightedItems = new ArrayList<>();
     /** Number of items to spawn per event */
     protected int itemCount = DEFAULT_ITEM_COUNT;
-    /** Maximum radius from player for item spawning */
-    protected int maxSpawnRadius = DEFAULT_MAX_SPAWN_RADIUS;
-    /** Minimum radius from player for item spawning */
-    protected int minSpawnRadius = DEFAULT_MIN_SPAWN_RADIUS;
-    /** Maximum vertical radius for item spawning */
-    protected int maxYRadius = DEFAULT_MAX_Y_RADIUS;
-    /** Minimum vertical radius for item spawning */
-    protected int minYRadius = DEFAULT_MIN_Y_RADIUS;
-    /** Maximum attempts to find a valid spawn location */
-    protected int maxSpawnAttempts = DEFAULT_MAX_SPAWN_ATTEMPTS;
-    /** Required horizontal clearance for spawn location */
-    protected double widthClearance = DEFAULT_WIDTH_CLEARANCE;
-    /** Required vertical clearance for spawn location */
-    protected double heightClearance = DEFAULT_HEIGHT_CLEARANCE;
-    /** Spacing between items when group spawning */
-    protected int groupSpacing = DEFAULT_GROUP_SPACING;
     /** Count of items spawned in the last execution */
     private int lastSpawnCount = 0;
 
-    /** Whether items should only spawn on surface blocks */
-    protected boolean surfaceOnlySpawning = DEFAULT_SURFACE_ONLY_SPAWNING;
-    /** Whether items can spawn in water */
-    protected boolean allowWaterSpawns = DEFAULT_ALLOW_WATER_SPAWNS;
-    /** Whether items can spawn in lava */
-    protected boolean allowLavaSpawns = DEFAULT_ALLOW_LAVA_SPAWNS;
+    // Flags
     /** Whether items should spawn in groups */
     protected boolean useGroupSpawning = DEFAULT_USE_GROUP_SPAWNING;
     /** Whether spawning should occur continuously */
@@ -120,6 +71,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
     /** Whether to randomly select item types from weightedItems */
     protected boolean useRandomItemTypes = DEFAULT_USE_RANDOM_ITEM_TYPES;
 
+    // Task Management
     /** Task for continuous spawning mode */
     protected BukkitTask continuousTask = null;
     /** Interval between continuous spawns in seconds */
@@ -326,140 +278,21 @@ public abstract class BaseItemSpawn extends BaseEvent {
     }
 
     /**
-     * Spawns items for a specific player.
+     * Spawns items for a specific player based on the configured settings.
      *
      * @param player the player to spawn items for
-     * @return list of spawned item entities
+     * @return list of spawned Item entities
      */
     public List<Item> spawnForPlayer(Player player) {
         if (player == null || !player.isOnline()) {
             return Collections.emptyList();
         }
-        return useGroupSpawning ? spawnGroupForPlayer(player) : spawnSpreadForPlayer(player);
-    }
 
-    /**
-     * Spawns items spread around a player at random locations.
-     *
-     * @param player the player to spawn items around
-     * @return list of spawned item entities
-     */
-    public List<Item> spawnSpreadForPlayer(Player player) {
-        List<Item> spawnedItems = new ArrayList<>();
-        World world = player.getWorld();
-        Location playerLocation = player.getLocation();
-
-        int attempts = 0;
-        int spawned = 0;
-
-        while (spawned < itemCount && attempts < maxSpawnAttempts) {
-            attempts++;
-
-            // Calculate random offset
-            int xOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int zOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int yOffset = getRandomOffset(minYRadius, maxYRadius);
-
-            // Get initial coordinates
-            int initialX = playerLocation.getBlockX() + xOffset;
-            int initialY = playerLocation.getBlockY() + yOffset;
-            int initialZ = playerLocation.getBlockZ() + zOffset;
-
-            // For surface only spawning, find the highest block at this X,Z
-            if (surfaceOnlySpawning) {
-                initialY = world.getHighestBlockYAt(initialX, initialZ);
-            }
-
-            // Try to find a safe spawning location
-            Location spawnLocation = getSafeLocation(player, initialX, initialY, initialZ);
-
-            if (spawnLocation != null) {
-                ItemStack itemToSpawn = useRandomItemTypes ? getRandomWeightedItem() : itemType;
-                Item item = world.dropItem(spawnLocation, itemToSpawn);
-                MarkingUtility.markItem(item, key);
-                spawnedItems.add(item);
-                spawned++;
-            }
+        if (useGroupSpawning) {
+            return SpawningUtility.spawnItemsGroup(player, itemCount, spawnConfig, key, this::getRandomWeightedItem);
+        } else {
+            return SpawningUtility.spawnItemsSpread(player, itemCount, spawnConfig, key, this::getRandomWeightedItem);
         }
-        return spawnedItems;
-    }
-
-    /**
-     * Spawns a group of items near a player at a single central location.
-     *
-     * @param player the player to spawn items around
-     * @return list of spawned item entities
-     */
-    public List<Item> spawnGroupForPlayer(Player player) {
-        List<Item> spawnedItems = new ArrayList<>();
-        World world = player.getWorld();
-        Location playerLocation = player.getLocation();
-
-        // Try to find a suitable location for the group
-        Location groupCenter = null;
-        int attempts = 0;
-
-        while (groupCenter == null && attempts < maxSpawnAttempts) {
-            attempts++;
-
-            // Calculate random offset
-            int xOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int zOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-            int yOffset = getRandomOffset(minYRadius, maxYRadius);
-
-            // Get initial coordinates
-            int initialX = playerLocation.getBlockX() + xOffset;
-            int initialY = playerLocation.getBlockY() + yOffset;
-            int initialZ = playerLocation.getBlockZ() + zOffset;
-
-            // For surface only spawning, find the highest block at this X,Z
-            if (surfaceOnlySpawning) {
-                initialY = world.getHighestBlockYAt(initialX, initialZ);
-            }
-
-            // Try to find safe spawning location
-            groupCenter = getSafeLocation(player, initialX, initialY, initialZ);
-        }
-
-        // If we couldn't find a suitable group center, return empty list
-        if (groupCenter == null) {
-            return spawnedItems;
-        }
-
-        // Spawn the items in a group around the center
-        int spawned = 0;
-        attempts = 0;
-
-        while (spawned < itemCount && attempts < maxSpawnAttempts * 2) {
-            attempts++;
-
-            // Calculate a close position to the group center
-            int xOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-            int zOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-
-            // Get initial coordinates for group member
-            int initialX = groupCenter.getBlockX() + xOffset;
-            int initialY = groupCenter.getBlockY();
-            int initialZ = groupCenter.getBlockZ() + zOffset;
-
-            // For surface only spawning, adjust Y to the highest block
-            if (surfaceOnlySpawning) {
-                initialY = world.getHighestBlockYAt(initialX, initialZ);
-            }
-
-            // Try to find a safe location
-            Location spawnLocation = getGroupSafeLocation(player, groupCenter, initialX, initialY, initialZ);
-
-            if (spawnLocation != null) {
-                ItemStack itemToSpawn = useRandomItemTypes ? getRandomWeightedItem() : itemType;
-                Item item = world.dropItem(spawnLocation, itemToSpawn);
-                MarkingUtility.markItem(item, key);
-                spawnedItems.add(item);
-                spawned++;
-            }
-        }
-
-        return spawnedItems;
     }
 
     /**
@@ -535,256 +368,6 @@ public abstract class BaseItemSpawn extends BaseEvent {
     }
 
     /**
-     * Finds a safe location to spawn an item near the given coordinates.
-     *
-     * @param player the player reference for spawn radius
-     * @param initialX starting X coordinate
-     * @param initialY starting Y coordinate
-     * @param initialZ starting Z coordinate
-     * @return safe location or null if none found
-     */
-    protected Location getSafeLocation(Player player, int initialX, int initialY, int initialZ) {
-        World world = player.getWorld();
-        int maxTries = maxSpawnAttempts * 3;
-        int currentTry = 0;
-
-        int x = initialX;
-        int y = initialY;
-        int z = initialZ;
-
-        // Check world height boundaries
-        if (y < world.getMinHeight()) {
-            y = world.getMinHeight();
-        } else if (y >= world.getMaxHeight()) {
-            y = world.getMaxHeight() - 3;
-        }
-
-        while (currentTry < maxTries) {
-            Location location = new Location(world, x, y, z);
-
-            if (isSafeLocation(location)) {
-                // Center the location in the block
-                location.setX(x + 0.5);
-                location.setZ(z + 0.5);
-                location.setY(y + 0.5);
-                return location;
-            }
-
-            // Adjust position based on issues
-            Block block = location.getBlock();
-            Block blockBelow = location.clone().subtract(0, 1, 0).getBlock();
-
-            if (block.getType().isSolid()) {
-                // If current block is solid, move up
-                y++;
-            } else if (!blockBelow.getType().isSolid() && !isLiquidLocation(blockBelow)) {
-                // If there's no solid block below, move down
-                y--;
-            } else {
-                // If other issues, try a small move horizontally
-                x += random.nextInt(3) - 1;
-                z += random.nextInt(3) - 1;
-            }
-
-            // Check if we're still within the radius
-            Location playerLocation = player.getLocation();
-            double distanceSquared = Math.pow(playerLocation.getX() - x, 2) +
-                    Math.pow(playerLocation.getZ() - z, 2);
-
-            if (distanceSquared > Math.pow(maxSpawnRadius, 2)) {
-                // If we've moved outside the radius, reset to a new random position within radius
-                int xOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-                int zOffset = getRandomOffset(minSpawnRadius, maxSpawnRadius);
-                x = playerLocation.getBlockX() + xOffset;
-                z = playerLocation.getBlockZ() + zOffset;
-
-                // Reset y based on surface setting
-                if (surfaceOnlySpawning) {
-                    y = world.getHighestBlockYAt(x, z);
-                } else {
-                    int yOffset = getRandomOffset(minYRadius, maxYRadius);
-                    y = playerLocation.getBlockY() + yOffset;
-                }
-            }
-            currentTry++;
-        }
-        return null;
-    }
-
-    /**
-     * Finds a safe location to spawn an item within a group.
-     *
-     * @param player the player reference
-     * @param groupCenter the center location of the group
-     * @param initialX starting X coordinate
-     * @param initialY starting Y coordinate
-     * @param initialZ starting Z coordinate
-     * @return safe location or null if none found
-     */
-    protected Location getGroupSafeLocation(Player player, Location groupCenter, int initialX, int initialY, int initialZ) {
-        World world = player.getWorld();
-        int maxTries = maxSpawnAttempts;
-        int currentTry = 0;
-
-        int x = initialX;
-        int y = initialY;
-        int z = initialZ;
-
-        // Check world height boundaries
-        if (y < world.getMinHeight()) {
-            y = world.getMinHeight();
-        } else if (y >= world.getMaxHeight()) {
-            y = world.getMaxHeight() - 3;
-        }
-
-        while (currentTry < maxTries) {
-            Location location = new Location(world, x, y, z);
-
-            if (isSafeLocation(location)) {
-                // Center the location in the block
-                location.setX(x + 0.5);
-                location.setZ(z + 0.5);
-                location.setY(y + 0.5);
-                return location;
-            }
-
-            // Adjust position based on issues
-            Block block = location.getBlock();
-            Block blockBelow = location.clone().subtract(0, 1, 0).getBlock();
-
-            if (block.getType().isSolid()) {
-                // If current block is solid, move up
-                y++;
-            } else if (!blockBelow.getType().isSolid() && !isLiquidLocation(blockBelow)) {
-                // If there's no solid block below, move down
-                y--;
-            } else {
-                // If other issues, try a small move horizontally
-                x += random.nextInt(3) - 1;
-                z += random.nextInt(3) - 1;
-            }
-
-            // Check if we're still within the group spacing radius
-            double distanceSquared = Math.pow(groupCenter.getX() - x, 2) + Math.pow(groupCenter.getZ() - z, 2);
-            if (distanceSquared > Math.pow(groupSpacing, 2)) {
-                // If we've moved outside the group radius, reset to a new position closer to group center
-                int xOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-                int zOffset = random.nextInt(groupSpacing * 2 + 1) - groupSpacing;
-                x = groupCenter.getBlockX() + xOffset;
-                z = groupCenter.getBlockZ() + zOffset;
-
-                // Reset y based on surface setting
-                if (surfaceOnlySpawning) {
-                    y = world.getHighestBlockYAt(x, z);
-                } else {
-                    y = groupCenter.getBlockY() + (random.nextInt(3) - 1); // Small y variance in groups
-                }
-            }
-            currentTry++;
-        }
-
-        return null;
-    }
-
-    /**
-     * Checks if a location is safe for item spawning.
-     *
-     * @param location the location to check
-     * @return true if the location is safe for spawning
-     */
-    private boolean isSafeLocation(Location location) {
-        World world = location.getWorld();
-        if (location.getBlockY() < world.getMinHeight() || location.getBlockY() >= world.getMaxHeight()) {
-            return false;
-        }
-
-        Block block = location.getBlock();
-        Block blockBelow = location.clone().subtract(0, 1, 0).getBlock();
-
-        return isSafeBlock(block) &&
-                blockBelow.getType().isSolid() &&
-                checkBlockClearance(location);
-    }
-
-    /**
-     * Checks if a block contains a permitted liquid.
-     *
-     * @param block the block to check
-     * @return true if the block contains an allowed liquid
-     */
-    private boolean isLiquidLocation(Block block) {
-        Material type = block.getType();
-        return (type == Material.WATER && allowWaterSpawns) || (type == Material.LAVA && allowLavaSpawns);
-    }
-
-    /**
-     * Checks if a block is safe for item spawning.
-     *
-     * @param block the block to check
-     * @return true if the block is safe
-     */
-    private boolean isSafeBlock(Block block) {
-        return block.getType() == Material.AIR || isLiquidLocation(block);
-    }
-
-    /**
-     * Checks if there is enough clearance around a location.
-     *
-     * @param location the location to check
-     * @return true if there is sufficient clearance
-     */
-    private boolean checkBlockClearance(Location location) {
-        World world = location.getWorld();
-        int baseX = location.getBlockX();
-        int baseY = location.getBlockY();
-        int baseZ = location.getBlockZ();
-
-        int heightBlocks = (int)Math.ceil(heightClearance);
-        int widthBlocks = (int)Math.ceil(widthClearance);
-
-        // Check World height limit
-        if (baseY + heightClearance >= world.getMaxHeight()) {
-            return false;
-        }
-
-        for (int y = 0; y < heightBlocks; y++) {
-            int checkY = baseY + y;
-
-            int xStart = 0;
-            int zStart = 0;
-
-            // If widthClearance is odd, check both negative and positive x and z directions
-            if (widthClearance % 2 == 1) {
-                xStart = -widthBlocks;
-                zStart = -widthBlocks;
-            }
-
-            for (int x = xStart; x <= widthBlocks; x++) {
-                for (int z = zStart; z <= widthBlocks; z++) {
-                    if (!isSafeBlock(world.getBlockAt(baseX + x, checkY, baseZ + z))) {
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Generates a random offset between min and max values.
-     *
-     * @param min minimum value
-     * @param max maximum value
-     * @return random offset between -max and -min or min and max
-     */
-    private int getRandomOffset(int min, int max) {
-        int range = max - min;
-        int offset = random.nextInt(range + 1) + min;
-        return random.nextBoolean() ? offset : -offset;
-    }
-
-    /**
      * Gets the number of items spawned in the last execution.
      *
      * @return the count of items spawned in the most recent spawn operation
@@ -822,7 +405,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setMaxSpawnRadius(int radius) {
-        this.maxSpawnRadius = radius;
+        this.spawnConfig.setMaxSpawnRadius(radius);
         return this;
     }
 
@@ -833,7 +416,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setMinSpawnRadius(int radius) {
-        this.minSpawnRadius = radius;
+        this.spawnConfig.setMinSpawnRadius(radius);
         return this;
     }
 
@@ -844,7 +427,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setMaxYRadius(int radius) {
-        this.maxYRadius = radius;
+        this.spawnConfig.setMaxYRadius(radius);
         return this;
     }
 
@@ -855,7 +438,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setMinYRadius(int radius) {
-        this.minYRadius = radius;
+        this.spawnConfig.setMinYRadius(radius);
         return this;
     }
 
@@ -866,7 +449,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setMaxSpawnAttempts(int attempts) {
-        this.maxSpawnAttempts = attempts;
+        this.spawnConfig.setMaxSpawnAttempts(attempts);
         return this;
     }
 
@@ -877,7 +460,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setWidthClearance(double clearance) {
-        this.widthClearance = clearance;
+        this.spawnConfig.setWidthClearance(clearance);
         return this;
     }
 
@@ -888,7 +471,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setHeightClearance(double clearance) {
-        this.heightClearance = clearance;
+        this.spawnConfig.setHeightClearance(clearance);
         return this;
     }
 
@@ -899,7 +482,18 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setGroupSpacing(int spacing) {
-        this.groupSpacing = spacing;
+        this.spawnConfig.setGroupSpacing(spacing);
+        return this;
+    }
+
+    /**
+     * Sets whether the Y coordinate should be centered when spawning items.
+     *
+     * @param centerY true to center the Y coordinate, false to use exact spawn height
+     * @return this instance for method chaining
+     */
+    public BaseItemSpawn setCenterY(boolean centerY) {
+        this.spawnConfig.setCenterY(centerY);
         return this;
     }
 
@@ -921,7 +515,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setSurfaceOnlySpawning(boolean surfaceOnly) {
-        this.surfaceOnlySpawning = surfaceOnly;
+        this.spawnConfig.setSurfaceOnlySpawning(surfaceOnly);
         return this;
     }
 
@@ -932,7 +526,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setAllowWaterSpawns(boolean allow) {
-        this.allowWaterSpawns = allow;
+        this.spawnConfig.setAllowWaterSpawns(allow);
         return this;
     }
 
@@ -943,7 +537,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      * @return this instance for method chaining
      */
     public BaseItemSpawn setAllowLavaSpawns(boolean allow) {
-        this.allowLavaSpawns = allow;
+        this.spawnConfig.setAllowLavaSpawns(allow);
         return this;
     }
 

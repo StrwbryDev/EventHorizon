@@ -376,6 +376,9 @@ public class AdvConfig {
     public static int getDropPartyHeightClearance(){
         return getI(dropPath+"height-clearance", 1);
     }
+    public static boolean getDropPartyCenterY(){
+        return getB(dropPath+"centered-on-y", true);
+    }
     public static int getDropPartyGroupSpace(){
         return getI(dropPath+"group-spacing", 3);
     }
@@ -427,6 +430,9 @@ public class AdvConfig {
     public static int getFeastHeightClearance(){
         return getI(feastPath+"height-clearance", 1);
     }
+    public static boolean getFeastCenterY(){
+        return getB(feastPath+"centered-on-y", true);
+    }
     public static int getFeastGroupSpace(){
         return getI(feastPath+"group-spacing", 2);
     }
@@ -477,6 +483,9 @@ public class AdvConfig {
     }
     public static int getOreDropHeightClearance(){
         return getI(oreDropPath+"height-clearance", 1);
+    }
+    public static boolean getOreDropCenterY(){
+        return getB(oreDropPath+"centered-on-y", true);
     }
     public static int getOreDropGroupSpace(){
         return getI(oreDropPath+"group-spacing", 2);

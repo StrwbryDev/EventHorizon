@@ -22,7 +22,7 @@ public class FoodComa extends BaseEffects
                 AdvConfig.getFoodComaSaturationAmbient(), AdvConfig.getFoodComaSaturationParticles(), AdvConfig.getFoodComaSaturationIcon());
 
         addEffect(PotionEffectType.SLOWNESS, AdvConfig.getFoodComaSlownessDuration(), AdvConfig.getFoodComaSlownessAmplifier(),
-                AdvConfig.getFoodComaSaturationAmbient(),AdvConfig.getFoodComaSlownessParticles(), AdvConfig.getFoodComaSlownessIcon());
+                AdvConfig.getFoodComaSlownessAmbient(),AdvConfig.getFoodComaSlownessParticles(), AdvConfig.getFoodComaSlownessIcon());
 
         /*EventLoggerUtility.logEventInitialization("FoodComa",
                 "saturation duration", AdvConfig.getFoodComaSaturationDuration(),

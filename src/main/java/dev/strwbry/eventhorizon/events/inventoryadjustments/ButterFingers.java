@@ -1,14 +1,11 @@
 package dev.strwbry.eventhorizon.events.inventoryadjustments;
 
-import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Event that causes players to randomly drop items from their hands at random intervals.
@@ -24,10 +21,13 @@ public class ButterFingers extends BaseInventoryAdjustment {
         super(EventClassification.NEGATIVE, "butterFingers");
         // Configure the event parameters
         this.useContinuousOperation = AdvConfig.getButterFingersUseCont();
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(AdvConfig.getButterFingersOrigin(), AdvConfig.getButterFingersBound()));
+        this.useVariableIntervals = true;
+        this.minInterval = AdvConfig.getButterFingersOrigin(); // Minimum interval in seconds
+        this.maxInterval = AdvConfig.getButterFingersBound(); // Maximum interval in seconds (inclusive)
+        this.operationInterval = getRandomInterval(); // Initial random interval
 
         EventLoggerUtility.logEventInitialization("Butterfingers",
-                "use-continuous-operation", this.useContinuousOperation,
+                "use-continuous-operation", AdvConfig.getButterFingersUseCont(),
                 "origin", AdvConfig.getButterFingersOrigin(),
                 "bound", AdvConfig.getButterFingersBound()
         );
@@ -62,26 +62,19 @@ public class ButterFingers extends BaseInventoryAdjustment {
             return false;
         }
 
-        // Randomize the interval for the next operation
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(AdvConfig.getButterFingersOrigin(), AdvConfig.getButterFingersBound()));
-
         return true;
     }
 
     /**
      * Executes the ButterFingers event.
-     * Sets an initial random interval and starts the continuous operation.
      */
     @Override
     public void execute() {
-        // Set a random interval before starting continuous operation
-        this.setOperationInterval(ThreadLocalRandom.current().nextInt(AdvConfig.getButterFingersOrigin(), AdvConfig.getButterFingersBound()));
         super.execute();
     }
 
     /**
      * Terminates the ButterFingers event.
-     * Stops the continuous operation task.
      */
     @Override
     public void terminate() {

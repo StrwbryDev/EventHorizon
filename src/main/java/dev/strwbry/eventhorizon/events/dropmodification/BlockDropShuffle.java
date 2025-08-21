@@ -31,7 +31,7 @@ public class BlockDropShuffle extends BaseDropModification {
         List<ItemStack> survivalDropPool = ItemUtility.generateSurvivalDropsList();
 
         for (Material material : Material.values()) {
-            if (material.isBlock() && material != Material.AIR) {
+            if (material.isBlock() && !material.isAir()) {
                 setFixedBlockDrop(material, survivalDropPool);
             }
         }
