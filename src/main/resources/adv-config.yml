@@ -48,8 +48,8 @@ attributes:
 
     # lower/more negative number = increasing lower gravity
     zero-gravity:
-      movespeed-mult: -0.05 # -0.05 is default
-      gravity: 0.05 # 0.05 is default
+      movespeed-mult: 0.05 # 0.05 is default
+      gravity: -0.05 # -0.05 is default
 
 
 block-modification:
@@ -195,7 +195,7 @@ gamerule:
 
 
 
-inventory-adjustments:
+inventory-adjustment:
 
   universal:
     default-interval: 60 # time in seconds, 60 is default

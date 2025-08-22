@@ -47,6 +47,7 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
 
     /** Collection of entity keys that need to be cleaned up */
     public static Collection<NamespacedKey> entityKeysToDelete = new ArrayList<>();
+    /** Configuration for advanced settings */
     private static FileConfiguration advConfig;
     private static File advConfigFile;
 
@@ -62,7 +63,7 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         plugin = this;
 
         saveResource("config.yml", /* replace */ false);
-        saveResource("adv-config.yml", /* replace */ false);
+        // This also calls saveResource() on the adv-config.yml file
         loadAdvConfig();
 
         blockMasks = new BlockMasks();
@@ -85,6 +86,9 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
             commands.registrar().register(CommandRootEventHorizon.buildCommand());
         });
         int pluginId = 25805; // from bStats website
+
+        // Not sure if this even needs to be given an instance name?
+        // Possibly could just be: new Metrics(this, pluginId);
         Metrics metrics = new Metrics(this, pluginId);
 
 
@@ -144,12 +148,18 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
     public static RandomPatterns getRandomPatterns() {
         return randomPatterns;
     }
-
+    /**
+     * Gets the file configuration for advanced settings.
+     * @return The FileConfiguration for advanced settings
+     */
     public static FileConfiguration getAdvConfig() {
         return advConfig;
     }
 
-
+    /**
+     * Reloads the advanced configuration file.
+     * This method loads the configuration from the file and applies default values if available.
+     */
     public static void reloadAdvConfig() {
         advConfig = YamlConfiguration.loadConfiguration(advConfigFile);
         try (Reader defConfigStream = new InputStreamReader(plugin.getResource("adv-config.yml"))) {
@@ -160,6 +170,10 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         } catch (IOException ignored) {}
     }
 
+    /**
+     * Loads the advanced configuration file.
+     * If the file does not exist, it will be created from the resource.
+     */
     private void loadAdvConfig() {
         advConfigFile = new File(getDataFolder(), "adv-config.yml");
         if (!advConfigFile.exists()) {

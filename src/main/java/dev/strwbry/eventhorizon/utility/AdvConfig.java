@@ -5,12 +5,24 @@ import dev.strwbry.eventhorizon.EventHorizon;
 
 public class AdvConfig {
 
+    /**
+     * Retrieves a double value from the advanced configuration.
+     * @param path the path of the configuration setting
+     * @param def the default value to return if the setting is not found
+     */
     private static double getD(String path, double def){
         return EventHorizon.getAdvConfig().getDouble(path, def);
     }
+
+    /**
+     * @see #getD(String, double)
+     */
     private static boolean getB(String path, boolean def){
         return EventHorizon.getAdvConfig().getBoolean(path, def);
     }
+    /**
+     * @see #getD(String, double)
+     */
     private static int getI(String path, int def){
         return EventHorizon.getAdvConfig().getInt(path, def);
     }
@@ -317,7 +329,7 @@ public class AdvConfig {
     // Universal // Implementation not yet decided
 
     // Butterfingers Event
-    private static final String bFPath = "inventory-adjustments.events.butterfingers.";
+    private static final String bFPath = "inventory-adjustment.events.butterfingers.";
     public static boolean getButterFingersUseCont(){
         return getB(bFPath+"use-continuous", true);
     }

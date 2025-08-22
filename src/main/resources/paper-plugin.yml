@@ -3,7 +3,7 @@ version: 1.0.0-alpha
 main: dev.strwbry.eventhorizon.EventHorizon
 description: 'A dynamic game mode that introduces configurable random server-wide events to enhance player engagement and replayability'
 authors: [Strwbry, xTri]
-contributors: [QarthO]
+contributors: [QarthO, mthyuu]
 website: https://github.com/StrwbryDev/EventHorizon
 api-version: '1.21.5'
 dependencies:
