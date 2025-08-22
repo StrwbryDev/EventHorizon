@@ -4,11 +4,6 @@ import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.events.utility.ItemUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A positive event that spawns various items throughout the world in a "drop party" style.
@@ -40,7 +35,7 @@ public class DropParty extends BaseItemSpawn {
                 .setAllowLavaSpawns(AdvConfig.getDropPartyAllowLavaSpawn())
                 .setRandomItemTypes(AdvConfig.getDropPartyUseRandItemTypes());
 
-        /*EventLoggerUtility.logEventInitialization("DropParty",
+        EventLoggerUtility.logEventInitialization("DropParty",
                 "item-count", AdvConfig.getDropPartyItemCt(),
                 "max-spawn-radius", AdvConfig.getDropPartyMaxSpawnRad(),
                 "min-spawn-radius", AdvConfig.getDropPartyMinSpawnRad(),
@@ -54,9 +49,7 @@ public class DropParty extends BaseItemSpawn {
                 "allow-water-spawns", AdvConfig.getDropPartyAllowWaterSpawn(),
                 "allow-lava-spawns", AdvConfig.getDropPartyAllowLavaSpawn(),
                 "random-item-types", AdvConfig.getDropPartyUseRandItemTypes()
-        );*/
-
-        EventLoggerUtility.logEventInitialization(this);
+        );
     }
 
     @Override

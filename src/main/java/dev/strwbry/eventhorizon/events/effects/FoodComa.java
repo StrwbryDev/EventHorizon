@@ -1,6 +1,5 @@
 package dev.strwbry.eventhorizon.events.effects;
 
-import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
@@ -24,7 +23,7 @@ public class FoodComa extends BaseEffects
         addEffect(PotionEffectType.SLOWNESS, AdvConfig.getFoodComaSlownessDuration(), AdvConfig.getFoodComaSlownessAmplifier(),
                 AdvConfig.getFoodComaSlownessAmbient(),AdvConfig.getFoodComaSlownessParticles(), AdvConfig.getFoodComaSlownessIcon());
 
-        /*EventLoggerUtility.logEventInitialization("FoodComa",
+        EventLoggerUtility.logEventInitialization("FoodComa",
                 "saturation duration", AdvConfig.getFoodComaSaturationDuration(),
                         "saturation amplifier", AdvConfig.getFoodComaSaturationAmplifier(),
                         "saturation ambient", AdvConfig.getFoodComaSaturationAmbient(),
@@ -36,9 +35,7 @@ public class FoodComa extends BaseEffects
                         "slowness ambient", AdvConfig.getFoodComaSlownessAmbient(),
                         "slowness particles", AdvConfig.getFoodComaSlownessParticles(),
                         "slowness icon", AdvConfig.getFoodComaSlownessIcon()
-        );*/
-
-        EventLoggerUtility.logEventInitialization(this);
+        );
     }
 
     /**

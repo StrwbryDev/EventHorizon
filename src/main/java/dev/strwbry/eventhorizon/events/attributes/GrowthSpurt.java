@@ -1,6 +1,5 @@
 package dev.strwbry.eventhorizon.events.attributes;
 
-import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
 import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
@@ -43,7 +42,7 @@ public class GrowthSpurt extends BaseAttribute {
         addAttributeModifier(Attribute.BLOCK_INTERACTION_RANGE, AdvConfig.getGrowthBlockInteract(), AttributeModifier.Operation.ADD_SCALAR);
         addAttributeModifier(Attribute.ENTITY_INTERACTION_RANGE, AdvConfig.getGrowthEntityInteract(), AttributeModifier.Operation.ADD_SCALAR);
 
-        /*EventLoggerUtility.logEventInitialization("GrowthSpurt",
+        EventLoggerUtility.logEventInitialization("GrowthSpurt",
                 "scale", AdvConfig.getGrowthScale(),
                 "maxHP", AdvConfig.getGrowthMaxHP(),
                 "attack dmg", AdvConfig.getGrowthAttack(),
@@ -56,9 +55,7 @@ public class GrowthSpurt extends BaseAttribute {
                 "safe fall distance", AdvConfig.getGrowthSafeFall(),
                 "block interaction range", AdvConfig.getGrowthBlockInteract(),
                 "entity interaction range", AdvConfig.getGrowthEntityInteract()
-        );*/
-
-        EventLoggerUtility.logEventInitialization(this);
+        );
     }
 
     /**

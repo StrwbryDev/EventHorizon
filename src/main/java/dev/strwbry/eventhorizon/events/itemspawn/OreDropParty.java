@@ -1,7 +1,6 @@
 package dev.strwbry.eventhorizon.events.itemspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
@@ -56,8 +55,6 @@ public class OreDropParty extends BaseItemSpawn {
                         Pair.of(new ItemStack(Material.RAW_COPPER), 15.0),
                         Pair.of(new ItemStack(Material.COAL), 15.0)
                 ));
-
-        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

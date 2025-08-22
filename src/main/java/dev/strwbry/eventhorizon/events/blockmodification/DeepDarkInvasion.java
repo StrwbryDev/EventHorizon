@@ -6,7 +6,6 @@ import dev.strwbry.eventhorizon.events.blockmodification.subevents.SubPlantsToSc
 import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCylindricalRegion;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
-import dev.strwbry.eventhorizon.utility.MsgUtility;
 import org.bukkit.Bukkit;
 
 /**

@@ -37,7 +37,7 @@ public class HoneyIShrunkTheKids extends BaseAttribute {
         addAttributeModifier(Attribute.JUMP_STRENGTH, AdvConfig.getShrunkJumpStr(), AttributeModifier.Operation.ADD_SCALAR);
         addAttributeModifier(Attribute.SAFE_FALL_DISTANCE, AdvConfig.getShrunkSafeFall(), AttributeModifier.Operation.ADD_NUMBER);
 
-        /*EventLoggerUtility.logEventInitialization("HoneyIShrunkTheKids",
+        EventLoggerUtility.logEventInitialization("HoneyIShrunkTheKids",
                 "scale", AdvConfig.getShrunkScale(),
                 "maxHP", AdvConfig.getShrunkMaxHP(),
                 "attack dmg", AdvConfig.getShrunkAttack(),
@@ -46,9 +46,7 @@ public class HoneyIShrunkTheKids extends BaseAttribute {
                 "water movement", AdvConfig.getShrunkWaterMove(),
                 "jump strength", AdvConfig.getShrunkJumpStr(),
                 "safe fall distance", AdvConfig.getShrunkSafeFall()
-        );*/
-
-        EventLoggerUtility.logEventInitialization(this);
+        );
     }
 
     /**

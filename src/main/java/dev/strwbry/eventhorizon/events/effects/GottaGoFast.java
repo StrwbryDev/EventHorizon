@@ -20,15 +20,13 @@ public class GottaGoFast extends BaseEffects {
         addEffect(PotionEffectType.SPEED, AdvConfig.getGottaGoFastDuration(),AdvConfig.getGottaGoFastAmplifier(),
                 AdvConfig.getGottaGoFastAmbient(), AdvConfig.getGottaGoFastParticles(), AdvConfig.getGottaGoFastIcon());
 
-        /*EventLoggerUtility.logEventInitialization("GottaGoFast",
+        EventLoggerUtility.logEventInitialization("GottaGoFast",
                 "duration", AdvConfig.getGottaGoFastDuration(),
                 "amplifier", AdvConfig.getGottaGoFastAmplifier(),
                 "ambient", AdvConfig.getGottaGoFastAmbient(),
                 "particles", AdvConfig.getGottaGoFastParticles(),
                 "icon", AdvConfig.getGottaGoFastIcon()
-        );*/
-
-        EventLoggerUtility.logEventInitialization(this);
+        );
     }
 
     /**

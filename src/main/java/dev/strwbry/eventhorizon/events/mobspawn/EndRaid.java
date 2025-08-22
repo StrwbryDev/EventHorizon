@@ -1,7 +1,6 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
@@ -48,8 +47,6 @@ public class EndRaid extends BaseMobSpawn {
                 .setUseContinuousSpawning(AdvConfig.getEndRaidUseContinuousSpawn())
                 .setSpawnInterval(AdvConfig.getEndRaidSpawnInterval())
                 .setRandomMobTypes(AdvConfig.getEndRaidUseRandMobTypes());
-
-        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

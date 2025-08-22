@@ -2,7 +2,6 @@ package dev.strwbry.eventhorizon.events.mobspawn;
 
 
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
@@ -51,8 +50,6 @@ public class RandomMobSpawn extends BaseMobSpawn {
                         && !type.equals(EntityType.END_CRYSTAL)
                         && !type.equals(EntityType.ARMOR_STAND))
                     .collect(Collectors.toList()));
-
-        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

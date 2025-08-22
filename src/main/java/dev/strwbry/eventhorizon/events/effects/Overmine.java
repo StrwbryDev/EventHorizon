@@ -20,15 +20,13 @@ public class Overmine extends BaseEffects {
         addEffect(PotionEffectType.HASTE, AdvConfig.getOvermineDuration(), AdvConfig.getOvermineAmplifier(),
                 AdvConfig.getOvermineAmbient(), AdvConfig.getOvermineParticles(), AdvConfig.getOvermineIcon());
 
-        /*EventLoggerUtility.logEventInitialization("Overmine",
+        EventLoggerUtility.logEventInitialization("Overmine",
                 "duration", AdvConfig.getOvermineDuration(),
                 "amplifier", AdvConfig.getOvermineAmplifier(),
                 "ambient", AdvConfig.getOvermineAmbient(),
                 "particles", AdvConfig.getOvermineParticles(),
                 "icon", AdvConfig.getOvermineIcon()
-        );*/
-
-        EventLoggerUtility.logEventInitialization(this);
+        );
     }
 
     /**

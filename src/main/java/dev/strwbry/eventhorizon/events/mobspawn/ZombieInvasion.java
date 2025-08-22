@@ -1,7 +1,6 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -43,8 +42,6 @@ public class ZombieInvasion extends BaseMobSpawn {
                 .setGroupSpacing(AdvConfig.getZombInvGroupSpace())
                 .setUseContinuousSpawning(AdvConfig.getZombInvUseContinuousSpawn())
                 .setSpawnInterval(AdvConfig.getZombInvSpawnInterval());
-
-        EventLoggerUtility.logEventInitialization(this);
     }
 
     /**

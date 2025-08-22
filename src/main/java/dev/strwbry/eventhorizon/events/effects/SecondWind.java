@@ -1,7 +1,6 @@
 package dev.strwbry.eventhorizon.events.effects;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import org.bukkit.potion.PotionEffectType;
 
 /**

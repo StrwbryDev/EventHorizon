@@ -62,6 +62,7 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         plugin = this;
 
         saveResource("config.yml", /* replace */ false);
+        saveResource("adv-config.yml", /* replace */ false);
         loadAdvConfig();
 
         blockMasks = new BlockMasks();

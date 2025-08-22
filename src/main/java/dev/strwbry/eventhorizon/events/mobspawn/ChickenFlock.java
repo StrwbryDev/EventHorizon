@@ -2,7 +2,6 @@ package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
-import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
@@ -41,15 +40,13 @@ public class ChickenFlock extends BaseMobSpawn {
                 .setUseContinuousSpawning(AdvConfig.getChickenFUseContinuousSpawn())
                 .setSpawnInterval(AdvConfig.getChickenFSpawnInterval());
 
-        /*EventHorizon.getPlugin().getLogger().info(String.format("ChickenFlock event initialized with mob count %d, spawn radius %d-%d, vertical range %d-%d",
+        EventHorizon.getPlugin().getLogger().info(String.format("ChickenFlock event initialized with mob count %d, spawn radius %d-%d, vertical range %d-%d",
                 AdvConfig.getChickenFMobCt(),
                 AdvConfig.getChickenFMinSpawnRad(),
                 AdvConfig.getChickenFMaxSpawnRad(),
                 AdvConfig.getChickenFMinYRad(),
                 AdvConfig.getChickenFMaxYRad())
-        );*/
-
-        EventLoggerUtility.logEventInitialization(this);
+        );
     }
 
     /**
