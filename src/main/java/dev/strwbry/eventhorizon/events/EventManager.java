@@ -6,10 +6,9 @@ import dev.strwbry.eventhorizon.utility.MsgUtility;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Manages the triggering and execution of events in the EventHorizon plugin.
@@ -127,5 +126,15 @@ public class EventManager {
         Bukkit.getLogger().info("Raw weights - Pos: " + this.posWeight +
                 ", Neg: " + this.negWeight +
                 ", Neutral: " + this.neutralWeight);
+    }
+
+    public Set<Player> getAvailableEventPlayers() {
+        Set<Player> players = new HashSet<>();
+        for (Player player : EventHorizon.getPlugin().getServer().getOnlinePlayers()) {
+            if (player.getGameMode() != org.bukkit.GameMode.SPECTATOR) {
+                players.add(player);
+            }
+        }
+        return players;
     }
 }

@@ -12,10 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static dev.strwbry.eventhorizon.utility.MsgUtility.log;
 import static dev.strwbry.eventhorizon.utility.MsgUtility.warning;
@@ -270,7 +267,7 @@ public abstract class BaseMobSpawn extends BaseEvent {
      */
     public int spawnForAllPlayers() {
         int totalSpawned = 0;
-        List<Player> players = new ArrayList<>(plugin.getServer().getOnlinePlayers());
+        Set<Player> players = getAvailableEventPlayers();
 
         for (Player player : players) {
             List<Entity> spawnedEntities = spawnForPlayer(player);

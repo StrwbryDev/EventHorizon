@@ -243,7 +243,7 @@ public abstract class BaseInventoryAdjustment extends BaseEvent {
      */
     public int applyToAllPlayers() {
         int affectedPlayers = 0;
-        List<Player> players = new ArrayList<>(plugin.getServer().getOnlinePlayers());
+        Set<Player> players = getAvailableEventPlayers();
 
         for (Player player : players) {
             boolean success = applyToPlayer(player);

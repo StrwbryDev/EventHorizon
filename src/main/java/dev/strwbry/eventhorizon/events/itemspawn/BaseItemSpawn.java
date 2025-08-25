@@ -15,10 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -255,7 +252,7 @@ public abstract class BaseItemSpawn extends BaseEvent {
      */
     public int spawnForAllPlayers() {
         int totalSpawned = 0;
-        List<Player> players = new ArrayList<>(plugin.getServer().getOnlinePlayers());
+        Set<Player> players = getAvailableEventPlayers();
 
         for (Player player : players) {
             List<Item> spawnedItems = spawnForPlayer(player);

@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Abstract base class for managing potion effects in the EventHorizon plugin.
@@ -131,7 +132,7 @@ public abstract class BaseEffects extends BaseEvent {
      */
     public void applyPotionEffectsToAllPlayers() {
         int successCount = 0;
-        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        Set<Player> players = getAvailableEventPlayers();
 
         for (Player player : players) {
             try {

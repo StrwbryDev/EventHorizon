@@ -73,8 +73,10 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
         scheduler = new Scheduler();
 
         // Register event listeners
+        ListenerManager.initializeEffectListener();
         ListenerManager.initializeEnityAddToWorld();
         ListenerManager.initializePlayerDropItem();
+        ListenerManager.initializePlayerGamemodeChange();
         ListenerManager.unregisterAllListeners();
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) { //

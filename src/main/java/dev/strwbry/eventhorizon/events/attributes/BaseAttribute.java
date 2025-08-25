@@ -99,7 +99,7 @@ public abstract class BaseAttribute extends BaseEvent {
      */
     public void applyAttributeModifiersToAllPlayers() {
         int successCount = 0;
-        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        Set<Player> players = getAvailableEventPlayers();
 
         for (Player player : players) {
             try {
