@@ -68,6 +68,11 @@ public final class EventHorizon extends JavaPlugin implements CommandExecutor
 
         blockMasks = new BlockMasks();
         randomPatterns = new RandomPatterns();
+        
+        // Load configuration before creating EventInitializer
+        saveResource("config.yml", /* replace */ false);
+        loadAdvConfig();
+        
         eventInitializer  = new EventInitializer();
         eventManager = new EventManager();
         scheduler = new Scheduler();
