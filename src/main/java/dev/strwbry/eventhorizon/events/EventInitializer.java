@@ -90,6 +90,10 @@ public class EventInitializer {
         registeredEvents.put("growthspurt", new GrowthSpurt());
         registeredEvents.put("halfaheart", new HalfAHeart());
         registeredEvents.put("honeyishrunkthekids", new HoneyIShrunkTheKids());
+        registeredEvents.put("knockbackboost", new KnockbackBoost());
+        registeredEvents.put("onepunch", new OnePunch());
+        registeredEvents.put("randomattributes", new RandomAttributes());
+        registeredEvents.put("randomattributesperplayer", new RandomAttributesPerPlayer());
         registeredEvents.put("lifestealonly", new LifestealOnly());
         registeredEvents.put("zerogravity", new ZeroGravity());
 
