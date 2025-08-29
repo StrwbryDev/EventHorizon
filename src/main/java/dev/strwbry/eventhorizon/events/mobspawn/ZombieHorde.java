@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,22 +26,21 @@ public class ZombieHorde extends BaseMobSpawn {
      */
     public ZombieHorde() {
         super(EntityType.ZOMBIE, EventClassification.NEGATIVE, "zombieHorde");
-        setMobCount(10)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(3)
-                .setMaxYRadius(20)
-                .setMinYRadius(3)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(2)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(false)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60);
-
+        setMobCount(AdvConfig.getZombHordeMobCt())
+                .setMaxSpawnRadius(AdvConfig.getZombHordeMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getZombHordeMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getZombHordeMaxYRad())
+                .setMinYRadius(AdvConfig.getZombHordeMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getZombHordeMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getZombHordeHeightClearance())
+                .setWidthClearance(AdvConfig.getZombHordeWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getZombHordeSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getZombHordeAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getZombHordeAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getZombHordeUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getZombHordeGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getZombHordeUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getZombHordeSpawnInterval());
     }
     /**
      * Handles post-spawn setup for the zombies.

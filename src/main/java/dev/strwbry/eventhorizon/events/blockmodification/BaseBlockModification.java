@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Base class for block modification events that handles replacing blocks in specified regions.
@@ -97,7 +98,7 @@ public abstract class BaseBlockModification extends BaseEvent
      */
     public void applyBlockEditToAllPlayers(Material replacementBlock, Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
         int successCount = 0;
-        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        Set<Player> players = getAvailableEventPlayers();
 
         for (Player player : players) {
             BlockEditor.replaceBlocksInRegion(this.region.getRegion(player), replacementBlock, blockTypesToReplace, isMaskInverted);
@@ -115,7 +116,7 @@ public abstract class BaseBlockModification extends BaseEvent
      */
     public void applyBlockEditToAllPlayers(Pattern replacingPattern, Collection<BlockType> blockTypesToReplace, boolean isMaskInverted) {
         int successCount = 0;
-        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        Set<Player> players = getAvailableEventPlayers();
 
         for (Player player : players) {
             BlockEditor.replaceBlocksInRegion(this.region.getRegion(player), replacingPattern, blockTypesToReplace, isMaskInverted);

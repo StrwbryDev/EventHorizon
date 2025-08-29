@@ -5,12 +5,24 @@ import dev.strwbry.eventhorizon.EventHorizon;
 
 public class AdvConfig {
 
+    /**
+     * Retrieves a double value from the advanced configuration.
+     * @param path the path of the configuration setting
+     * @param def the default value to return if the setting is not found
+     */
     private static double getD(String path, double def){
         return EventHorizon.getAdvConfig().getDouble(path, def);
     }
+
+    /**
+     * @see #getD(String, double)
+     */
     private static boolean getB(String path, boolean def){
         return EventHorizon.getAdvConfig().getBoolean(path, def);
     }
+    /**
+     * @see #getD(String, double)
+     */
     private static int getI(String path, int def){
         return EventHorizon.getAdvConfig().getInt(path, def);
     }
@@ -317,7 +329,7 @@ public class AdvConfig {
     // Universal // Implementation not yet decided
 
     // Butterfingers Event
-    private static final String bFPath = "inventory-adjustments.events.butterfingers.";
+    private static final String bFPath = "inventory-adjustment.events.butterfingers.";
     public static boolean getButterFingersUseCont(){
         return getB(bFPath+"use-continuous", true);
     }
@@ -376,6 +388,9 @@ public class AdvConfig {
     public static int getDropPartyHeightClearance(){
         return getI(dropPath+"height-clearance", 1);
     }
+    public static boolean getDropPartyCenterY(){
+        return getB(dropPath+"centered-on-y", true);
+    }
     public static int getDropPartyGroupSpace(){
         return getI(dropPath+"group-spacing", 3);
     }
@@ -427,6 +442,9 @@ public class AdvConfig {
     public static int getFeastHeightClearance(){
         return getI(feastPath+"height-clearance", 1);
     }
+    public static boolean getFeastCenterY(){
+        return getB(feastPath+"centered-on-y", true);
+    }
     public static int getFeastGroupSpace(){
         return getI(feastPath+"group-spacing", 2);
     }
@@ -477,6 +495,9 @@ public class AdvConfig {
     }
     public static int getOreDropHeightClearance(){
         return getI(oreDropPath+"height-clearance", 1);
+    }
+    public static boolean getOreDropCenterY(){
+        return getB(oreDropPath+"centered-on-y", true);
     }
     public static int getOreDropGroupSpace(){
         return getI(oreDropPath+"group-spacing", 2);

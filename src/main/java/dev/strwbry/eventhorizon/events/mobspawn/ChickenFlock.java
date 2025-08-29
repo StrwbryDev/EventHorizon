@@ -1,6 +1,8 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
+import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
 /**
@@ -22,22 +24,29 @@ public class ChickenFlock extends BaseMobSpawn {
      */
     public ChickenFlock() {
         super(EntityType.CHICKEN, EventClassification.POSITIVE, "chickenFlock");
-        setMobCount(5)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(3)
-                .setMaxYRadius(20)
-                .setMinYRadius(3)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(1)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(true)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60);
+        setMobCount(AdvConfig.getChickenFMobCt())
+                .setMaxSpawnRadius(AdvConfig.getChickenFMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getChickenFMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getChickenFMaxYRad())
+                .setMinYRadius(AdvConfig.getChickenFMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getChickenFMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getChickenFHeightClearance())
+                .setWidthClearance(AdvConfig.getChickenFWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getChickenFSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getChickenFAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getChickenFAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getChickenFUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getChickenFGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getChickenFUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getChickenFSpawnInterval());
 
+        EventHorizon.getPlugin().getLogger().info(String.format("ChickenFlock event initialized with mob count %d, spawn radius %d-%d, vertical range %d-%d",
+                AdvConfig.getChickenFMobCt(),
+                AdvConfig.getChickenFMinSpawnRad(),
+                AdvConfig.getChickenFMaxSpawnRad(),
+                AdvConfig.getChickenFMinYRad(),
+                AdvConfig.getChickenFMaxYRad())
+        );
     }
 
     /**

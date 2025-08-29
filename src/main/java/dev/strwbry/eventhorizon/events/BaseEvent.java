@@ -1,6 +1,10 @@
 package dev.strwbry.eventhorizon.events;
 
 import dev.strwbry.eventhorizon.EventHorizon;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Abstract base class for all events in the EventHorizon plugin.
@@ -78,5 +82,14 @@ public abstract class BaseEvent
     public String getName()
     {
         return eventName;
+    }
+
+    /**
+     * Gets the list of players currently available for events.
+     *
+     * @return A list of available players
+     */
+    public Set<Player> getAvailableEventPlayers(){
+        return EventHorizon.getEventManager().getAvailableEventPlayers();
     }
 }

@@ -1,6 +1,8 @@
 package dev.strwbry.eventhorizon.events.effects;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.potion.PotionEffectType;
 
 /**
@@ -15,8 +17,16 @@ public class Overmine extends BaseEffects {
      */
     public Overmine() {
         super(EventClassification.POSITIVE, "overmine");
-        addEffect(PotionEffectType.HASTE, 6000, 1,
-                false, false, true);
+        addEffect(PotionEffectType.HASTE, AdvConfig.getOvermineDuration(), AdvConfig.getOvermineAmplifier(),
+                AdvConfig.getOvermineAmbient(), AdvConfig.getOvermineParticles(), AdvConfig.getOvermineIcon());
+
+        EventLoggerUtility.logEventInitialization("Overmine",
+                "duration", AdvConfig.getOvermineDuration(),
+                "amplifier", AdvConfig.getOvermineAmplifier(),
+                "ambient", AdvConfig.getOvermineAmbient(),
+                "particles", AdvConfig.getOvermineParticles(),
+                "icon", AdvConfig.getOvermineIcon()
+        );
     }
 
     /**

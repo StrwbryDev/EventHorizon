@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
 /**
@@ -22,22 +23,21 @@ public class CowHerd extends BaseMobSpawn {
      */
     public CowHerd() {
         super(EntityType.COW, EventClassification.POSITIVE, "cowHerd");
-        setMobCount(5)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(3)
-                .setMaxYRadius(20)
-                .setMinYRadius(3)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(2)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(true)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60);
-
+        setMobCount(AdvConfig.getCowHerdMobCt())
+                .setMaxSpawnRadius(AdvConfig.getCowHerdMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getCowHerdMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getCowHerdMaxYRad())
+                .setMinYRadius(AdvConfig.getCowHerdMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getCowHerdMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getCowHerdHeightClearance())
+                .setWidthClearance(AdvConfig.getCowHerdWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getCowHerdSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getCowHerdAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getCowHerdAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getCowHerdUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getCowHerdGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getCowHerdUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getCowHerdSpawnInterval());
     }
 
     /**

@@ -93,13 +93,15 @@ public abstract class BaseDropModification extends BaseEvent implements Listener
     }
 
     /**
-     * Handles block breaking events by ensuring drops are enabled for non-creative players.
+     * Handles block breaking events by ensuring drops are enabled for non-creative/spectator players.
      *
      * @param event the block break event
      */
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (!isActive || event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+        if (!isActive ||
+                event.getPlayer().getGameMode() == GameMode.CREATIVE ||
+                event.getPlayer().getGameMode() == GameMode.SPECTATOR) {
             return;
         }
 
@@ -139,7 +141,9 @@ public abstract class BaseDropModification extends BaseEvent implements Listener
      * @return true if custom drops were applied, false otherwise
      */
     protected boolean handleBlockDrops(BlockDropItemEvent event) {
-        if (!isActive || event.getPlayer().getGameMode() == GameMode.CREATIVE) {
+        if (!isActive ||
+                event.getPlayer().getGameMode() == GameMode.CREATIVE ||
+                event.getPlayer().getGameMode() == GameMode.SPECTATOR) {
             return false;
         }
 

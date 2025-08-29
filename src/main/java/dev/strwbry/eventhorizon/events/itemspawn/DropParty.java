@@ -1,7 +1,9 @@
 package dev.strwbry.eventhorizon.events.itemspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.events.utility.ItemUtility;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 
 /**
  * A positive event that spawns various items throughout the world in a "drop party" style.
@@ -19,19 +21,35 @@ public class DropParty extends BaseItemSpawn {
      */
     public DropParty() {
         super(ItemUtility.generateWeightedSurvivalDropsList(), EventClassification.POSITIVE, "dropParty");
-        setItemCount(32)
-                .setMaxSpawnRadius(20)
-                .setMinSpawnRadius(1)
-                .setMaxYRadius(10)
-                .setMinYRadius(1)
-                .setMaxSpawnAttempts(64)
-                .setHeightClearance(1)
-                .setWidthClearance(1)
-                .setCenterY(true)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setRandomItemTypes(true);
+        setItemCount(AdvConfig.getDropPartyItemCt())
+                .setMaxSpawnRadius(AdvConfig.getDropPartyMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getDropPartyMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getDropPartyMaxYRad())
+                .setMinYRadius(AdvConfig.getDropPartyMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getDropPartyMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getDropPartyHeightClearance())
+                .setWidthClearance(AdvConfig.getDropPartyWidthClearance())
+                .setCenterY(AdvConfig.getDropPartyCenterY())
+                .setSurfaceOnlySpawning(AdvConfig.getDropPartySurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getDropPartyAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getDropPartyAllowLavaSpawn())
+                .setRandomItemTypes(AdvConfig.getDropPartyUseRandItemTypes());
+
+        EventLoggerUtility.logEventInitialization("DropParty",
+                "item-count", AdvConfig.getDropPartyItemCt(),
+                "max-spawn-radius", AdvConfig.getDropPartyMaxSpawnRad(),
+                "min-spawn-radius", AdvConfig.getDropPartyMinSpawnRad(),
+                "max-y-radius", AdvConfig.getDropPartyMaxYRad(),
+                "min-y-radius", AdvConfig.getDropPartyMinYRad(),
+                "max-spawn-attempts", AdvConfig.getDropPartyMaxSpawnAtt(),
+                "height-clearance", AdvConfig.getDropPartyHeightClearance(),
+                "width-clearance", AdvConfig.getDropPartyWidthClearance(),
+                "center-y", AdvConfig.getDropPartyCenterY(),
+                "surface-only-spawning", AdvConfig.getDropPartySurfOnlySpawn(),
+                "allow-water-spawns", AdvConfig.getDropPartyAllowWaterSpawn(),
+                "allow-lava-spawns", AdvConfig.getDropPartyAllowLavaSpawn(),
+                "random-item-types", AdvConfig.getDropPartyUseRandItemTypes()
+        );
     }
 
     @Override

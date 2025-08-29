@@ -17,6 +17,10 @@ enabled-events:
 - "GrowthSpurt" #attribute: neutral
 - "HalfAHeart" #attribute: negative
 - "HoneyIShrunkTheKids" #attribute: negative
+- "KnockbackBoost" #attribute: neutral
+- "OnePunch" #attribute: positive
+- "RandomAttributes" #attribute: neutral
+- "RandomAttributesPerPlayer" #attribute: neutral
 - "ZeroGravity" #attribute: neutral
 - "IceIsNice" #blockmodification: neutral
 - "GoldRush" #blockmodification: positive

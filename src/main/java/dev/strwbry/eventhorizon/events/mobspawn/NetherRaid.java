@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.mobspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.entity.EntityType;
 
 import java.util.Arrays;
@@ -35,22 +36,22 @@ public class NetherRaid extends BaseMobSpawn {
      */
     public NetherRaid() {
         super(NETHER_MOBS, EventClassification.NEGATIVE, "netherRaid");
-        setMobCount(15)
-                .setMaxSpawnRadius(30)
-                .setMinSpawnRadius(5)
-                .setMaxYRadius(20)
-                .setMinYRadius(5)
-                .setMaxSpawnAttempts(20)
-                .setHeightClearance(2)
-                .setWidthClearance(1)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(false)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60)
-                .setRandomMobTypes(true);
+        setMobCount(AdvConfig.getNetherRaidMobCt())
+                .setMaxSpawnRadius(AdvConfig.getNetherRaidMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getNetherRaidMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getNetherRaidMaxYRad())
+                .setMinYRadius(AdvConfig.getNetherRaidMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getNetherRaidMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getNetherRaidHeightClearance())
+                .setWidthClearance(AdvConfig.getNetherRaidWidthClearance())
+                .setSurfaceOnlySpawning(AdvConfig.getNetherRaidSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getNetherRaidAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getNetherRaidAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getNetherRaidUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getNetherRaidGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getNetherRaidUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getNetherRaidSpawnInterval())
+                .setRandomMobTypes(AdvConfig.getNetherRaidUseRandMobTypes());
     }
 
     /**

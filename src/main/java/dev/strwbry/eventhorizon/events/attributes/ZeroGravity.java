@@ -2,6 +2,7 @@ package dev.strwbry.eventhorizon.events.attributes;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Entity;
@@ -37,8 +38,8 @@ public class ZeroGravity extends BaseAttribute {
     public ZeroGravity() {
         super(EventClassification.NEUTRAL, "zeroGravity");
         
-        addAttributeModifier(Attribute.GRAVITY, -0.05, AttributeModifier.Operation.ADD_NUMBER);
-        addAttributeModifier(Attribute.MOVEMENT_SPEED, 0.05, AttributeModifier.Operation.MULTIPLY_SCALAR_1);
+        addAttributeModifier(Attribute.GRAVITY, AdvConfig.getZeroGGravity(), AttributeModifier.Operation.ADD_NUMBER);
+        addAttributeModifier(Attribute.MOVEMENT_SPEED, AdvConfig.getZeroGMovespeed(), AttributeModifier.Operation.MULTIPLY_SCALAR_1);
     }
 
     /**

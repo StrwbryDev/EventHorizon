@@ -59,7 +59,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.4.2</version>
                 <configuration>
-
 <!--                    Kylie's test server output-->
                    <outputDirectory>C:\Users\kylie\Minecraft Server\1.21.5\plugins\update</outputDirectory>
 <!--                    Nishik Server-->
@@ -179,10 +178,11 @@
             <version>3.0.3</version>
             <scope>compile</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.junit.jupiter</groupId>-->
-<!--            <artifactId>junit-jupiter</artifactId>-->
-<!--            <version>${junit.jupiter.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.2.19</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 </project>

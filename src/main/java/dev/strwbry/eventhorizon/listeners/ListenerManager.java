@@ -9,6 +9,7 @@ public class ListenerManager
     private static EffectListener effectListener;
     private static EntityAddToWorldListener entityAddToWorldListener;
     private static PlayerDropItemListener playerDropItemListener;
+    private static PlayerGamemodeChangeListener playerGamemodeChangeListener;
     private static PlayerInventoryListener playerInventoryListener;
 
     // methods for initializing listeners
@@ -30,6 +31,12 @@ public class ListenerManager
             Bukkit.getPluginManager().registerEvents(playerDropItemListener, EventHorizon.getPlugin());
         }
     }
+    public static void initializePlayerGamemodeChange(){
+        if (playerGamemodeChangeListener == null) {
+            playerGamemodeChangeListener = new PlayerGamemodeChangeListener();
+            Bukkit.getPluginManager().registerEvents(playerGamemodeChangeListener, EventHorizon.getPlugin());
+        }
+    }
     public static void initializePlayerInventory(){
         if (playerInventoryListener == null) {
             playerInventoryListener = new PlayerInventoryListener();
@@ -42,6 +49,7 @@ public class ListenerManager
         unregisterEffectListener();
         unregisterEntityAddToWorld();
         unregisterPlayerDropItem();
+        unregisterPlayerGamemodeChange();
         unregisterPlayerInventory();
     }
     public static void unregisterEffectListener(){
@@ -62,6 +70,12 @@ public class ListenerManager
             playerDropItemListener = null;
         }
     }
+    public static void unregisterPlayerGamemodeChange(){
+        if (playerInventoryListener != null) {
+            HandlerList.unregisterAll();
+            playerInventoryListener = null;
+        }
+    }
     public static void unregisterPlayerInventory(){
         if (playerInventoryListener != null) {
             HandlerList.unregisterAll();
@@ -79,6 +93,9 @@ public class ListenerManager
     }
     public static PlayerDropItemListener getPlayerDropItemListener(){
         return playerDropItemListener;
+    }
+    public static PlayerGamemodeChangeListener getPlayerGamemodeChangeListener(){
+        return playerGamemodeChangeListener;
     }
     public static PlayerInventoryListener getPlayerInventoryListener(){
         return playerInventoryListener;

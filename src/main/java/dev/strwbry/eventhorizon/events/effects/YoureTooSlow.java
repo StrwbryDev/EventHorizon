@@ -1,6 +1,8 @@
 package dev.strwbry.eventhorizon.events.effects;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.potion.PotionEffectType;
 
 /**
@@ -15,8 +17,16 @@ public class YoureTooSlow extends BaseEffects {
      */
     public YoureTooSlow() {
         super(EventClassification.NEGATIVE, "youreTooSlow");
-        addEffect(PotionEffectType.SLOWNESS, 6000, 1,
-                false, false, true);
+        addEffect(PotionEffectType.SLOWNESS, AdvConfig.getTooSlowDuration(), AdvConfig.getTooSlowAmplifier(),
+                AdvConfig.getTooSlowAmbient(), AdvConfig.getTooSlowParticles(), AdvConfig.getTooSlowIcon());
+
+        EventLoggerUtility.logEventInitialization("YoureTooSlow",
+                "duration", AdvConfig.getTooSlowDuration(),
+                "amplifier", AdvConfig.getTooSlowAmplifier(),
+                "ambient", AdvConfig.getTooSlowAmbient(),
+                "particles", AdvConfig.getTooSlowParticles(),
+                "icon", AdvConfig.getTooSlowIcon()
+        );
     }
 
     /**

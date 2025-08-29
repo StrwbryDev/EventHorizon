@@ -2,7 +2,9 @@ package dev.strwbry.eventhorizon.events.blockmodification;
 
 import dev.strwbry.eventhorizon.EventHorizon;
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
 import dev.strwbry.eventhorizon.events.utility.fawe.region.GenericCuboidRegion;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.Material;
 
 /**
@@ -18,7 +20,14 @@ public class GoldRush extends BaseBlockModification
      */
     public GoldRush()
     {
-        super(EventClassification.POSITIVE, "goldRush", new GenericCuboidRegion(50,400,200), Material.GOLD_ORE, EventHorizon.getBlockMasks().getUndergroundBlocks(), false);
+        super(EventClassification.POSITIVE, "goldRush", new GenericCuboidRegion(AdvConfig.getGoldRushRadius(),AdvConfig.getGoldRushHeight(),AdvConfig.getGoldRushOffset()),
+                Material.GOLD_ORE, EventHorizon.getBlockMasks().getUndergroundBlocks(), false);
+
+        EventLoggerUtility.logEventInitialization("Gold Rush",
+                "radius", AdvConfig.getGoldRushRadius(),
+                "height", AdvConfig.getGoldRushHeight(),
+                "offset", AdvConfig.getGoldRushOffset()
+        );
     }
 
     /**

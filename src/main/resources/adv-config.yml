@@ -48,8 +48,8 @@ attributes:
 
     # lower/more negative number = increasing lower gravity
     zero-gravity:
-      movespeed-mult: -0.05 # -0.05 is default
-      gravity: 0.05 # 0.05 is default
+      movespeed-mult: 0.05 # 0.05 is default
+      gravity: -0.05 # -0.05 is default
 
 
 block-modification:
@@ -188,14 +188,14 @@ gamerule:
 
    events:
 
-     lifesteal-only:
+     lifesteal-only: ########### to be changed
        # multiplier of damage dealt given back as health
        # ex 0.5 * 6 dmg dealt gives 3 health to attacker
        lifesteal: 0.5 # 0.5 is default
 
 
 
-inventory-adjustments:
+inventory-adjustment:
 
   universal:
     default-interval: 60 # time in seconds, 60 is default
@@ -208,7 +208,7 @@ inventory-adjustments:
       use-continous: true # true is default
       # affects interval of how often items can be dropped
       origin: 5 # minimum bound for interval, default is 5
-      bound: 61 # maximum mound for interval, default is 61 (exclusive)
+      bound: 15 # maximum bound for interval, default is 15 (inclusive)
       affects-mainhand: true # default is true
       affects-offhand: true # default is true
 
@@ -229,7 +229,7 @@ inventory-adjustments:
     # not sure what to make specifically changeable here
     # maybe keep/lose only certain types of food?
     # left unchanged for now
-    spoiled-food:
+    spoiled-food: ########### to be changed
 
 
 
@@ -267,6 +267,7 @@ item-spawn:
       spawn-interval: 60 # in seconds, 60 is default, unused in DropParty as of now
       width-clearance: 1 # 1 is default
       height-clearance: 1 # 1 is default
+      centered-on-y: true # true is default
       group-spacing: 3 # 3 is default, unused in DropParty as of now
       surface-only-spawning: false # false is default
       allow-water-spawns: false # false is default
@@ -285,6 +286,7 @@ item-spawn:
         spawn-interval: 60 # in seconds, 60 is default
         width-clearance: 1 # 1 is default
         height-clearance: 1 # 1 is default
+        centered-on-y: true # true is default
         group-spacing: 2 # 2 is default
         surface-only-spawning: false # false is default
         allow-water-spawns: false # false is default

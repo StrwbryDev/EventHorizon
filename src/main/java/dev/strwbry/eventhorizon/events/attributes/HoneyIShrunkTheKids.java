@@ -1,6 +1,8 @@
 package dev.strwbry.eventhorizon.events.attributes;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.events.utility.EventLoggerUtility;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 
@@ -24,17 +26,27 @@ public class HoneyIShrunkTheKids extends BaseAttribute {
     public HoneyIShrunkTheKids() {
         super(EventClassification.NEGATIVE, "honeyIShrunkTheKids");
 
-        addAttributeModifier(Attribute.SCALE, -0.75, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.MAX_HEALTH, -2.0, AttributeModifier.Operation.ADD_NUMBER);
-        addAttributeModifier(Attribute.MOVEMENT_SPEED, 0.25, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.ATTACK_DAMAGE, -0.25, AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.SCALE, AdvConfig.getShrunkScale(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.MAX_HEALTH, AdvConfig.getShrunkMaxHP(), AttributeModifier.Operation.ADD_NUMBER);
+        addAttributeModifier(Attribute.MOVEMENT_SPEED, AdvConfig.getShrunkMovespeed(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.ATTACK_DAMAGE, AdvConfig.getShrunkAttack(), AttributeModifier.Operation.ADD_SCALAR);
 
-        addAttributeModifier(Attribute.SNEAKING_SPEED, 0.25, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.WATER_MOVEMENT_EFFICIENCY, 0.25, AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.SNEAKING_SPEED, AdvConfig.getShrunkSneakspeed(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.WATER_MOVEMENT_EFFICIENCY, AdvConfig.getShrunkWaterMove(), AttributeModifier.Operation.ADD_SCALAR);
 
-        addAttributeModifier(Attribute.JUMP_STRENGTH, 0.25, AttributeModifier.Operation.ADD_SCALAR);
-        addAttributeModifier(Attribute.SAFE_FALL_DISTANCE, 1.0, AttributeModifier.Operation.ADD_NUMBER);
+        addAttributeModifier(Attribute.JUMP_STRENGTH, AdvConfig.getShrunkJumpStr(), AttributeModifier.Operation.ADD_SCALAR);
+        addAttributeModifier(Attribute.SAFE_FALL_DISTANCE, AdvConfig.getShrunkSafeFall(), AttributeModifier.Operation.ADD_NUMBER);
 
+        EventLoggerUtility.logEventInitialization("HoneyIShrunkTheKids",
+                "scale", AdvConfig.getShrunkScale(),
+                "maxHP", AdvConfig.getShrunkMaxHP(),
+                "attack dmg", AdvConfig.getShrunkAttack(),
+                "movement speed", AdvConfig.getShrunkMovespeed(),
+                "sneaking speed", AdvConfig.getShrunkSneakspeed(),
+                "water movement", AdvConfig.getShrunkWaterMove(),
+                "jump strength", AdvConfig.getShrunkJumpStr(),
+                "safe fall distance", AdvConfig.getShrunkSafeFall()
+        );
     }
 
     /**

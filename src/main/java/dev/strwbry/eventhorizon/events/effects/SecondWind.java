@@ -8,6 +8,8 @@ import org.bukkit.potion.PotionEffectType;
  * This event applies a level 2 strength effect for 6000 ticks (5 minutes),
  * allowing players to deal more damage than normal.
  */
+
+// Event is being reworked, left untouched for now
 public class SecondWind extends BaseEffects {
     /**
      * Constructs a new SecondWind event with POSITIVE classification.

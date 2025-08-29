@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.itemspawn;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -24,23 +25,23 @@ public class OreDropParty extends BaseItemSpawn {
      */
     public OreDropParty() {
         super(EventClassification.POSITIVE, "oreDropParty");
-        setItemCount(64)
-                .setMaxSpawnRadius(20)
-                .setMinSpawnRadius(1)
-                .setMaxYRadius(10)
-                .setMinYRadius(1)
-                .setMaxSpawnAttempts(60)
-                .setHeightClearance(1)
-                .setWidthClearance(1)
-                .setCenterY(true)
-                .setSurfaceOnlySpawning(false)
-                .setAllowWaterSpawns(false)
-                .setAllowLavaSpawns(false)
-                .setUseGroupSpawning(false)
-                .setGroupSpacing(2)
-                .setUseContinuousSpawning(false)
-                .setSpawnInterval(60)
-                .setRandomItemTypes(true)
+        setItemCount(AdvConfig.getOreDropItemCt())
+                .setMaxSpawnRadius(AdvConfig.getOreDropMaxSpawnRad())
+                .setMinSpawnRadius(AdvConfig.getOreDropMinSpawnRad())
+                .setMaxYRadius(AdvConfig.getOreDropMaxYRad())
+                .setMinYRadius(AdvConfig.getOreDropMinYRad())
+                .setMaxSpawnAttempts(AdvConfig.getOreDropMaxSpawnAtt())
+                .setHeightClearance(AdvConfig.getOreDropHeightClearance())
+                .setWidthClearance(AdvConfig.getOreDropWidthClearance())
+                .setCenterY(AdvConfig.getOreDropCenterY())
+                .setSurfaceOnlySpawning(AdvConfig.getOreDropSurfOnlySpawn())
+                .setAllowWaterSpawns(AdvConfig.getOreDropAllowWaterSpawn())
+                .setAllowLavaSpawns(AdvConfig.getOreDropAllowLavaSpawn())
+                .setUseGroupSpawning(AdvConfig.getOreDropUseGroupSpawn())
+                .setGroupSpacing(AdvConfig.getOreDropGroupSpace())
+                .setUseContinuousSpawning(AdvConfig.getOreDropUseContinuousSpawn())
+                .setSpawnInterval(AdvConfig.getOreDropSpawnInterval())
+                .setRandomItemTypes(AdvConfig.getOreDropUseRandItemTypes())
                 .setWeightedItems(Arrays.asList(
                         Pair.of(new ItemStack(Material.ANCIENT_DEBRIS), 0.5),
                         Pair.of(new ItemStack(Material.EMERALD), 1.0),
