@@ -1,6 +1,7 @@
 package dev.strwbry.eventhorizon.events.effects;
 
 import dev.strwbry.eventhorizon.events.EventClassification;
+import dev.strwbry.eventhorizon.utility.AdvConfig;
 import org.bukkit.potion.PotionEffectType;
 
 /**
@@ -17,8 +18,8 @@ public class SecondWind extends BaseEffects {
      */
     public SecondWind() {
         super(EventClassification.POSITIVE, "SecondWind");
-        addEffect(PotionEffectType.STRENGTH, 6000, 1,
-                false, false, true);
+        addEffect(PotionEffectType.STRENGTH, AdvConfig.getSecondWindDuration(), AdvConfig.getSecondWindAmplifier(),
+                AdvConfig.getSecondWindAmbient(), AdvConfig.getSecondWindParticles(), AdvConfig.getSecondWindIcon());
     }
 
     /**
