@@ -69,8 +69,13 @@ public class EventManager {
 
         // Check if any events are available
         if (posCount == 0 && negCount == 0 && neutralCount == 0) {
-            Bukkit.getLogger().warning("No more events available to trigger!");
-            return;
+            Bukkit.getLogger().info("All events have been triggered. Resetting events for new cycle.");
+            eventInitializer.resetEventsForNewTournament();
+            
+            // Recalculate counts after reset
+            posCount = eventInitializer.getEventCount(EventClassification.POSITIVE);
+            negCount = eventInitializer.getEventCount(EventClassification.NEGATIVE);
+            neutralCount = eventInitializer.getEventCount(EventClassification.NEUTRAL);
         }
 
         // Use original weights from config, but set to 0 if no events available
@@ -158,8 +163,14 @@ public class EventManager {
         }
         
         if (allEvents.isEmpty()) {
-            Bukkit.getLogger().warning("No more events available to trigger!");
-            return;
+            Bukkit.getLogger().info("All events have been triggered. Resetting events for new cycle.");
+            EventHorizon.getEventInitializer().resetEventsForNewTournament();
+            
+            // Rebuild the list after reset
+            allEvents.clear();
+            for (List<BaseEvent> events : EventHorizon.getEventInitializer().getEnabledEvents().values()) {
+                allEvents.addAll(events);
+            }
         }
         
         BaseEvent randomEvent = allEvents.get(random.nextInt(allEvents.size()));
