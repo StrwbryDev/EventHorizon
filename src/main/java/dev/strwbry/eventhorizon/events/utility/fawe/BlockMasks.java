@@ -160,6 +160,7 @@ public class BlockMasks
      */
     public void initializePlants(){
         plants = new ArrayList<>();
+
         plants.addAll(getBlocksFromTag(MaterialSetTag.FLOWERS)); //https://minecraft.wiki/w/Block_tag_(Java_Edition)#flowers
         plants.addAll(getBlocksFromTag(MaterialSetTag.CROPS)); //https://minecraft.wiki/w/Block_tag_(Java_Edition)#crops
         plants.addAll(getBlocksFromTag(MaterialSetTag.SAPLINGS)); //https://minecraft.wiki/w/Block_tag_(Java_Edition)#saplings
@@ -167,6 +168,19 @@ public class BlockMasks
         plants.removeAll(getBlocksFromTag(MaterialSetTag.LEAVES)); //https://minecraft.wiki/w/Block_tag_(Java_Edition)#sand
         plants.remove(BukkitAdapter.asBlockType(Material.WATER));
 
+        //nether replacement for plants
+        plants.add(BukkitAdapter.asBlockType(Material.FIRE));
+        plants.add(BukkitAdapter.asBlockType(Material.SOUL_FIRE));
+        plants.add(BukkitAdapter.asBlockType(Material.BROWN_MUSHROOM));
+        plants.add(BukkitAdapter.asBlockType(Material.RED_MUSHROOM));
+        plants.add(BukkitAdapter.asBlockType(Material.CRIMSON_FUNGUS));
+        plants.add(BukkitAdapter.asBlockType(Material.WARPED_FUNGUS));
+        plants.add(BukkitAdapter.asBlockType(Material.CRIMSON_ROOTS));
+        plants.add(BukkitAdapter.asBlockType(Material.WARPED_ROOTS));
+        plants.add(BukkitAdapter.asBlockType(Material.NETHER_SPROUTS));
+
+        //end replacement for plants
+        plants.add(BukkitAdapter.asBlockType(Material.CHORUS_PLANT));
 
     }
 

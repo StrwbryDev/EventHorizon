@@ -42,6 +42,7 @@ public class CommandReloadConfig
 
         //Execute command logic here
         Config.reloadConfig();
+        EventHorizon.reloadAdvConfig();
         EventHorizon.getEventManager().loadWeightsFromConfig();
         EventHorizon.getScheduler().reloadEventFrequency();
         return Command.SINGLE_SUCCESS;

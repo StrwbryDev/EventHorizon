@@ -119,8 +119,11 @@ public class EventManager {
             if (randomNumber < cumulativeWeight) {
                 EventClassification eventClassification = availableClassifications.get(i);
                 List<BaseEvent> selectedEvents = eventInitializer.getEnabledEvents().get(eventClassification);
-                
-                if (selectedEvents != null && !selectedEvents.isEmpty()) {
+                if (selectedEvents == null || selectedEvents.isEmpty()) {
+                    // Classification got depleted between count check and selection; try next classification
+                    continue;
+                }
+                if (!selectedEvents.isEmpty()) {
                     BaseEvent selectedEvent = selectedEvents.get(random.nextInt(selectedEvents.size()));
 
                     // Remove the event from available events
@@ -137,6 +140,9 @@ public class EventManager {
                 }
             }
         }
+
+        // Fallback: If no event was selected due to race conditions, trigger a random event from remaining pool
+        triggerRandomEvent();
     }
 
     /**
@@ -177,7 +183,7 @@ public class EventManager {
         
         // Remove the event from available events
         EventHorizon.getEventInitializer().removeEvent(randomEvent);
-        
+
         Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> randomEvent.run());
     }
 

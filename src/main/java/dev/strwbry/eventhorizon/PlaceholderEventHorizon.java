@@ -60,11 +60,19 @@ import org.jetbrains.annotations.NotNull;
         @Override
         public String onRequest(OfflinePlayer player, @NotNull String params) {
             if (params.equalsIgnoreCase("remainingtime")) {
-                return "" + EventHorizon.getScheduler().getRemainingTime();
+                int remainingTime = EventHorizon.getScheduler().getRemainingTime();
+                if (remainingTime < 0) {
+                    return "Not started";
+                }
+                return "" + remainingTime;
             }
 
             if (params.equalsIgnoreCase("remainingtime_formatted")) {
-                return formatTime(EventHorizon.getScheduler().getRemainingTime());
+                int remainingTime = EventHorizon.getScheduler().getRemainingTime();
+                if (remainingTime < 0) {
+                    return "Not started";
+                }
+                return formatTime(remainingTime);
             }
 
             return "Not started";

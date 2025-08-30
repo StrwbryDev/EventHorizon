@@ -64,17 +64,17 @@ public class RandomPatterns
      * Creates a random pattern with Sculk-related blocks in specific proportions:
      * - 20% Sculk Vein
      * - 10% Sculk Catalyst
-     * - 40% Natural Sculk Shrieker (with Warden summoning enabled)
-     * - 20% Sculk Sensor
-     * - 10% Air
+     * - 10% Natural Sculk Shrieker (with Warden summoning enabled)
+     * - 10% Sculk Sensor
+     * - 50% Air
      */
     private void initializeSculkInteractivePattern() {
         RandomPattern pattern = new RandomPattern();
-        pattern.add(BukkitAdapter.asBlockType(Material.SCULK_VEIN), 0.2);
+        pattern.add(BukkitAdapter.asBlockType(Material.SCULK_VEIN), 0.3);
         pattern.add(BukkitAdapter.asBlockType(Material.SCULK_CATALYST), 0.1);
-        pattern.add(naturalShrieker, 0.4);
-        pattern.add(BukkitAdapter.asBlockType(Material.SCULK_SENSOR), 0.2);
-        pattern.add(BukkitAdapter.asBlockType(Material.AIR), 0.1);
+        pattern.add(naturalShrieker, 0.05);
+        pattern.add(BukkitAdapter.asBlockType(Material.SCULK_SENSOR), 0.05);
+        pattern.add(BukkitAdapter.asBlockType(Material.AIR), 0.5);
         sculkInteractivePattern = pattern;
     }
 

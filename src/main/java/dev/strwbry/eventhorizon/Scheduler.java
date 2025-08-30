@@ -96,6 +96,9 @@ public class Scheduler {
      * @return the remaining time in seconds, or -1 if no session is active
      */
     public int getRemainingTime() {
+        if (!hasStarted) {
+            return -1;
+        }
         return gameTimer.getRemainingTime();
     }
     /**
