@@ -56,36 +56,85 @@ public class EventManager {
      * Triggers a random event based on the configured weights for different event classifications.
      * The event is selected using weighted probability and executed on the next server tick.
      * Broadcasts the selected event name and displays it as a title and action bar message.
+     * Events are removed from the available pool after being triggered.
      */
     public void triggerEventByWeight() {
         Bukkit.getLogger().info("Triggering event...");
 
-        List<EventClassification> items = List.of(EventClassification.POSITIVE, EventClassification.NEGATIVE, EventClassification.NEUTRAL);
-        List<Double> weights = List.of(posWeight, negWeight, neutralWeight);
+        // Get current available events and their counts
+        EventInitializer eventInitializer = EventHorizon.getEventInitializer();
+        int posCount = eventInitializer.getEventCount(EventClassification.POSITIVE);
+        int negCount = eventInitializer.getEventCount(EventClassification.NEGATIVE);
+        int neutralCount = eventInitializer.getEventCount(EventClassification.NEUTRAL);
+
+        // Check if any events are available
+        if (posCount == 0 && negCount == 0 && neutralCount == 0) {
+            Bukkit.getLogger().info("All events have been triggered. Resetting events for new cycle.");
+            eventInitializer.resetEventsForNewTournament();
+            
+            // Recalculate counts after reset
+            posCount = eventInitializer.getEventCount(EventClassification.POSITIVE);
+            negCount = eventInitializer.getEventCount(EventClassification.NEGATIVE);
+            neutralCount = eventInitializer.getEventCount(EventClassification.NEUTRAL);
+        }
+
+        // Use original weights from config, but set to 0 if no events available
+        double dynamicPosWeight = posCount > 0 ? posWeight : 0.0;
+        double dynamicNegWeight = negCount > 0 ? negWeight : 0.0;
+        double dynamicNeutralWeight = neutralCount > 0 ? neutralWeight : 0.0;
+
+        List<EventClassification> availableClassifications = new ArrayList<>();
+        List<Double> dynamicWeights = new ArrayList<>();
+
+        if (posCount > 0) {
+            availableClassifications.add(EventClassification.POSITIVE);
+            dynamicWeights.add(dynamicPosWeight);
+        }
+        if (negCount > 0) {
+            availableClassifications.add(EventClassification.NEGATIVE);
+            dynamicWeights.add(dynamicNegWeight);
+        }
+        if (neutralCount > 0) {
+            availableClassifications.add(EventClassification.NEUTRAL);
+            dynamicWeights.add(dynamicNeutralWeight);
+        }
+
         double totalWeight = 0.0;
-        for (Double weight : weights) {
+        for (Double weight : dynamicWeights) {
             totalWeight += weight;
         }
 
-        double randomNumber = random.nextDouble() * totalWeight;
+        // If no weights are available, select randomly from remaining events
+        if (totalWeight == 0.0) {
+            triggerRandomEvent();
+            return;
+        }
 
+        double randomNumber = random.nextDouble() * totalWeight;
         double cumulativeWeight = 0.0;
-        for (int i = 0; i < items.size(); i++) {
-            cumulativeWeight += weights.get(i);
+
+        for (int i = 0; i < availableClassifications.size(); i++) {
+            cumulativeWeight += dynamicWeights.get(i);
 
             if (randomNumber < cumulativeWeight) {
-                EventClassification eventClassification = items.get(i);
-                List<BaseEvent> selectedEvents = EventHorizon.getEventInitializer().getEnabledEvents().get(eventClassification);
-                BaseEvent selectedEvent = selectedEvents.get(random.nextInt(selectedEvents.size()));
+                EventClassification eventClassification = availableClassifications.get(i);
+                List<BaseEvent> selectedEvents = eventInitializer.getEnabledEvents().get(eventClassification);
+                
+                if (selectedEvents != null && !selectedEvents.isEmpty()) {
+                    BaseEvent selectedEvent = selectedEvents.get(random.nextInt(selectedEvents.size()));
 
-                MsgUtility.broadcast("Selected event: " + selectedEvent.getName());
-                MsgUtility.showTitleWithDurations(Bukkit.getServer(), selectedEvent.getName());
-                MsgUtility.actionBar(Bukkit.getServer(), selectedEvent.getName());
-                Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), () -> {
-                    MsgUtility.sound(Bukkit.getServer(), Sound.sound(Key.key("minecraft:block.note_block.bell"), Sound.Source.BLOCK, 1.0f, 1.0f));
-                });
-                Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> selectedEvent.run());
-                return;
+                    // Remove the event from available events
+                    eventInitializer.removeEvent(selectedEvent);
+
+                    MsgUtility.broadcast("Selected event: " + selectedEvent.getName());
+                    MsgUtility.showTitleWithDurations(Bukkit.getServer(), selectedEvent.getName());
+                    MsgUtility.actionBar(Bukkit.getServer(), selectedEvent.getName());
+                    Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), () -> {
+                        MsgUtility.sound(Bukkit.getServer(), Sound.sound(Key.key("minecraft:block.note_block.bell"), Sound.Source.BLOCK, 1.0f, 1.0f));
+                    });
+                    Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> selectedEvent.run());
+                    return;
+                }
             }
         }
     }
@@ -105,13 +154,30 @@ public class EventManager {
     /**
      * Triggers a completely random event from all enabled events,
      * regardless of their classification or weights.
+     * Events are removed from the available pool after being triggered.
      */
     public void triggerRandomEvent() {
         List<BaseEvent> allEvents = new ArrayList<>();
         for (List<BaseEvent> events : EventHorizon.getEventInitializer().getEnabledEvents().values()) {
             allEvents.addAll(events);
         }
+        
+        if (allEvents.isEmpty()) {
+            Bukkit.getLogger().info("All events have been triggered. Resetting events for new cycle.");
+            EventHorizon.getEventInitializer().resetEventsForNewTournament();
+            
+            // Rebuild the list after reset
+            allEvents.clear();
+            for (List<BaseEvent> events : EventHorizon.getEventInitializer().getEnabledEvents().values()) {
+                allEvents.addAll(events);
+            }
+        }
+        
         BaseEvent randomEvent = allEvents.get(random.nextInt(allEvents.size()));
+        
+        // Remove the event from available events
+        EventHorizon.getEventInitializer().removeEvent(randomEvent);
+        
         Bukkit.getScheduler().runTask(EventHorizon.getPlugin(), task -> randomEvent.run());
     }
 
@@ -136,5 +202,15 @@ public class EventManager {
             }
         }
         return players;
+    }
+
+    /**
+     * Resets all events for a new tournament by reloading them from the configuration
+     * and clearing the current active event.
+     */
+    public void resetForNewTournament() {
+        EventHorizon.getEventInitializer().resetEventsForNewTournament();
+        currentEvent = null;
+        Bukkit.getLogger().info("Events reset for new tournament");
     }
 }
