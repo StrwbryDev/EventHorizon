@@ -172,4 +172,47 @@ public class EventInitializer {
     public HashMap<EventClassification, List<BaseEvent>> getEnabledEvents() {
         return enabledEvents;
     }
+
+    /**
+     * Removes an event from its corresponding classification list.
+     *
+     * @param event The event to be removed from enabled events
+     */
+    public void removeEvent(BaseEvent event) {
+        EventClassification classification = event.getEventClassification(event);
+        List<BaseEvent> events = enabledEvents.get(classification);
+        if (events != null) {
+            events.remove(event);
+        }
+    }
+
+    /**
+     * Checks if a specific event classification has any remaining events.
+     *
+     * @param classification The event classification to check
+     * @return true if the classification has no events, false otherwise
+     */
+    public boolean isClassificationEmpty(EventClassification classification) {
+        List<BaseEvent> events = enabledEvents.get(classification);
+        return events == null || events.isEmpty();
+    }
+
+    /**
+     * Gets the number of remaining events for a specific classification.
+     *
+     * @param classification The event classification to check
+     * @return The number of remaining events in the classification
+     */
+    public int getEventCount(EventClassification classification) {
+        List<BaseEvent> events = enabledEvents.get(classification);
+        return events != null ? events.size() : 0;
+    }
+
+    /**
+     * Resets all events for a new tournament by reloading them from the configuration.
+     * This restores all events to their enabled state as if starting fresh.
+     */
+    public void resetEventsForNewTournament() {
+        reloadEvents();
+    }
 }
