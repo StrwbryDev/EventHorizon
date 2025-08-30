@@ -94,7 +94,7 @@ public class EventInitializer {
         registeredEvents.put("onepunch", new OnePunch());
         registeredEvents.put("randomattributes", new RandomAttributes());
         registeredEvents.put("randomattributesperplayer", new RandomAttributesPerPlayer());
-        registeredEvents.put("lifestealonly", new LifestealOnly());
+//        registeredEvents.put("lifestealonly", new LifestealOnly());
         registeredEvents.put("zerogravity", new ZeroGravity());
 
         // Block modification events

@@ -57,7 +57,7 @@ public class EventManager {
      * The event is selected using weighted probability and executed on the next server tick.
      * Broadcasts the selected event name and displays it as a title and action bar message.
      */
-    public void triggerEventBtWeight() {
+    public void triggerEventByWeight() {
         Bukkit.getLogger().info("Triggering event...");
 
         List<EventClassification> items = List.of(EventClassification.POSITIVE, EventClassification.NEGATIVE, EventClassification.NEUTRAL);

@@ -38,7 +38,7 @@ public class GameTimer extends BukkitRunnable {
         }
         remainingTime--;
         if (remainingTime % eventInterval == 0) {
-            EventHorizon.getEventManager().triggerEventBtWeight();
+            EventHorizon.getEventManager().triggerEventByWeight();
         }
     }
 
